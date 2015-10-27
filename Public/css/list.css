@@ -1,0 +1,300 @@
+body,html {margin: 0; padding: 0;}
+
+@media (min-width: 992px) {
+    .check {
+
+    }
+
+    .check ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .check ul li {
+        float: left;
+        padding: 3px 5px;
+        cursor: pointer;
+    }
+
+    .search {
+        margin: 20px 5px;
+    }
+
+    input[type="text"] {
+        width: 35%;
+        float: left;
+    }
+
+    input[type="btn"] {
+        float: left;
+        margin: 0 10px;
+    }
+    .select {
+        display: none;
+    }
+
+    .list {
+
+    }
+
+    .clearfix:after {
+        content: ".";
+        height: 0;
+        visibility: hidden;
+        display: block;
+        clear: both;
+    }
+
+    .clearfix { *zoom: 1;}
+
+    .list ul {
+        margin: 0;
+        padding: 0;
+        margin-top: 15px;
+        padding-bottom: 15px;
+        list-style-type: none;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .list ul li {
+        display: inline-block;
+        float: left;
+    }
+
+    .list ul li p{
+        margin: 0;
+        padding: 0;
+    }
+
+    .li-details {
+        width: 60%;
+        padding-left: 20px;
+    }
+
+    .li-price {
+        padding: 3%;
+    }
+
+    .advertise {
+        height: 300px;
+        margin-top: 15px;
+        border: 1px solid #ddd;
+    }
+
+}
+
+@media (min-width: 768px) {
+    .check {
+
+    }
+
+    .check ul {
+        margin: 0;
+        padding: 0;
+        margin-top: 10px;
+        list-style: none;
+        border-bottom: 1px solid #dddddd;
+    }
+
+    .check ul li {
+        float: left;
+        padding: 3px 5px;
+        cursor: pointer;
+    }
+
+    .search {
+        margin: 10px 0;
+    }
+
+    input[type="text"] {
+        width: 35%;
+        float: left;
+    }
+
+    input[type="button"] {
+        float: left;
+        margin: 0 10px;
+    }
+    .select {
+        display: none;
+    }
+    .list {
+
+    }
+
+    .clearfix:after {
+        content: ".";
+        height: 0;
+        visibility: hidden;
+        display: block;
+        clear: both;
+    }
+
+    .clearfix { *zoom: 1;}
+
+    .list ul {
+        margin: 0;
+        padding: 0;
+        padding: 5px 0;
+        margin: 10px 0;
+        list-style-type: none;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .list ul li {
+        display: inline-block;
+        float: left;
+    }
+
+    .list ul li p{
+        margin: 0;
+        padding: 0;
+    }
+
+    .li-details {
+        width: 60%;
+        padding-left: 20px;
+    }
+
+    .li-price {
+        padding: 3%;
+    }
+
+    .advertise {
+        height: 150px;
+        margin-top: 15px;
+        border: 1px solid #ddd;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .check {
+        display: none;
+    }
+
+    .check ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .check ul li {
+        float: left;
+        padding: 3px 5px;
+        cursor: pointer;
+    }
+
+    .search {
+
+    }
+
+    input[type="text"], input[type="button"]{
+        width: 100%;
+        float: left;
+        margin: 5px 0;
+    }
+
+    .select {
+        margin-top: 20px;
+    }
+
+    .select ul {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .select ul li {
+        width: 25%;
+        float: left;
+        text-align: center;
+        border: 1px solid #dddddd;
+    }
+
+    .content {
+        display: none;
+        width: 100%;
+        border: 1px solid #dddddd;
+    }
+
+    .content div {
+        margin: 0;
+        padding: 0;
+    }
+
+    .content ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    .content ul li {
+        width: 100%;
+    }
+
+    .none { display: none;}
+
+    .selected {
+        background-color: #ddd;
+    }
+
+    .list {
+
+    }
+
+    .clearfix:after {
+        content: ".";
+        height: 0;
+        visibility: hidden;
+        display: block;
+        clear: both;
+    }
+
+    .clearfix { *zoom: 1;}
+
+    .list ul {
+        margin: 0;
+        padding: 0;
+        padding: 5px 0;
+        margin: 10px 0;
+        list-style-type: none;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .list ul li {
+        display: inline-block;
+        float: left;
+    }
+
+    .list ul li p{
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .li-details {
+        width: 60%;
+        padding-left: 20px;
+    }
+
+    .price {
+        float: right;
+        padding: 3%;
+    }
+
+    .li-price {
+        width: 15%;
+    }
+
+    .advertise {
+        height: 150px;
+        margin-top: 15px;
+        border: 1px solid #ddd;
+    }
+}
+
+
+
+
