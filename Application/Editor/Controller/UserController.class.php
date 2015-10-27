@@ -8,13 +8,12 @@ class UserController extends Controller {
     }
 
     public function handle_login(){
-    	//var_dump($_POST);
-    	$username = I('post.username');
+    	$email = I('post.email');
     	$password = I('post.password');
-    	if($username && $password){
-    		if($res = D('user')->where(array('username'=>$username,'password'=>md5($password)))->find()){
+    	if($email && $password){
+    		if($res = D('user')->where(array('email'=>$email,'password'=>md5($password)))->find()){
     			$_SESSION['me'] = $res;
-    			$this->success('登陆成功');
+    			$this->success('登陆成功',U('/editor/index/info'));
     		}else{
     			$this->error('登陆失败');
     		}
@@ -28,10 +27,12 @@ class UserController extends Controller {
     }
 
     public function handle_reg(){
+        $_POST['password'] = md5($_POST['password']);
+        $_POST['created'] = time();
     	D('user')->create();
     	$_POST['id'] = D('user')->add();
     	$_SESSION['me'] = $_POST;
-    	$this->success('注册成功','/editor/index/index');
+    	$this->success('注册成功',U('/editor/index/info'));
     }
 
     public function logout(){
