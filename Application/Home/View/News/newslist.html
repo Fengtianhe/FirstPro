@@ -1,183 +1,114 @@
 <include file="Public/header" />
-
+<style type="text/css">
+.pages {
+	padding:0;
+}
+.pages a,.pages span {
+	display:inline-block;
+	padding:2px 5px;
+	margin:0 1px;
+	border:1px solid #f0f0f0;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;
+	border-radius:3px;
+}
+.pages a,.pages li {
+    display:inline-block;
+    list-style: none;
+    text-decoration:none; color:#58A0D3;
+}
+.pages a.first,.pages a.prev,.pages a.next,.pages a.end{
+    margin:0;
+}
+.pages a:hover{
+    border-color:#50A8E6;
+}
+.pages span.current{
+    background:#50A8E6;
+    color:#FFF;
+    font-weight:700;
+    border-color:#50A8E6;
+}
+</style>
 <include file="Public/nav" />
 	<!--start-list-->
 		<div class="container">
 			<div class="check">
+				<div class="search-tag">
+				<if condition='!empty($del_icon)'>
+					<foreach name="del_icon" item="vo">
+						<a href="javascript:;" class="condition"><span>{$vo.name}</span><i class="icon-delete" rel="{$vo.rel}" v="{$vo.key}"></i></a>
+					</foreach>
+					<a href="javascript:;" class="clear-search">清空筛选条件</a>
+				</if>
+				</div>
+				<if condition="is_null($_GET['category']) || $_GET['category'] === ''">
 				<ul class="clearfix">
 					<li>类别：</li>
-					<li>三星</li>
-					<li>华为</li>
-					<li>小米</li>
-					<li>苹果</li>
+					<foreach name="category" item="vo" >
+				        <li class="sitem" rel="category" v="{$key}">{$vo.name}</li>
+				    </foreach>
 				</ul>
-				<ul class="clearfix">
-					<li>型号：</li>
-					<li>iphone6s</li>
-					<li>iphone6</li>
-					<li>1phone5s</li>
-					<li>iphone5</li>
-				</ul>
+				</if>
+				<if condition="is_null($_GET['price'])  || $_GET['price'] === ''">
 				<ul class="clearfix">
 					<li>价格：</li>
-					<li>1000</li>
-					<li>2000</li>
-					<li>3000</li>
-					<li>4000</li>
+					<foreach name="price" item="vo" >
+				        <li class="sitem" rel="price" v="{$key}">{$vo.name}</li>
+				    </foreach>
 				</ul>
-				<ul class="clearfix">
-					<li>新旧：</li>
-					<li>八成</li>
-					<li>九成</li>
-					<li>七成</li>
-					<li>四城</li>
-					<li>八成</li>
-					<li>九成</li>
-					<li>七成</li>
-					<li>四城</li>
-				</ul>
-				<ul class="clearfix">
-					<li>区域：</li>
-					<li>四公寓</li>
-					<li>五公寓</li>
-					<li>三公寓</li>
-					<li>二公寓</li>
-					<li>二公寓1楼</li>
-					<li>二公寓2楼</li>
-					<li>女生公寓</li>
-					<li>男生公寓六楼</li>
-				</ul>
+				</if>
 			</div>
-			<div class="select">
+			<div class="select" style="text-align:center">
 				<div id="sel">
 					<ul class="clearfix">
-						<li>品牌</li>
-						<li>型号</li>
+						<li>类别</li>
 						<li>价格</li>
-						<li>区域</li>
 					</ul>
 				</div>
 
 				<div class="content clearfix">
 					<div>
 						<ul>
-							<li>三星</li>
-							<li>华为</li>
-							<li>小米</li>
-							<li>苹果</li>
+							<foreach name="category" item="vo" >
+						        <li class="sitem" rel="category">{$key}</li>
+						    </foreach>
 						</ul>
 					</div>
 					<div class="none">
 						<ul>
-							<li>iphone6s</li>
-							<li>iphone6</li>
-							<li>1phone5s</li>
-							<li>iphone5</li>
-						</ul>
-					</div>
-					<div class="none">
-						<ul>
-							<li>1000</li>
-							<li>2000</li>
-							<li>3000</li>
-							<li>4000</li>
-						</ul>
-					</div>
-					<div class="none">
-						<ul>
-							<li>四公寓</li>
-							<li>五公寓</li>
-							<li>三公寓</li>
-							<li>二公寓</li>
-							<li>二公寓1楼</li>
-							<li>二公寓2楼</li>
-							<li>女生公寓</li>
-							<li>男生公寓六楼</li>
+							<foreach name="price" item="vo" >
+						        <li class="sitem" rel="price">{$key}</li>
+						    </foreach>
 						</ul>
 					</div>
 				</div>
 			</div>
 			<div class="search clearfix">
-				<input class="form-control" type="text"/>
-				<input type="button" class="btn btn-default" value="搜本类"/>
-				<input type="button" class="btn btn-default" value="搜全站"/>
+			<form name="search" id="search" action='/home/news/newslist' method='GET'>
+				<input type="hidden" name="category" value="{$_GET['category']}">
+				<input type="hidden" name="price" value="{$_GET['price']}">
+				<input class="form-control" type="text" name="keyword" value="{$_GET['keyword']}"/>
+				<input type="submit" class="btn btn-default" value="搜全站"/>
+			</form>
 			</div>
+			
 		</div>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 list">
+					<foreach name="list" item="vo">
 					<ul class="clearfix">
-						<li><img src="__PUBLIC__/images/abt-1.jpg" alt="" width="70" height="60"/></li>
+						<li><img src="__PUBLIC__/uploads/{$vo.img}" alt="" width="70" height="60"/></li>
 						<li class="li-details">
-							<p>手机点餐软件</p>
-							<p>安装热线168888171717</p>
-							<p>北京/今天</p>
+							<p>{$vo.title}</p>
+							<p>{$vo.phone}</p>
+							<p>{$vo.phone}</p>
 						</li>
-						<li class="li-price"><span class="price">10元</span></li>
+						<li class="li-price"><span class="price">{$vo.price}</span></li>
 					</ul>
-					<ul class="clearfix">
-						<li><img src="__PUBLIC__/images/abt-1.jpg" alt="" width="70" height="60"/></li>
-						<li class="li-details">
-							<p>手机点餐软件</p>
-							<p>安装热线168888171717</p>
-							<p>北京/今天</p>
-						</li>
-						<li class="li-price"><span class="price">10元</span></li>
-					</ul>
-					<ul class="clearfix">
-						<li><img src="__PUBLIC__/images/abt-1.jpg" alt="" width="70" height="60"/></li>
-						<li class="li-details">
-							<p>手机点餐软件</p>
-							<p>安装热线168888171717</p>
-							<p>北京/今天</p>
-						</li>
-						<li class="li-price"><span class="price">10元</span></li>
-					</ul>
-					<ul class="clearfix">
-						<li><img src="__PUBLIC__/images/abt-1.jpg" alt="" width="70" height="60"/></li>
-						<li class="li-details">
-							<p>手机点餐软件</p>
-							<p>安装热线168888171717</p>
-							<p>北京/今天</p>
-						</li>
-						<li class="li-price"><span class="price">10元</span></li>
-					</ul>
-					<ul class="clearfix">
-						<li><img src="__PUBLIC__/images/abt-1.jpg" alt="" width="70" height="60"/></li>
-						<li class="li-details">
-							<p>手机点餐软件</p>
-							<p>安装热线168888171717</p>
-							<p>北京/今天</p>
-						</li>
-						<li class="li-price"><span class="price">10元</span></li>
-					</ul>
-					<ul class="clearfix">
-						<li><img src="__PUBLIC__/images/abt-1.jpg" alt="" width="70" height="60"/></li>
-						<li class="li-details">
-							<p>手机点餐软件</p>
-							<p>安装热线168888171717</p>
-							<p>北京/今天</p>
-						</li>
-						<li class="li-price"><span class="price">10元</span></li>
-					</ul>
-					<ul class="clearfix">
-						<li><img src="__PUBLIC__/images/abt-1.jpg" alt="" width="70" height="60"/></li>
-						<li class="li-details">
-							<p>手机点餐软件</p>
-							<p>安装热线168888171717</p>
-							<p>北京/今天</p>
-						</li>
-						<li class="li-price"><span class="price">10元</span></li>
-					</ul>
-					<ul class="clearfix">
-						<li><img src="__PUBLIC__/images/abt-1.jpg" alt="" width="70" height="60"/></li>
-						<li class="li-details">
-							<p>手机点餐软件</p>
-							<p>安装热线168888171717</p>
-							<p>北京/今天</p>
-						</li>
-						<li class="li-price"><span class="price">10元</span></li>
-					</ul>
+					</foreach>
+					<div class="pages">{$page}</div>
 				</div>
 				<div class="col-md-4">
 					<div class="advertise">
@@ -194,3 +125,22 @@
 		</div>
 	<!--end-list-->
 <include file="Public/footer" />
+<script>
+$(function(){
+	$('.sitem').click(function(){
+		var name = $(this).attr('rel');
+		$('#search').find('input[name="'+name+'"]').val($(this).attr('v'));
+		$('#search').submit();
+	});
+	$('.icon-delete').click(function(){
+		$(this).closest('a').remove();
+		var name = $(this).attr('rel');
+		$('#search').find('input[name="'+name+'"]').remove();
+		$('#search').submit();
+	});
+	$('.clear-search').click(function(){
+		$('#search').find('input').remove();
+		$('#search').submit();
+	});
+})
+</script>

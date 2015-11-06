@@ -30,8 +30,10 @@ class AddController extends CommonController {
         $data['img']          = I('img','');
         $data['category_id']  = I('category','');
         $data['neworold']     = I('neworold','');
-        $data['user_id']      = '1';
-        //$data['user_id']      = $_SESSION['id'];
+        $data['phone']        = I('phone','');
+        $data['relation_name']     = I('yourname','');
+        //$data['user_id']      = '1';
+        $data['user_id']      = $_SESSION['id'];
         if(I('id')){
             $data['updated'] = time();
             D('News')->where(array('id'=>I('id')))->save($data);
@@ -54,15 +56,14 @@ class AddController extends CommonController {
         $upload = new \Think\Upload();// 实例化上传类
         $upload->maxSize   =     3145728 ;// 设置附件上传大小
         $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
-        $upload->rootPath  =     './Uploads/'; // 设置附件上传根目录
+        $upload->rootPath  =     './Public/uploads/'; // 设置附件上传根目录
         $upload->savePath  =     ''; // 设置附件上传（子）目录
         // 上传文件 
         $info   =   $upload->upload();
         if(!$info) {// 上传错误提示错误信息
             $this->error($upload->getError());
         }else{// 上传成功
-            //$this->success('上传成功！');
-            $src = $upload->rootPath.$info['file']['savepath'].$info['file']['savename'];
+            $src = $info['file']['savepath'].$info['file']['savename'];
             $this->ajaxReturn(array('status'=>1,'message'=>'上传成功','src'=>$src));
         }
     }

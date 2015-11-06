@@ -89,6 +89,31 @@ body,html {margin: 0; padding: 0;}
 
     }
 
+	.check .search-tag{
+		padding:7px 0 6px 19px;
+		height:40px;
+		border-bottom:1px solid #eee;
+	}
+
+	.check .search-tag .condition{
+		margin-right:10px;
+		padding-left:9px;
+		width:116px;height:21px;
+		line-height:21px;
+		border:1px dashed #ff6200;
+		float:left;
+		position:relative;
+	}
+
+	.check .search-tag .icon-delete{
+		width:9px;
+		height:9px;
+		background:url(../images/icon-delete.png) no-repeat;
+		position:absolute;
+		top:6px;
+		right:5px;
+	}
+
     .check ul {
         margin: 0;
         padding: 0;
