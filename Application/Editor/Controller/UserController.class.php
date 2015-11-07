@@ -23,7 +23,8 @@ class UserController extends Controller {
             return 0;
         }
     }
-    //用户注册界面
+
+    //用户注册方法
     public function handle_reg(){
         $data = $_POST;
         $_POST['password'] = md5($_POST['password']);
@@ -37,25 +38,62 @@ class UserController extends Controller {
             $this->error("手机格式错误");
         }
         else{
-            die();
-            $_POST['created'] = time();
-            D('user')->create();
-            $_POST['id'] = D('user')->add();
-            $_SESSION['me'] = $_POST;
+            $data['created'] = time();
+            M('user')->add($data);
+            $_SESSION['me'] = $data;
             $this->success('注册成功',U('/editor/index/info'));
         }
         
     }
 
+    //注册页面
+    public function reg(){
+        $this->display();
+    }
+
+    //登录页面
+    public function login(){
+        $this->display();
+    }
+
+    //邮箱登陆
+    public function handle_email_login(){
+        $email = I('post.email');
+        $password = I('post.password');
+        if($email && $password){
+            if($res = D('user')->where(array('email'=>$email,'password'=>md5($password)))->find()){
+                $_SESSION['me'] = $res;
+                $this->success('登陆成功',U('/editor/index/info'));
+            }else{
+                $this->error('登陆失败');
+            }
+        }else{
+            $this->success('请正确输入用户名、密码');
+        }
+    }
+
+    //手机登陆
+    public function handle_phone_login(){
+        $phone = I('post.phone');
+        $password = I('post.password');
+        if($phone && $password){
+            if($res = D('user')->where(array('phone'=>$phone,'password'=>md5($password)))->find()){
+                $_SESSION['me'] = $res;
+                $this->success('登陆成功',U('/editor/index/info'));
+            }else{
+                $this->error('登陆失败');
+            }
+        }else{
+            $this->success('请正确输入用户名、密码');
+        }
+    }
     //以上为已编辑函数
     ////////////////////////////////////////////////////////////////////////////////////////////
     /***************************************华丽的分割线***************************************/
     ////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    public function login(){
-    	$this->display();
-    }
+    
 
     public function handle_login(){
     	$email = I('post.email');
@@ -71,11 +109,6 @@ class UserController extends Controller {
     		$this->success('请正确输入用户名、密码');
     	}
     }
-
-    public function reg(){
-    	$this->display();
-    }
-    
 
     public function logout(){
     	$_SESSION['me'] = '';

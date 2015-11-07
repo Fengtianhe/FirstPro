@@ -1,0 +1,68 @@
+* {
+	margin:0;
+	padding:0;
+}
+#row {
+	float: right;
+	width: 306px;
+	height: 263px;
+	border:1px solid #CFCFCF;
+}
+#row .hd {
+	height: 30px;
+	border-top: 2px solid #206F96;
+	text-align: center;
+	font: 14px/30px "авбн";
+}
+#row .hd .s1 {
+	width: 152px;
+	height: 29px;
+	border-left:1px solid #CFCFCF;
+	border-right: 1px solid #CFCFCF;
+	float: left;
+}
+#row .hd .s2 {
+	width: 152px;
+	height: 29px;
+	border-right: 1px solid #CFCFCF;
+	border-bottom: 1px solid #CFCFCF;
+	background:url(images/1.jpg) repeat-x;
+	float: left;
+}
+#row .hd .s3 {
+	width: 102px;
+	height: 29px;
+	border-right: 1px solid #CFCFCF;
+	border-bottom: 1px solid #CFCFCF;
+	background:url(images/1.jpg) repeat-x;
+	float: left;
+}
+#row .bd ul {
+	list-style: none;
+}
+#row .bd ul li {
+	line-height: 30px; 
+}
+#row .bd ul li a:link, #row .bd ul li a:visited {
+	text-decoration: none;
+	color: #666;
+	font-size: 14px;
+}
+#row .login{
+	width: 100px
+}
+#row .form-group{
+	width: 305px;
+}
+#row form{
+	width: 280px;
+}
+#row .col-sm-offset-4{
+
+}
+#row .form-control{
+	width: 100%
+}
+#phone {
+	display: none;
+}
