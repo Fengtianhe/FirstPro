@@ -1,9 +1,11 @@
 <include file="Public/header" />
 <style type="text/css">
+.padding-top-10 {padding-top:10px;}
+.margin-top-10 {margin-top:10px;margin-bottom:10px;}
 .detail {border:1px solid #DDD; width:100%; margin-top:15px;}
 .detail ul {margin:20px auto;}
 .detail-top	li {list-style-type: none;line-height:34px;}
-.detail-content {border:1px solid #DDD;}
+.detail-content {border:1px solid #DDD;border-top:0px;}
 </style>
 <include file="Public/nav" />
 	<!--start-list-->
@@ -19,16 +21,24 @@
 									<li><span>啥子宝贝：</span><span>{$new_info.title}</span></li>
 									<li><span>价格：</span><span>{$new_info.price}元</span></li>
 									<li><span>成色：</span><span>95成新 </span></li>
-									<li><span>浏览次数：</span><span>653次浏览</span></li>
+									<li><span>浏览次数：</span><span>{$new_info.show_count}次浏览</span></li>
 									<li><span>联系人：</span><span>{$new_info.relation_name} </span></li>
 									<li><span>电话：</span><span>{$new_info.phone}</span></li>
+								</ul>
+								<ul>
+									<li>
+										<a class="btn btn-default">举报</a>
+										<a class="btn btn-default">关注</a>
+									</li>
 								</ul>
 							</div>
 						</div>
 					</div>
-					<div class="detail-content">
-						<div>详情</div>
-						<div>
+					<div class="detail-body margin-top-10">
+						<ul class="nav nav-tabs">
+							<li role="presentation" class="active"><a href="#">详情</a></li>
+						</ul>
+						<div class="detail-content padding-top-10">
 							{$new_info.content|htmlspecialchars_decode}
 						</div>
 						

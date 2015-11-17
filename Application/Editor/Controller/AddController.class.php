@@ -32,8 +32,7 @@ class AddController extends CommonController {
         $data['neworold']     = I('neworold','');
         $data['phone']        = I('phone',0);
         $data['relation_name']     = I('yourname','');
-        $data['user_id']      = '1';
-        //$data['user_id']      = $_SESSION['id'];
+        $data['user_id']      = $_SESSION['me']['id'];
         if(I('id')){
             $data['updated'] = time();
             D('News')->where(array('id'=>I('id')))->save($data);
