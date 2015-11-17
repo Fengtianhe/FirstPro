@@ -58,8 +58,8 @@ class NewsController extends Controller {
    		$id = I('id','');
    		if(!$id) $this->error('参数错误');
    		$new_info = M('News')->where(array('id'=>$id))->find();
-   		$new_content = M('Content')->where(array('news_is',$id))->find();
-   		$nw_info['content'] = $new_content['content'];
+   		$new_content = M('Content')->where(array('news_id',$id))->find();
+   		$new_info['content'] = $new_content['content'];
    		$this->assign('new_info',$new_info);
    		$this->display();
    	}
