@@ -65,4 +65,17 @@ class NewsController extends Controller {
    		$this->assign('new_info',$new_info);
    		$this->display();
    	}
+
+    //ajax处理 举报信息 方便后台管理员根据举报信息及时删除不良信息
+    public function ajaxHandleMark()
+    {
+        $data['news_id']     = I('id');
+        $data['user_id']     = I('user_id',0);
+        $data['email']       = I('email');
+        $data['mark_result'] = I('mark_result');
+        $data['create_time'] = time();
+        $result = M('mark')->add($data);
+        $arr = array('status'=>'OK','info'=>'标记成功','data'=>$result);
+        echo json_encode($arr);
+    }
 }
