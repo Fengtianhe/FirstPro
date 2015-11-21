@@ -74,8 +74,31 @@ class NewsController extends Controller {
         $data['email']       = I('email');
         $data['mark_result'] = I('mark_result');
         $data['create_time'] = time();
-        $result = M('mark')->add($data);
+        $result = M('Mark')->add($data);
         $arr = array('status'=>'OK','info'=>'标记成功','data'=>$result);
         echo json_encode($arr);
     }
+
+    //ajax处理 收藏信息
+    public function ajaxHandleCollect()
+    {
+        $data['news_id']     = I('id');
+        $data['user_id']     = I('user_id',0);
+        $data['create_time'] = time();
+
+        //避免重复收藏
+        if(!M('Collect')->where(array('news_id'=>$data['news_id'],'user_id'=>$data['user_id']))->find())
+        {
+            $result = M('Collect')->add($data);
+            $arr = array('status'=>'OK','info'=>'收藏成功','data'=>$result);
+            
+        }
+        else 
+        {
+            $arr = array('status'=>'OK','info'=>'您已经收藏过本信息','data'=>0);
+        }
+        echo json_encode($arr);
+    }
+
+
 }

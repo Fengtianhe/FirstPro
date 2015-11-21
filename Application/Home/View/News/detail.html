@@ -28,7 +28,9 @@
 								<ul>
 									<li>
 										<a class="btn btn-default mark">举报</a>
-										<a class="btn btn-default">关注</a>
+										<if condition="$_SESSION['me']['id']">
+											<a class="btn btn-default collect">收藏</a>
+										</if>
 									</li>
 								</ul>
 							</div>
@@ -96,7 +98,7 @@ $(function() {
 			alert('请输入正确的邮箱格式方便管理员及时联系你，谢谢！');
 			return false;
 		}
-		
+
 		$.ajax({
 			url    : "/home/news/ajaxHandleMark",
 			type   : "post",
@@ -109,6 +111,25 @@ $(function() {
 			},
 			success:function(data){
 				$('#dialog').dialog( "close" );
+				alert(data.info);
+			}
+		});
+	});
+
+	//收藏
+	$('.collect').click(function(){
+		var id = <?php echo $new_info['id']; ?>;
+		var user_id = <?php if($_SESSION['me']['id']) echo $_SESSION['me']['id']; else echo 0; ?>;
+
+		$.ajax({
+			url    : "/home/news/ajaxHandleCollect",
+			type   : "post",
+			dataType: "json",
+			data   : {
+				id           :  id,
+				user_id      :  user_id,
+			},
+			success:function(data){
 				alert(data.info);
 			}
 		});
