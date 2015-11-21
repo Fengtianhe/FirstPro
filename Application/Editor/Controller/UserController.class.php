@@ -92,13 +92,32 @@ class UserController extends Controller {
     public function center(){
         $this->display();
     }
+
+    //用户发表列表
+    public function myList(){
+        //var_dump($_SESSION);
+        $id=$_SESSION['me']['id'];
+        $News=M('news');
+        $temps=$News->where(array('user_id' => $id))->select();
+        $count=count($temps);
+        for ($i=0; $i < $count; $i++) { 
+            $newsid[$i]=$temps[$i]['id'];
+        }
+        $content=M('content');
+        for ($i=0; $i < $count; $i++) { 
+            $id=$newsid[$i];
+            //var_dump($id);
+            $con[$i]=$content->where(array('news_id' => $id))->find();
+            $temps[$i]['content']=$con[$i]['content'];
+        }
+        echo "<pre>";
+        var_dump($temps);
+        echo "</pre>";
+    }
     //以上为已编辑函数
     ////////////////////////////////////////////////////////////////////////////////////////////
     /***************************************华丽的分割线***************************************/
     ////////////////////////////////////////////////////////////////////////////////////////////
-
-
-    
 
     public function handle_login(){
     	$email = I('post.email');

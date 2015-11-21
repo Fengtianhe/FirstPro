@@ -15,8 +15,7 @@ class AddController extends CommonController {
     }
 
     public function addNew(){
-        $category = D('Category')->select();
-
+        $category = D('Category')->select();                                                                                     
         $this->assign('category',$category);
         $this->assign('neworold',$this->neworold);
         $this->display();
