@@ -1,7 +1,46 @@
 <include file="Public/header" />
-
 <include file="Public/nav" />
-
-
-
+<div class="all_content">
+	<include file="Public/user_left" />
+	<div class="user-right">
+		<div id="right-title">
+			我的发布
+		</div>
+		<div class="tab">
+			<div class="tab_menu">
+			<ul>
+				<li class="selected">全部信息</li>
+				<li>显示中的信息</li>
+				<li>审核中的信息</li>
+				<li>已删除的信息</li>
+			</ul>
+		</div>
+		<div class="tab_box">
+			<div>大牌</div>
+			<div class="hided">男装</div>
+			<div class="hided">女装</div>
+			<div class="hided">鞋靴</div>
+		</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" >
+//<![CDATA[
+	$(function(){
+	    var $div_li =$("div.tab_menu ul li");
+	    $div_li.click(function(){
+			$(this).addClass("selected")            
+				   .siblings().removeClass("selected");  
+            var index =  $div_li.index(this);  
+			$("div.tab_box > div")   	
+					.eq(index).show()   
+					.siblings().hide(); 
+		}).hover(function(){
+			$(this).addClass("hover");
+		},function(){
+			$(this).removeClass("hover");
+		})
+	})
+//]]>
+</script>
 <include file="Public/footer" />

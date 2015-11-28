@@ -1,0 +1,53 @@
+/*mylist*/
+.all_content{
+	width: 970px;
+	margin-left: auto;
+	margin-right: auto;
+	height:400px;
+}
+.user-right{
+	width: 80%;
+	margin-left: 3%;
+	float: left;
+}
+#right-title{
+	margin-top: 15px;
+	height: 35px;
+	line-height: 35px;
+}
+.tab{
+
+}
+.tab_menu{
+	clear:both;
+}
+.tab_menu ul{
+	height: 30px;
+}
+.tab_menu li{
+	height:30px; 	
+	float:left;
+	text-align:center;
+	cursor:pointer;
+	list-style:none;
+	padding:1px 6px;
+	margin-right:4px;
+	background:#fff;
+	border:1px solid #898989;
+	border-bottom:none;
+}
+.tab_menu li:hover{
+	border-left: 1px solid #C81623;
+	border-right: 1px solid #C81623;
+	border-top: 3px solid #C81623;
+}	
+.tab_menu li.selected{ 
+	color:#666;
+	background:#fff;
+}
+.tab_box{ 
+	clear:both; 
+	border:1px solid #898989; 
+	height:200px;
+}
+.hided{display:none}

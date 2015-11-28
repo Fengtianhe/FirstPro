@@ -110,30 +110,12 @@ class UserController extends Controller {
             $con[$i]=$content->where(array('news_id' => $id))->find();
             $temps[$i]['content']=$con[$i]['content'];
         }
-        echo "<pre>";
-        var_dump($temps);
-        echo "</pre>";
+        $this->display();
     }
     //以上为已编辑函数
     ////////////////////////////////////////////////////////////////////////////////////////////
     /***************************************华丽的分割线***************************************/
     ////////////////////////////////////////////////////////////////////////////////////////////
-
-    public function handle_login(){
-    	$email = I('post.email');
-    	$password = I('post.password');
-    	if($email && $password){
-    		if($res = D('user')->where(array('email'=>$email,'password'=>md5($password)))->find()){
-    			$_SESSION['me'] = $res;
-    			$this->success('登陆成功',U('/editor/index/info'));
-    		}else{
-    			$this->error('登陆失败');
-    		}
-    	}else{
-    		$this->success('请正确输入用户名、密码');
-    	}
-    }
-
     public function logout(){
     	$_SESSION['me'] = '';
     }
