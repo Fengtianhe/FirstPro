@@ -48,6 +48,13 @@ class UserController extends Controller {
 
     //注册页面
     public function reg(){
+        $list=M('university_all')->order('s_name asc')->select();
+        foreach ($list as $value => $k) {
+            $lists[$value]['id']=$k['id'];
+            $lists[$value]['s_name']=$k['s_name'];
+        }
+        var_dump($lists);
+        $this->assign('s_list',$lists);
         $this->display();
     }
 

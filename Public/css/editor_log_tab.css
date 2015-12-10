@@ -60,3 +60,14 @@
 #phone {
 	display: none;
 }
+.login_check{
+	/*border:1px solid #000;*/
+	width:305px;
+	height:25px;
+	float:left;
+	line-height: 25px;
+}
+.login_check a{
+	font-size:12px;
+
+}

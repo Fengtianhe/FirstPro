@@ -6,7 +6,6 @@ class IndexController extends CommonController {
 		parent::_initialize();
 	}
     public function info(){
-    	echo "this is info";
         $this->display();
     }
 

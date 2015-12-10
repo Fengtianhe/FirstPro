@@ -1,0 +1,1 @@
+ALTER TABLE `zt_news`  ADD `report_count` INT NOT NULL COMMENT '举报次数' AFTER `is_top`

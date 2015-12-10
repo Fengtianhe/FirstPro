@@ -29,6 +29,16 @@
 								<input type="password" name="check_password" class="form-control" id="inputCheckPassword" placeholder="CheckPassword">
 							</div>
 						</div>
+						<div class="form-group">
+							<label for="inputCheckPassword" class="col-sm-4 control-label">University</label>
+							<div class="col-sm-8">
+								<select name="check_password" class="form-control" id="inputCheckPassword" >
+									<volist name="s_list" id="vo">
+										<option value="{$vo.id}">{$vo.s_name}</option>
+									</volist>
+								</select>
+							</div>
+						</div>
 					  	<div class="form-group">
 							<div class="col-sm-offset-4 col-sm-10">
 								<input type="submit" class="btn btn-default"></input>
