@@ -1,10 +1,90 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-	<a href="{:U('editor/user/login')}">登录</a>
-	<p>{__PUBLIC__}
-</body>
-</html>
+<include file="Public/header" />
+<!--banner start here-->
+<div class="banner">
+	<div class="container">
+		<div class="banner-main">
+			<h2>尊敬的学长学姐，可爱的学弟学妹</h2>
+			<p>课外online绝对靠谱值得信赖，最珍爱的宝贝留给最佳时机的最需要的人。</p>
+			<div class="bann-btn">
+				<a href="/home/news/newslist">发现更多</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!--banner end here-->
+  <div class="grid-main">
+	<div class="container">
+			<div class="process">
+				<h3>How to do?</h3>
+				<p>与他人分享爱是一种快乐，“课外”感谢您百忙之中抽出时间分享您的宝贝，分享只需以下几步：</p>
+			    <div class="process-bottom">
+			    	<div class="col-md-4 process-grid">
+			    		<span class="glyphicon glyphicon-education" aria-hidden="true"> </span>
+			    		<h4>1.点击发布</h4>
+			    		<p>登陆后点击“立即发布”即可进入发布页面发布您的宝贝。</p>
+			    	</div>
+			    	<div class="col-md-4 process-grid">
+			    		<span class="glyphicon glyphicon-lamp" aria-hidden="true"> </span>
+			    		<h4>2.填写信息</h4>
+			    		<p>填写您的宝贝信息，名称、详情图等信息。</p>
+			    	</div>
+			    	<div class="col-md-4 process-grid">
+			    		<span class="glyphicon glyphicon-hourglass" aria-hidden="true"> </span>
+			    		<h4>3.发布成功</h4>
+			    		<p>点击发布，发布成功后可分享至空间、朋友圈让更多人发现宝贝。</p>
+			    	</div>
+			      <div class="clearfix"> </div>
+			   </div>
+	     </div>	
+      </div>
+   </div>
+      <div class="work">
+      	<div class="container">
+				<div class="work-top">
+					<h3>精选宝贝</h3>
+					<p></p>
+				</div>
+				<div class="work-bottom">
+					<foreach name="top_list" item="vo">
+					<div class="col-md-3 portfolio-wrapper">		
+							<a href="images/b-w1.jpg" class="b-link-stripe b-animate-go  swipebox"  title="Image Title">
+						     <img src="__PUBLIC__/home/images/w1.jpg" alt="" class="img-responsive"></a>
+                         <div class="work-details">
+					   	  <h3>{$vo.title}</h3>
+					   	 <p>{$vo.description}</p>
+					   </div>
+					</div>
+					</foreach>
+				<div class="clearfix"> </div>
+			 </div>
+		  </div>
+	</div>
+	<div class="recent-posts">
+		<div class="container">
+				<div class="recent-bottom">
+					<div class="col-md-6 recent-left">
+						<h3>“课外”简介</h3>
+						<p>“课外”由一帮毕业程序员为回报母校利用业余开发，采用php+mysql技术，主要就是为了解决毕业之际学长学姐们的生活用品，学习资料等宝贝不能合理的被利用这种情况，“课外”就这么诞生了。</p>
+					   <ul>
+					   	<li><a href="#">文章一</a></li>
+					   	<li><a href="#">文章二</a></li>
+					   	<li><a href="#">文章三</a></li>
+					   </ul>
+					</div>
+					<div class="col-md-6 recent-right">
+							<img src="__PUBLIC__/home/images/post.jpg" alt="" class="img-responsive">
+					</div>
+				   <div class="clearfix"> </div>
+				</div>
+			</div>
+	      <div class="clearfix"> </div>
+	 </div>
+<link rel="stylesheet" href="__PUBLIC__/home/css/swipebox.css">
+	<script src="__PUBLIC__/home/js/jquery.swipebox.min.js"></script> 
+	    <script type="text/javascript">
+			jQuery(function($) {
+				$(".swipebox").swipebox();
+			});
+</script>
+
+<include file="Public/footer" />

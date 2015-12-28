@@ -1,146 +1,163 @@
 <include file="Public/header" />
 <style type="text/css">
-.pages {
-	padding:0;
-}
-.pages a,.pages span {
-	display:inline-block;
-	padding:2px 5px;
-	margin:0 1px;
-	border:1px solid #f0f0f0;
-	-webkit-border-radius:3px;
-	-moz-border-radius:3px;
-	border-radius:3px;
-}
-.pages a,.pages li {
-    display:inline-block;
-    list-style: none;
-    text-decoration:none; color:#58A0D3;
-}
-.pages a.first,.pages a.prev,.pages a.next,.pages a.end{
-    margin:0;
-}
-.pages a:hover{
-    border-color:#50A8E6;
-}
-.pages span.current{
-    background:#50A8E6;
-    color:#FFF;
-    font-weight:700;
-    border-color:#50A8E6;
-}
+	.thumbnail h3 a {color:#000;text-decoration: none;}
 </style>
-<include file="Public/nav" />
-	<!--start-list-->
-		<div class="container">
-			<div class="check">
-				<div class="search-tag">
-				<if condition='!empty($del_icon)'>
-					<foreach name="del_icon" item="vo">
-						<a href="javascript:;" class="condition"><span>{$vo.name}</span><i class="icon-delete" rel="{$vo.rel}" v="{$vo.key}"></i></a>
+<!--events start here-->
+<div class="feature">
+	<div class="container">
+		<div class="feature-main">
+			<div class="search feature-head">
+				<h3>所有宝贝</h3>
+				<p>
+					<span class="label label-primary" rel="">全部</span>&nbsp;&nbsp;
+					<foreach name="category" item="c_vo">
+					<span class="label label-primary" rel="{$c_vo.id}">{$c_vo.name}</span>&nbsp;&nbsp; 
 					</foreach>
-					<a href="javascript:;" class="clear-search">清空筛选条件</a>
-				</if>
-				</div>
-				<if condition="is_null($_GET['category']) || $_GET['category'] === ''">
-				<ul class="clearfix">
-					<li>类别：</li>
-					<foreach name="category" item="vo" >
-				        <li class="sitem" rel="category" v="{$key}">{$vo.name}</li>
-				    </foreach>
-				</ul>
-				</if>
-				<if condition="is_null($_GET['price'])  || $_GET['price'] === ''">
-				<ul class="clearfix">
-					<li>价格：</li>
-					<foreach name="price" item="vo" >
-				        <li class="sitem" rel="price" v="{$key}">{$vo.name}</li>
-				    </foreach>
-				</ul>
-				</if>
+				</p>
 			</div>
-			<div class="select" style="text-align:center">
-				<div id="sel">
-					<ul class="clearfix">
-						<li>类别</li>
-						<li>价格</li>
-					</ul>
-				</div>
-
-				<div class="content clearfix">
-					<div>
-						<ul>
-							<foreach name="category" item="vo" >
-						        <li class="sitem" rel="category">{$key}</li>
-						    </foreach>
-						</ul>
-					</div>
-					<div class="none">
-						<ul>
-							<foreach name="price" item="vo" >
-						        <li class="sitem" rel="price">{$key}</li>
-						    </foreach>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="search clearfix">
-			<form name="search" id="search" action='/home/news/newslist' method='GET'>
-				<input type="hidden" name="category" value="{$_GET['category']}">
-				<input type="hidden" name="price" value="{$_GET['price']}">
-				<input class="form-control" type="text" name="keyword" value="{$_GET['keyword']}"/>
-				<input type="submit" class="btn btn-default" value="搜全站"/>
+			<form id="search" action="/home/news/newslist" method="post">
+				<input type="hidden" name="category" class="search-category">
 			</form>
-			</div>
-			
-		</div>
-		<div class="container">
+		
 			<div class="row">
-				<div class="col-md-8 list">
-					<foreach name="list" item="vo">
-					<ul class="clearfix">
-						<li><img src="__PUBLIC__/uploads/{$vo.img}" alt="" width="70" height="60"/></li>
-						<li class="li-details">
-							<p><a href='/home/news/detail?id={$vo.id}'>{$vo.title}</a></p>
-							<p>{$vo.phone}</p>
-							<p>{$vo.phone}</p>
-						</li>
-						<li class="li-price"><span class="price">{$vo.price}</span></li>
-					</ul>
-					</foreach>
-					<div class="pages">{$page}</div>
+			<div class="blog-masonry masonry-true">
+				<foreach name="list" item="vo">
+				<div class="col-sm-6 col-md-4 post-masonry">
+					<div class="thumbnail">
+						<img src="__PUBLIC__/home/images/f1.jpg" alt="__PUBLIC__/home/images/f1.jpg">
+						<div class="caption">
+							<h3><a href="#">{$vo.title}</a></h3>
+							<div class="row">
+						        <label for="lastname" class="text-right col-sm-6 col-sm-4 control-label">价格：</label>
+						        <div class="col-sm-8">
+						        	<h3 style="color:#f00">{$vo.price}元</h3>
+						        </div>
+						    </div>
+						    <div class="row">
+						        <label for="lastname" class="text-right col-sm-6 col-sm-4 control-label">联系人：</label>
+						        <div class="col-sm-8">
+						        	{$vo.relation_name}
+						        </div>
+						    </div>
+						    <div class="row">
+						        <label for="lastname" class="text-right col-sm-6 col-sm-4 control-label">联系方式：</label>
+						        <div class="col-sm-8">
+						        	{$vo.phone}
+						        </div>
+						    </div>
+							<p rel="{$vo.id}">
+								<button type="button" class="collect btn btn-default">
+									<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span> 收藏
+								</button>
+								<button type="button" class="mark btn btn-default">
+									<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> 举报
+								</button>
+							</p>
+							
+						</div>
+					</div>
 				</div>
-				<div class="col-md-4">
-					<div class="advertise">
-						这里是一个广告
-					</div>
-					<div class="advertise">
-						这里是一个广告
-					</div>
-					<div class="advertise">
-						这里是一个广告
-					</div>
-				</div>
+				</foreach>
+			</div>
+			<div class="page">{$page}</div>
 			</div>
 		</div>
-	<!--end-list-->
-<include file="Public/footer" />
+	</div>
+</div>
+<script src="__PUBLIC__/home/js/plugins.min.js"></script>
+<script src="__PUBLIC__/home/js/main.min.js"></script>
+<!--events end here-->
+<div id="dialog" title="Mark News" style="display:none">
+	<div class="form-group">
+	    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+	    <div class="col-sm-10">
+	      <input name="email" type="email" class="form-control" id="mark_email" placeholder="您的联系方式！">
+	    </div>
+	</div>
+	<div class="form-group">
+	    <label for="inputEmail3" class="col-sm-2 control-label">具体说明</label>
+	    <div class="col-sm-10">
+	      <textarea class="form-control" rows="3" name="mark_result" id="mark_result" placeholder="您举报此条信息的具体说明！"></textarea>
+	    </div>
+	</div>
+	<div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	      <button type="submit" class="btn btn-default conform-mark">举报</button>
+	    </div>
+	</div>
+</div>
+<link rel="stylesheet" href="__PUBLIC__/vendors/jquery-ui/jquery-ui.css">
+<script src="__PUBLIC__/vendors/jquery-ui/jquery-ui.js"></script>
 <script>
-$(function(){
-	$('.sitem').click(function(){
-		var name = $(this).attr('rel');
-		$('#search').find('input[name="'+name+'"]').val($(this).attr('v'));
+$(function() {
+	$('.mark').click(function(){
+	 	$( "#dialog" ).dialog({height:300,width:600});
+	});
+
+	$('.conform-mark').click(function(){
+		var id = $(this).closest('p').attr('rel');
+		var email = $(this).closest('#dialog').find('input[name="email"]').val();
+		var mark_result = $(this).closest('#dialog').find('textarea[name="mark_result"]').val();
+
+		var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		if (!filter.test(email)) 
+		{
+			alert('请输入正确的邮箱格式方便管理员及时联系你，谢谢！');
+			return false;
+		}
+
+		$.ajax({
+			url    : "/home/news/ajaxHandleMark",
+			type   : "post",
+			dataType: "json",
+			data   : {
+				id           :  id,
+				email        :  email,
+				mark_result  :  mark_result
+			},
+			success:function(data){
+				$('#dialog').dialog( "close" );
+				alert(data.info);
+			}
+		});
+	});
+
+	//收藏
+	$('.collect').click(function(){
+		var id = $(this).closest('p').attr('rel');
+		var user_id = <?php if($_SESSION['me']['id']) echo $_SESSION['me']['id']; else echo 0; ?>;
+		var btn = $(this);
+		$.ajax({
+			url    : "/home/news/ajaxHandleCollect",
+			type   : "post",
+			dataType: "json",
+			data   : {
+				id           :  id,
+				user_id      :  user_id,
+			},
+			success:function(data){
+				if(data.status == "OK")
+				{
+					btn.find('span').removeClass('glyphicon-star-empty').addClass('glyphicon-star');
+				}
+				else
+				{
+					alert(data.info);
+				}
+			}
+		});
+	});
+
+	$('.search span').click(function(){
+		//console.log($(this));
+		var category_id = $(this).attr('rel');
+		console.log(category_id);
+		$('#search').find('.search-category').val(category_id);
 		$('#search').submit();
 	});
-	$('.icon-delete').click(function(){
-		$(this).closest('a').remove();
-		var name = $(this).attr('rel');
-		$('#search').find('input[name="'+name+'"]').remove();
-		$('#search').submit();
-	});
-	$('.clear-search').click(function(){
-		$('#search').find('input').remove();
-		$('#search').submit();
-	});
-})
+ 
+});
+
+	
 </script>
+<include file="Public/footer" />

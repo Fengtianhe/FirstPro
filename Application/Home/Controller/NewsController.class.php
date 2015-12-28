@@ -10,6 +10,7 @@ class NewsController extends Controller {
                     '4'    => array('min' => 3000, 'max' => 0, 'name' => '3000以上'),
     );
     public function newsList(){
+        $limit = 20;
         $category = M('Category')->where(array('pid'=>'0'))->select();
         if(!is_null($_REQUEST['category']) && $_REQUEST['category'] !== '')
         {
@@ -19,21 +20,10 @@ class NewsController extends Controller {
                     'key'=>$_REQUEST['category'],
                     'name' => $category[$_REQUEST['category']]['name']);
         }
-        if(!is_null($_REQUEST['price']) && $_REQUEST['price'] !== '')
+        
+        if($_REQUEST['category'])
         {
-            if(!$this->price[$_REQUEST['price']]['max'])
-            {
-                $map['price'] = array('gt',$this->price[$_REQUEST['price']]['min']);
-            }
-            else
-            {
-                $map['price'] = array('between',array($this->price[$_REQUEST['price']]['min'],$this->price[$_REQUEST['price']]['max']));
-            }
-            $del_icon[] = array(
-                'rel'=>'price',
-                'key'=>$_REQUEST['price'],
-                'name' => $this->price[$_REQUEST['price']]['name']);
-            
+            $map['category_id'] = (int) $_REQUEST['category'];
         }
         if(!is_null($_REQUEST['keyword']))
         {
@@ -42,7 +32,7 @@ class NewsController extends Controller {
         $map['id_del'] = array('neq',1); 
     	$News = M('News'); // 实例化News对象
         $count      = $News->where($map)->count();// 查询满足要求的总记录数
-        $Page       = new \Think\Page($count,20);// 实例化分页类 传入总记录数和每页显示的记录数(25)
+        $Page       = new \Think\Page($count,$limit);// 实例化分页类 传入总记录数和每页显示的记录数(25)
         $show       = $Page->show();// 分页显示输出
         // 进行分页数据查询 注意limit方法的参数要使用Page类的属性
         $list = $News->where($map)->order('is_top')->limit($Page->firstRow.','.$Page->listRows)->select();
@@ -70,7 +60,7 @@ class NewsController extends Controller {
     public function ajaxHandleMark()
     {
         $data['news_id']     = I('id');
-        $data['user_id']     = I('user_id',0);
+        $data['user_id']     = $_SESSION['me']['id'];
         $data['email']       = I('email');
         $data['mark_result'] = I('mark_result');
         $data['create_time'] = time();
@@ -98,6 +88,11 @@ class NewsController extends Controller {
             $arr = array('status'=>'OK','info'=>'您已经收藏过本信息','data'=>0);
         }
         echo json_encode($arr);
+    }
+
+    public function test()
+    {
+        var_dump($_REQUEST);
     }
 
 
