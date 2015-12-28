@@ -1,0 +1,2 @@
+ALTER TABLE `zt_collect` ADD COLUMN `status` TINYINT(1) DEFAULT 0 NOT NULL COMMENT '0:正常 -1：已取消关注 -2：内容失效' AFTER `user_id`; 
+ALTER TABLE `zt_contact` ADD COLUMN `status` TINYINT(1) DEFAULT 0 NOT NULL COMMENT '0:正常 1：已回复 -1：标记异常' AFTER `message`;

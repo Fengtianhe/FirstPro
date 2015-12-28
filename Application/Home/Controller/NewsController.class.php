@@ -12,14 +12,8 @@ class NewsController extends Controller {
     public function newsList(){
         $limit = 20;
         $category = M('Category')->where(array('pid'=>'0'))->select();
-        if(!is_null($_REQUEST['category']) && $_REQUEST['category'] !== '')
-        {
-            $map['category_id'] = $category[$_REQUEST['category']]['id'];
-            $del_icon[] = array(
-                    'rel'=>'category',
-                    'key'=>$_REQUEST['category'],
-                    'name' => $category[$_REQUEST['category']]['name']);
-        }
+        //用户收藏数据 应缓存  提高效率
+        //$collect  = M('Collect')->where(array('user_id'=>$_SESSION['me']['id']))->select();
         
         if($_REQUEST['category'])
         {
@@ -32,15 +26,13 @@ class NewsController extends Controller {
         $map['id_del'] = array('neq',1); 
     	$News = M('News'); // 实例化News对象
         $count      = $News->where($map)->count();// 查询满足要求的总记录数
-        $Page       = new \Think\Page($count,$limit);// 实例化分页类 传入总记录数和每页显示的记录数(25)
+        $Page       = new \Think\Page($count,$limit);// 实例化分页类 
         $show       = $Page->show();// 分页显示输出
         // 进行分页数据查询 注意limit方法的参数要使用Page类的属性
         $list = $News->where($map)->order('is_top')->limit($Page->firstRow.','.$Page->listRows)->select();
         $this->assign('list',$list);// 赋值数据集
         $this->assign('page',$show);// 赋值分页输出
-        $this->assign('price',$this->price);
         $this->assign('category',$category);
-        $this->assign('del_icon',$del_icon);
     	$this->display();
     }
 
