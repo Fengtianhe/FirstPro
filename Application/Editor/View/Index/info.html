@@ -1,20 +1,93 @@
 <include file="Public/header" />
 
 <include file="Public/nav" />
-	<!--start-list-->
-		<div class="container">
-			<div class="row">
-				<div class="col-md-4">
-					<ul>
-						<li><a href="{:U('account/index')}">账户设置</a></li>
-						<li><a href="{:U('user/center')}">个人中心</a></li>
-						
-					</ul>
-				</div>
-				<div class="col-md-8">
-					
-				</div>
-			</div>
-		</div>
-	<!--end-list-->
+<!-- <main class="bs-docs-masthead" id="content" role="main" tabindex="-1">
+	<div class="container">
+		<span class="bs-docs-booticon bs-docs-booticon-lg bs-docs-booticon-outline">课外Online</span>
+		<p class="lead">课外Online是专为大学生提供的二手宝贝转让平台，旨为打造最便利的平台，祝您使用愉快。</p>
+	</div>
+</main>
+-->
+<div class="container">
+	<h3>发布记录</h3>
+	<table id="newlists" class="display">
+	    <thead>
+	        <tr>
+	            <th>标题</th>
+	            <th>主图</th>
+	            <th>价钱</th>
+	            <th>发布时间</th>
+	            <th>浏览次数</th>
+	            <th>是否置顶</th>
+	            <th>操作</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        
+	    </tbody>
+	</table>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#newlists').DataTable({
+			"ajax" : {
+				url : '/editor/index/myList',
+				dataSrc: ''
+			},
+			//"order": [[ 0, false ]],
+			//"columnDefs": [
+				//{ "orderable": false, "targets": 0 }
+			//],
+			"columns": [
+			    //{ "orderable": false },
+			    //{ "orderable": true }
+			    { data: 'title' },
+		        { data: 'img' },
+		        { data: 'price' },
+		        { data: 'created' },
+		        { data: 'show_count' },
+		        { data: 'is_top' },
+		        { data: 'handle' }
+			  ]
+		});
+	});
+	$(function(){
+		$(document).on('click','#newlists .btn',function(){
+			console.log($(this));
+			console.log($(this).hasClass('del'));
+			var act = '';
+			var msg = '';
+			var id = $(this).attr('rel');
+			if ($(this).hasClass('del')) {
+				act = 'del';
+				msg = '确定删除么？删除后将不再展示本条信息！';
+			} else if ($(this).hasClass('recover')) {
+				act = 'recover';
+				msg = '确定恢复么？恢复后将展示本条信息！';
+			} else if ($(this).hasClass('top')) {
+				act = 'top';
+				msg = '确定置顶么？本操可以在顶部显示您的信息但将消耗1课外币！';
+			}
+			var td = $(this).closest('td');
+			if (confirm(msg)) {
+				$.ajax({
+					type: "post",
+					url : '/editor/index/ajaxHandle',
+					data : {act:act,id:id},
+					dataType : "json",
+					success : function(data){
+						//td.html(data.html);
+						if (data.status == 'OK') {
+							alert(data.info);
+							td.html(data.data.html);
+						} else {
+							alert(data.info);
+						}
+					}
+				});
+			}
+			return false;
+		});
+	});
+</script>
 <include file="Public/footer" />
