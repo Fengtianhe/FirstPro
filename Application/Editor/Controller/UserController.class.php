@@ -5,7 +5,7 @@ class UserController extends Controller {
     //判断是否登录
     private function  is_login(){
         header("Content-type: text/html; charset=utf-8"); 
-        if(!isset($_SESSION['dami_uid']) && $_SESSION['dami_uid'] == ''){
+        if(!isset($_SESSION['me']) && $_SESSION['me'] == ''){
             $lasturl = urlencode(htmlspecialchars('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']));
             $this->assign('jumpUrl',__ROOT__.'/index.php?m=user&a=login&lasturl='.$lasturl);
             $this->success('未登陆或登陆超时，请重新登陆,页面跳转中~');        
@@ -53,13 +53,14 @@ class UserController extends Controller {
             $lists[$value]['id']=$k['id'];
             $lists[$value]['s_name']=$k['s_name'];
         }
-        var_dump($lists);
         $this->assign('s_list',$lists);
         $this->display();
     }
 
     //登录页面
     public function login(){
+    	self::is_login();
+    	var_dump($_SESSION);
         $this->display();
     }
 
@@ -100,11 +101,10 @@ class UserController extends Controller {
         $this->display();
     }
 
-    //以上为已编辑函数
-    ////////////////////////////////////////////////////////////////////////////////////////////
-    /***************************************华丽的分割线***************************************/
-    ////////////////////////////////////////////////////////////////////////////////////////////
-    public function logout(){
+    //注销函数
+	public function logout(){
     	$_SESSION['me'] = '';
+    	$this->redirect('home/index/index');
     }
+
 }
