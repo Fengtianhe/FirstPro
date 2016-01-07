@@ -53,14 +53,14 @@ class UserController extends Controller {
             $lists[$value]['id']=$k['id'];
             $lists[$value]['s_name']=$k['s_name'];
         }
+        $answer=M('answer')->select();
+        $this->assign('s_answer',$answer);
         $this->assign('s_list',$lists);
         $this->display();
     }
 
     //登录页面
     public function login(){
-    	self::is_login();
-    	var_dump($_SESSION);
         $this->display();
     }
 
