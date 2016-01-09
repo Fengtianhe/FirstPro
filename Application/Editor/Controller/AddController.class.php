@@ -26,12 +26,13 @@ class AddController extends CommonController {
         $data['keyword']      = I('keyword','');
         $data['description']  = I('description','');
         $data['price']        = I('price','');
-        $data['img']          = I('img','');
+        $data['img']          = json_encode(I('imgs',array()));
         $data['category_id']  = I('category','');
         $data['neworold']     = I('neworold','');
         $data['phone']        = I('phone',0);
         $data['relation_name']     = I('yourname','');
         $data['user_id']      = $_SESSION['me']['id'];
+        die();
         if(I('id')){
             $data['updated'] = time();
             D('News')->where(array('id'=>I('id')))->save($data);

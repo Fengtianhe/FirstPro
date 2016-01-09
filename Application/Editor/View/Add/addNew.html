@@ -89,52 +89,10 @@
 
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/vendors/webuploader/webuploader.css">
 <script type="text/javascript" src="__PUBLIC__/vendors/webuploader/webuploader.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/vendors/validate/jquery-validate.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/vendors/validate/language/messages_cn.js"></script>
 
 <script type="text/javascript">
-
-
-//初始化 uploader
-var uploader = WebUploader.create({
-    auto: true,
-    swf: '__PUBLIC__/vendors/webuploader/Uploader.swf',
-    server: '{:U('editor/add/upload')}',
-    pick: '#picker',
-    accept: {
-        title: 'Images',
-        extensions: 'gif,jpg,jpeg,bmp,png',
-        mimeTypes: 'image/*'
-    },
-    resize: false
-});
-uploader.on( 'fileQueued', function( file ) {
-    var $li = $(
-            '<div id="' + file.id + '" class="file-item thumbnail">' +
-                '<img>' +
-                '<div class="info">' + file.name + '</div>' +
-            '</div>'
-            ),
-        $img = $li.find('img');
-
-
-    // $list为容器jQuery实例
-    $('#fileList').empty().append( $li );
-    // 创建缩略图
-    // 如果为非图片文件，可以不用调用此方法。
-    // thumbnailWidth x thumbnailHeight 为 100 x 100
-    uploader.makeThumb( file, function( error, src ) {
-        if ( error ) {
-            $img.replaceWith('<span>不能预览</span>');
-            return;
-        }
-
-        $img.attr( 'src', src );
-    }, 100, 100 );
-});
-uploader.on( 'uploadSuccess', function( file , data) {
-	$('#inputImg').val(data.src);
-    $( '#'+file.id ).addClass('upload-state-done');
-});
-
 //初始化 uploader
 var uploader = WebUploader.create({
     auto: true,
@@ -153,8 +111,8 @@ uploader.on( 'uploadSuccess', function( file , data) {
 	var $li = $(
             '<div id="' + file.id + '" class="file-item thumbnail">' +
                 '<img>' +
-                '<div class="info">' + file.name + '</div>' +
-                '<input type="hidden" name="images[]" value="'+data.src+'">'+
+                '<div class="handle"><a href="javascript:;" class="del">删除</a> <a href="javascript:;" class="set-head-img">设为主图</a></div>' +
+                '<input type="hidden" name="imgs[]" value="'+data.src+'">'+
             '</div>'
             ),
         $img = $li.find('img');
@@ -173,7 +131,18 @@ uploader.on( 'uploadSuccess', function( file , data) {
     }, 100, 100 );
     $( '#'+file.id ).addClass('upload-state-done');
 });
-
+$(function(){
+	$(document).on('click','.del',function(){
+		$(this).closest('.file-item').remove();
+	});
+	$(document).on('click','.set-head-img',function(){
+		$('.head-image').html('设为主图').removeClass('head-image').closest('.file-item').find('input[name="imgs[head]"]').attr('name','imgs[]');
+		//$(this).;
+		$(this).html('<font color="red">主图</font>').addClass('head-image');
+		$(this).closest('.file-item').find('input[name="imgs[]"]').attr('name','imgs[head]');
+	});
+	
+});
 </script>
 
 <include file="Public/footer" />
