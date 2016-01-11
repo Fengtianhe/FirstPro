@@ -1,0 +1,2 @@
+ALTER TABLE  `zt_user` ADD  `aid` INT NOT NULL COMMENT  '安全问题',
+ADD  `answer` VARCHAR( 100 ) NOT NULL COMMENT  '问题答案'

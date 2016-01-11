@@ -3,13 +3,8 @@ namespace Editor\Controller;
 use Think\Controller;
 class UserController extends Controller {
     //判断是否登录
-    private function  is_login(){
-        header("Content-type: text/html; charset=utf-8"); 
-        if(!isset($_SESSION['me']) && $_SESSION['me'] == ''){
-            $lasturl = urlencode(htmlspecialchars('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']));
-            $this->assign('jumpUrl',__ROOT__.'/index.php?m=user&a=login&lasturl='.$lasturl);
-            $this->success('未登陆或登陆超时，请重新登陆,页面跳转中~');        
-        }
+    public function _initialize(){
+    	header("Content-type:text/html;charset=utf-8");
     }
 
     //邮箱手机验证
@@ -26,16 +21,30 @@ class UserController extends Controller {
 
     //用户注册方法
     public function handle_reg(){
+    	if ($_POST['password']!==$_POST['check_password']) {
+    		$this->error("两次输入的密码不一致");
+    	}
         $data = $_POST;
         $_POST['password'] = md5($_POST['password']);
-        $data[password]=$_POST['password'];
+        $data['aid']=$_POST['answer'];
+        $data['password']=$_POST['password'];
+        $data['answer']=md5($_POST['a_ans']);
+        $data['university_id']=$_POST['sid'];
         $e=$this->is_verify($data['email']);
         $p=$this->is_verify($data['phone']);
+        $email=$data['email'];
+        $phone=$data['phone'];
+        $User=M('user');
+        $va=$User->where(array('email' => $email))->select();
+        $vb=$User->where(array('phone' => $phone))->select();
         if (!$e) {
             $this->error("邮箱格式错误");
         }
         elseif (!$p) {
             $this->error("手机格式错误");
+        }
+        elseif($va||$vb){
+        	$this->error("账号已存在");
         }
         else{
             $data['created'] = time();

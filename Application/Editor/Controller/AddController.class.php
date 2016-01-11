@@ -32,11 +32,7 @@ class AddController extends CommonController {
         $data['phone']        = I('phone',0);
         $data['relation_name']     = I('yourname','');
         $data['user_id']      = $_SESSION['me']['id'];
-        
-        if (!$data['title'] || !$data['price'] || !$data['category_id'] ||
-            !$data['phone'] || !$data['relation_name'] || !$data['user_id']) {
-            $this->error('数据错误，请认真填写');
-        }
+        die();
         if(I('id')){
             $data['updated'] = time();
             D('News')->where(array('id'=>I('id')))->save($data);

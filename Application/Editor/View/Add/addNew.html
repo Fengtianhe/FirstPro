@@ -5,7 +5,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8" style="margin-top:10px;">
-					<form id="addForm" class="form-horizontal" action="{:U('editor/add/saveNew')}" method="post">
+					<form class="form-horizontal" action="{:U('editor/add/saveNew')}" method="post">
 						<div class="form-group">
 					    	<label for="selectCategory" class="col-sm-2 control-label">类别</label>
 					    	<div class="col-sm-3">
@@ -89,7 +89,8 @@
 
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/vendors/webuploader/webuploader.css">
 <script type="text/javascript" src="__PUBLIC__/vendors/webuploader/webuploader.min.js"></script>
-
+<script type="text/javascript" src="__PUBLIC__/vendors/validate/jquery-validate.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/vendors/validate/language/messages_cn.js"></script>
 
 <script type="text/javascript">
 //初始化 uploader
