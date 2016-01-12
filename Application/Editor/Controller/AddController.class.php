@@ -22,17 +22,24 @@ class AddController extends CommonController {
     }
 
     public function saveNew(){
+
+        $images = I('imgs',array());
+        $content_images = json_encode($images);
         $data['title']        = I('title','');
         $data['keyword']      = I('keyword','');
         $data['description']  = I('description','');
         $data['price']        = I('price','');
-        $data['img']          = json_encode(I('imgs',array()));
+        $data['img']          = $images['head'] ? $images['head'] : $images[0];
         $data['category_id']  = I('category','');
         $data['neworold']     = I('neworold','');
         $data['phone']        = I('phone',0);
         $data['relation_name']     = I('yourname','');
         $data['user_id']      = $_SESSION['me']['id'];
-        die();
+        
+        if (!$data['title'] || !$data['price'] || !$data['category_id'] ||
+            !$data['phone'] || !$data['relation_name'] || !$data['user_id']) {
+            $this->error('数据错误，请认真填写');
+        }
         if(I('id')){
             $data['updated'] = time();
             D('News')->where(array('id'=>I('id')))->save($data);

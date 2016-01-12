@@ -1,0 +1,1 @@
+ALTER TABLE `zt_content` ADD COLUMN `images` TEXT NOT NULL COMMENT '多图 json格式' AFTER `news_id`; 
