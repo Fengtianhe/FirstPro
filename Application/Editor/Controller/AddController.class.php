@@ -43,11 +43,11 @@ class AddController extends CommonController {
         if(I('id')){
             $data['updated'] = time();
             D('News')->where(array('id'=>I('id')))->save($data);
-            D('content')->where(array('news_id'=>I('id')))->save(array('content'=>I('editorValue')));
+            D('content')->where(array('news_id'=>I('id')))->save(array('content'=>I('editorValue'), 'images'=>$content_images));
         }else{
             $data['created'] = time();
             $id = D('News')->add($data);
-            D('content')->add(array('news_id'=>$id,'content'=>I('editorValue')));
+            D('content')->add(array('news_id'=>$id,'content'=>I('editorValue'), 'images'=>$content_images));
         }
         $this->success('发布成功');
     }
