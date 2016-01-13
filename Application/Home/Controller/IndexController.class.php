@@ -2,6 +2,9 @@
 namespace Home\Controller;
 use Think\Controller;
 class IndexController extends Controller {
+    public function _initialize(){
+        header("Content-type:text/html;charset=utf-8");
+    }
     public function getIPaddress(){
         $IPaddress='';
         if (isset($_SERVER)){
@@ -30,11 +33,24 @@ class IndexController extends Controller {
         $province = $IPinfo->data->region;
         $city = $IPinfo->data->city;
         //$data = $province.$city;
-        //return $data;
-        return $city;
+        return $data;
     }
     public function index()
     {  
+        $prov = M('province');
+        $provs = $prov->select();
+        $this->assign('provs',$provs);
+        if ($_GET['province']) {
+            $provinceid = $_GET['province'];
+            $province = $prov->where(array('provinceid'=>$provinceid))->find();
+            $ci = M('city');
+            $citys = $ci->where(array('fatherid'=>$provinceid))->select();
+            $this->assign('citys',$citys);
+            $this->assign('province',$province['province']);     
+        }
+        if ($_GET['city']) {
+            $this->assign('area',$_GET['city']); 
+        }
         $data = $this->taobaoIP();
         $this->assign('city',$data);
         $offset = 0;
