@@ -29,52 +29,23 @@
 <body>
 <!-- //end-smoth-scrolling -->
 <!--header start here-->
-<script>
-	function showselecta(){
-		$('#selecta').show();
-	}
-	function selecta(){
-		$('#selecta').hide();
-	}
-	function showselectb(){
-		$('#selectb').show();
-	}
-	function selectb(){
-		$('#selectb').hide();
-	}
-</script>
 <div class="header">
 	<div class="container">
 		<div class="header-main">
 			 <div class="logo">
 			 	<h1 style="width:40%;float:left"><a href="/">课外<span class="logo-clr">Online</span></a></h1>
 			 	<h6 style="width:60%;float:left;line-height:50px;">
-					<if condition="$province">
-		 				<a onclick="showselecta()">{$province}</a>
-		 			<else/>
-		 				<a onclick="showselecta()">[请选则省]</a>
-		 				
-		 			</if>
-		 				<div style="display:none;position:relative;left:100;top:100;z-index:100" id="selecta">
-		 					<ul>
-		 						<volist name="provs" id="vo">
-		 							<li><a href="{:U('home/index/index',array('province'=>$vo['provinceid']))}" onclick="selecta()">{$vo.province}</a></li>
-		 						</volist>
-		 					</ul>
-						</div>
-					<if condition="$area">
-		 				<a onclick="showselectb()">{$area}</a>
-		 			<else/>
-		 				<a onclick="showselectb()">[请选则市]</a>
-		 			</if>
-			 			<div style="display:none;position:relative;left:100;top:100;z-index:100" id="selectb">
-		 					<ul>
-		 						<volist name="citys" id="vo">	
-		 							<li><a href="{:U('home/index/index',array('province'=>$vo['provinceid'],'city'=>$vo['cityid']))}" onclick="selectb()">{$vo['city']}</a></li>
-		 						</volist>
-		 					</ul>
-						</div>
-			 		<a href="/" onclick="">[选择学校]</a>
+					<select name="area" id="area">
+						<?php foreach($area as $key=>$value) { ?>
+							<option value="<?php echo $key;?>"><?php echo $value['name']?></option>
+						<?php }?>
+						
+					</select>
+					<select name="school" id="school">
+						<?php foreach($area[$checked]['school'] as $key=>$value) { ?>
+							<option style="color:<?php echo $value['color']?$value['color']:'#000'?>" value="<?php echo $key;?>"><?php echo $value['name']?></option>
+						<?php }?>
+					</select>
 			 	</h6>
 			 </div>
 			 <div class="head-right">
@@ -120,3 +91,25 @@
 	</div>
 </div>
 <!--header end here-->
+<!-- ajax for school -->
+<script>
+	$(function(){
+		$('#area').change(function(){
+			var index = $(this).val();
+			$.ajax({
+				url:'/home/index/ajaxGetArea',
+				data : {'index':index},
+				type:'post',
+				dataType:'json',
+				success:function(data){
+					var option = '';
+					for(var item in data) {
+						option += '<option value="'+item+'">'+data[item]['name']+'</option>';
+					}
+					$('#school').empty().append(option);
+				}
+			});
+		});
+	})
+</script>
+<!-- //ajax for school -->

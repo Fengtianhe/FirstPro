@@ -2,57 +2,15 @@
 namespace Home\Controller;
 use Think\Controller;
 class IndexController extends Controller {
+    Public $area = array(
+       // '1' => array('name'=>'吉林市','school'=>array('1'=>'北华','2'=>'东电')),
+        '1' => array('name'=>'吉林市','school'=>array('1'=>array('name'=>'北华大学'),'2'=>array('name'=>'东北电力'))),
+    );
     public function _initialize(){
         header("Content-type:text/html;charset=utf-8");
     }
-    public function getIPaddress(){
-        $IPaddress='';
-        if (isset($_SERVER)){
-            if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])){
-                $IPaddress = $_SERVER["HTTP_X_FORWARDED_FOR"];
-            } else if (isset($_SERVER["HTTP_CLIENT_IP"])) {
-                $IPaddress = $_SERVER["HTTP_CLIENT_IP"];
-            } else {
-                $IPaddress = $_SERVER["REMOTE_ADDR"];
-            }
-        } else {
-            if (getenv("HTTP_X_FORWARDED_FOR")){
-                $IPaddress = getenv("HTTP_X_FORWARDED_FOR");
-            } else if (getenv("HTTP_CLIENT_IP")) {
-                $IPaddress = getenv("HTTP_CLIENT_IP");
-            } else {
-                $IPaddress = getenv("REMOTE_ADDR");
-            }
-        }
-        return $IPaddress;
-    }
-    public function taobaoIP(){
-        $clientIP = $this->getIPaddress();
-        $taobaoIP = 'http://ip.taobao.com/service/getIpInfo.php?ip='.$clientIP;
-        $IPinfo = json_decode(file_get_contents($taobaoIP));
-        $province = $IPinfo->data->region;
-        $city = $IPinfo->data->city;
-        //$data = $province.$city;
-        return $data;
-    }
     public function index()
     {  
-        $prov = M('province');
-        $provs = $prov->select();
-        $this->assign('provs',$provs);
-        if ($_GET['province']) {
-            $provinceid = $_GET['province'];
-            $province = $prov->where(array('provinceid'=>$provinceid))->find();
-            $ci = M('city');
-            $citys = $ci->where(array('fatherid'=>$provinceid))->select();
-            $this->assign('citys',$citys);
-            $this->assign('province',$province['province']);     
-        }
-        if ($_GET['city']) {
-            $this->assign('area',$_GET['city']); 
-        }
-        $data = $this->taobaoIP();
-        $this->assign('city',$data);
         $offset = 0;
         $limit  = 4;
         $category = M('Category')->where(array('pid'=>'0'))->select();
@@ -64,6 +22,8 @@ class IndexController extends Controller {
         $News = D('News');
         $top_list = $News->where($map)->order('id desc')->limit($offset.','.$limit)->select();
 
+        $this->assign('checked', 1);              
+        $this->assign('area', $this->area);       
         $this->assign('category',$category);
         $this->assign('top_list',$top_list);
     	$this->display();
@@ -83,6 +43,14 @@ class IndexController extends Controller {
     	$News = D('News');
     	$list = $News->where($map)->order('id desc')->limit($offset.','.$limit)->select();
     	$this->ajaxReturn($list);
+    }
+
+    public function ajaxGetArea()
+    {
+        $index = I('index',0);
+
+        $area = $this->area;
+        $this->ajaxReturn($area[$index]['school']);
     }
 
 }
