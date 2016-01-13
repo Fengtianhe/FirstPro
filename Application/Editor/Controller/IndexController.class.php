@@ -18,9 +18,9 @@ class IndexController extends CommonController {
         $id=$_SESSION['me']['id'];
         $News=M('news');
         $temps=$News->where(array('user_id' => $id))->field('id,title,price,img,show_count,is_top,is_del,created')->select();
-        foreach ($temps as $key=>$value) {//var_dump($value);
+        foreach ($temps as $key=>$value) {
+            $temps[$key]['img'] = '<img width="100px" height="100px" src="/Public/uploads/'.$value['img'].'">';
         	$temps[$key]['handle'] = $this->getHandleHtml($value);
-        	//$temps[$key]['handle'] = "<a href='/del/".$value['id']."'>删除</a>";
         }
         $this->ajaxReturn($temps);
     }

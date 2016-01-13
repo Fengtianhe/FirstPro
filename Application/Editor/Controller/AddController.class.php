@@ -15,7 +15,15 @@ class AddController extends CommonController {
     }
 
     public function addNew(){
-        $category = D('Category')->select();                                                                                     
+        $id = I('id',0);
+        $category = D('Category')->select();
+        if ($id) {
+            $info = M('News')->where(array('id'=>$id))->find();
+            $content = M('content')->where(array('news_id'=>$id))->find();
+            $info['images'] = json_decode($content['images'], true);
+            $info['content'] = $content['content'];
+            $this->assign('info',$info);
+        }                                                                                     
         $this->assign('category',$category);
         $this->assign('neworold',$this->neworold);
         $this->display();
@@ -43,11 +51,11 @@ class AddController extends CommonController {
         if(I('id')){
             $data['updated'] = time();
             D('News')->where(array('id'=>I('id')))->save($data);
-            D('content')->where(array('news_id'=>I('id')))->save(array('content'=>I('editorValue'), 'images'=>$content_images));
+            D('content')->where(array('news_id'=>I('id')))->save(array('content'=>I('content'), 'images'=>$content_images));
         }else{
             $data['created'] = time();
             $id = D('News')->add($data);
-            D('content')->add(array('news_id'=>$id,'content'=>I('editorValue'), 'images'=>$content_images));
+            D('content')->add(array('news_id'=>$id,'content'=>I('content'), 'images'=>$content_images));
         }
         $this->success('发布成功');
     }

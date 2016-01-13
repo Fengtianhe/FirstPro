@@ -11,7 +11,7 @@
 					    	<div class="col-sm-3">
 					      		<select class="form-control" name="category" id="selectCategory">
 					      		<foreach name="category" item="vo" >
-									<option value="{$vo.id}">{$vo.name}</option>
+									<option <if condition="$vo['id'] eq $info['category_id']">selected="selected"</if> value="{$vo.id}">{$vo.name}</option>
 								</foreach>
 								</select>
 					    	</div>
@@ -21,7 +21,7 @@
 					    	<div class="col-sm-3">
 					      		<select class="form-control" name="neworold" id="selectNeworold">
 								  <foreach name="neworold" item="vo" >
-									<option value="{$key}">{$vo.name}</option>
+									<option <if condition="$key eq $info['neworold']">selected="selected"</if> value="{$key}">{$vo.name}</option>
 								  </foreach>
 								</select>
 					    	</div>
@@ -29,54 +29,63 @@
 					  	<div class="form-group">
 					    	<label for="inputPrice" class="col-sm-2 control-label">价格</label>
 					    	<div class="col-sm-10">
-					      		<input type="text" class="form-control" id="inputPrice" name="price" placeholder="Price">
+					      		<input type="text" class="form-control" id="inputPrice" name="price" value="{$info.price}" placeholder="Price">
 					    	</div>
 					  	</div>
 					  	<div class="form-group">
 					    	<label for="inputImg" class="col-sm-2 control-label">多图上传</label>
 					    	<div class="col-sm-4">
-					    		<div id="images_list" class="images_list"></div>
+					    		<div id="images_list" class="images_list">
+					    			<?php foreach ($info['images'] as $key=>$value) {?>
+										<div id="id_<?php echo $key; ?>" class="file-item thumbnail">
+											<img src="__PUBLIC__/uploads/<?php echo $value; ?>">
+											<div class="handle"><a href="javascript:;" class="del">删除</a> <a href="javascript:;" class="set-head-img <?php if($key === 'head') {echo 'head-image';} ?>"><?php if($key === 'head') { echo '<font color="red">主图</font>';} else {echo '设为主图';}?></a></div>
+											<input type="hidden" name="imgs[<?php echo $key; ?>]" value="<?php echo $value; ?>">
+										</div>
+									<?php }?>
+					    		</div>
 					      		<div id="upload_images">上传多图</div>
 					    	</div>
 					  	</div>
 					  	<div class="form-group">
 					    	<label for="inputTitle" class="col-sm-2 control-label">标题</label>
 					    	<div class="col-sm-10">
-					      		<input type="text" class="form-control" id="inputTitle" name="title" placeholder="Title">
+					      		<input type="text" class="form-control" id="inputTitle" name="title" value="{$info.title}" placeholder="Title">
 					    	</div>
 					  	</div>
 					  	<div class="form-group">
 					    	<label for="inputKeyword" class="col-sm-2 control-label">关键字</label>
 					    	<div class="col-sm-10">
-					      		<input type="text" class="form-control" id="inputKeyword" name="keyword" placeholder="Keyword">
+					      		<input type="text" class="form-control" id="inputKeyword" name="keyword" value="{$info.keyword}" placeholder="Keyword">
 					    	</div>
 					  	</div>
 					  	<div class="form-group">
 					    	<label for="inputDescription" class="col-sm-2 control-label">描述</label>
 					    	<div class="col-sm-10">
-					      		<input type="text" class="form-control" id="inputDescription" name="description" placeholder="Description">
+					      		<input type="text" class="form-control" id="inputDescription" name="description" value="{$info.description}" placeholder="Description">
 					    	</div>
 					  	</div>
 					  	<div class="form-group">
 					    	<label for="inputEmail3" class="col-sm-2 control-label">商品详情</label>
 					    	<div class="col-sm-10">
-					      		<textarea id="info" name="info" data-provider="markdown" rows="12" class="form-control"></textarea>
+					      		<textarea id="content" name="content" data-provider="content" rows="12" class="form-control">{$info.content}</textarea>
 					    	</div>
 					  	</div>
 					  	<div class="form-group">
 					    	<label for="inputname" class="col-sm-2 control-label">联系人</label>
 					    	<div class="col-sm-10">
-					      		<input type="text" class="form-control" id="inputname" name="yourname" placeholder="Your Name">
+					      		<input type="text" class="form-control" id="inputname" name="yourname" value="{$info.relation_name}" placeholder="Your Name">
 					    	</div>
 					  	</div>
 					  	<div class="form-group">
 					    	<label for="inputPhone" class="col-sm-2 control-label">电话</label>
 					    	<div class="col-sm-10">
-					      		<input type="text" class="form-control" id="inputPhone" name="phone" placeholder="Phone">
+					      		<input type="text" class="form-control" id="inputPhone" name="phone" value="{$info.phone}" placeholder="Phone">
 					    	</div>
 					  	</div>
 					  	<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
+								<input type="hidden" name="id" value="{$info.id}">
 								<button type="submit" class="btn btn-default">提交</button>
 							</div>
 						</div>
@@ -135,10 +144,10 @@ $(function(){
 		$(this).closest('.file-item').remove();
 	});
 	$(document).on('click','.set-head-img',function(){
-		$('.head-image').html('设为主图').removeClass('head-image').closest('.file-item').find('input[name="imgs[head]"]').attr('name','imgs[]');
+		$('.head-image').html('设为主图').removeClass('head-image').closest('.file-item').find('input[name^="imgs"]').attr('name','imgs[]');
 		//$(this).;
 		$(this).html('<font color="red">主图</font>').addClass('head-image');
-		$(this).closest('.file-item').find('input[name="imgs[]"]').attr('name','imgs[head]');
+		$(this).closest('.file-item').find('input[name^="imgs"]').attr('name','imgs[head]');
 	});
 	
 });

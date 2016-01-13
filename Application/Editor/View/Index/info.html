@@ -67,6 +67,9 @@
 			} else if ($(this).hasClass('top')) {
 				act = 'top';
 				msg = '确定置顶么？本操可以在顶部显示您的信息但将消耗1课外币！';
+			}  else if ($(this).hasClass('edit')) {
+				window.location.href="/editor/add/addNew?id="+id;
+				return false;
 			}
 			var td = $(this).closest('td');
 			if (confirm(msg)) {
