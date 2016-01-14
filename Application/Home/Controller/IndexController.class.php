@@ -48,7 +48,10 @@ class IndexController extends Controller {
     public function ajaxGetArea()
     {
         $index = I('index',0);
-
+        $sindex = I('sindex',0);
+        $_SESSION['cookie']['area'] = $index;
+        $_SESSION['cookie']['school'] = $sindex;//保存所选择的学校
+    
         $area = $this->area;
         $this->ajaxReturn($area[$index]['school']);
     }

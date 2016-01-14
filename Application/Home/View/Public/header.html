@@ -35,13 +35,13 @@
 			 <div class="logo">
 			 	<h1 style="width:40%;float:left"><a href="/">课外<span class="logo-clr">Online</span></a></h1>
 			 	<h6 style="width:60%;float:left;line-height:50px;">
-					<select name="area" id="area">
+					<select name="area" id="area" style="width:30%">
 						<?php foreach($area as $key=>$value) { ?>
 							<option value="<?php echo $key;?>"><?php echo $value['name']?></option>
 						<?php }?>
 						
 					</select>
-					<select name="school" id="school">
+					<select name="school" id="school" style="width:20%">
 						<?php foreach($area[$checked]['school'] as $key=>$value) { ?>
 							<option style="color:<?php echo $value['color']?$value['color']:'#000'?>" value="<?php echo $key;?>"><?php echo $value['name']?></option>
 						<?php }?>
@@ -108,6 +108,19 @@
 					}
 					$('#school').empty().append(option);
 				}
+			});
+		});
+	})
+</script>
+<script>
+	$(function(){
+		$('#school').change(function(){
+			var index = $(this).val();
+			$.ajax({
+				url:'/home/index/ajaxGetArea',
+				data : {'sindex':index},
+				type:'post',
+				dataType:'json',
 			});
 		});
 	})
