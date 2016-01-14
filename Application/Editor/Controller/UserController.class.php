@@ -79,6 +79,8 @@ class UserController extends Controller {
         $password = I('post.password');
         if($email && $password){
             if($res = D('user')->where(array('email'=>$email,'password'=>md5($password)))->find()){
+                $data['lastlogintime'] = time();
+                M('user')->where(array('email' => $email))->save($data);
                 $_SESSION['me'] = $res;
                 $this->success('登陆成功',U('/editor/index/info'));
             }else{
@@ -95,6 +97,8 @@ class UserController extends Controller {
         $password = I('post.password');
         if($phone && $password){
             if($res = D('user')->where(array('phone'=>$phone,'password'=>md5($password)))->find()){
+                $data['lastlogintime'] = time();
+                M('user')->where(array('phone' => $phone))->save($data);
                 $_SESSION['me'] = $res;
                 $this->success('登陆成功',U('/editor/index/info'));
             }else{
