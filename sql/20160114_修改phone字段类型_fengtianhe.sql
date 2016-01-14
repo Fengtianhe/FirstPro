@@ -1,0 +1,1 @@
+ALTER TABLE `zt_user` CHANGE `phone` `phone` VARCHAR( 11 ) NOT NULL DEFAULT '0' COMMENT '电话'
