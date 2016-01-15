@@ -1,0 +1,117 @@
+/**{border:1px solid #000;}*/
+.text,.contactus,.advance{
+	float: left;
+	width: 100%;
+}
+.logo-tit{
+	margin-left: 5%;
+	width: 20%;
+}
+.logo-tit .zh{
+	font-size: 30px;
+}
+.ccontent{
+	margin-top: 24px;
+}
+.cicon{
+	width: 146px;
+	height: 146px;
+	border-radius: 73px;
+	float: left;
+	line-height: 146px;
+	text-align: center;
+}
+#xin{
+	background: #362E2B;
+	color: #D1C0A5;
+	font-size: 80px;
+}
+#lian{
+	background: #ADD5B9;
+	color: #09828A;
+	font-size: 80px;
+}
+#tu{
+	background: #D1C0A5;
+	color: #362E2B;
+	font-size: 80px;
+}
+.icon-right{
+	float: left;
+	width: 50%;
+	text-indent: 4%;
+}
+.row-line{
+	height:73px;
+	width: 100%;
+	border-bottom: 1px solid #D1C0A5;
+	line-height: 100px;
+}
+.icon-bottom{
+	height: 190px;
+	width: 146px;
+	float: left;
+	clear: both;
+}
+.contactus .icon-bottom{
+	height: 544px;
+}
+.contactus .icon-bottom .col-line{
+	height: 520px;
+}
+.col-line{
+	height: 165px;
+	width: 50%;
+	border-right: 1px solid #D1C0A5;
+}
+#letter{
+	width: 70%;
+	float: left;
+	height: 190px;
+	margin-top: -20px;
+	line-height: 40px;
+}
+#card{
+	width: 80%;
+	float: left;
+	height: 544px;
+	margin-top: -20px;
+	line-height: 40px;
+}
+.bbox{
+	width: 422px;
+	height: 206px;
+	background: #D1C0A5;
+	float: left;
+	margin-left: 20px;
+	margin-top:20px; 
+}
+.sbox{
+	margin-top: 40px;
+	margin-left: 40px;
+}
+.card-icon{
+	width: 126px;
+	height: 126px;
+	float: left;
+}
+.card-info{
+	float: left;
+	line-height: 31px;
+}
+.card-info span{
+	clear: both;
+	margin-left: 20px;
+}
+.advance .col-line{
+	height: 380px;
+}
+.advance .icon-bottom{
+	height: 400px;
+}
+.cleft{
+	float: left;
+}
+.cwidth{
+	width:80%;
+}

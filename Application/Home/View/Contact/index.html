@@ -1,4 +1,5 @@
 <include file="Public/header" />
+<link href="__PUBLIC__/home/css/contact.css" rel="stylesheet" type="text/css" media="all"/>
 <style type="text/css">
 .padding-top-10 {padding-top:10px;}
 .margin-top-10 {margin-top:10px;margin-bottom:10px;}
@@ -9,48 +10,165 @@
 </style>
 	<!--start-list-->
 		<div class="container">
-			<div class="row">
-				<div>
-					给用户的一封信 TODO 写死一个样式 用信件方式说明系统的功能等
-				</div>
-				<div class="contact_bottom">
-					<h3>回复区</h3>
-					<p>请填写您的意见反馈，方便我们对系统的改善，共同打造一个方便大家的平台。</p>
-					<form class="form-horizontal" action="/home/contact/insert" method="post">
-						<div class="form-group">
-							<label for="name" class="col-sm-2 control-label">名称</label>
-							<div class="col-sm-10">
-								<input type="text" name="name" class="form-control" id="name" placeholder="名称">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="email" class="col-sm-2 control-label">Email</label>
-							<div class="col-sm-10">
-								<input type="email" name="email" class="form-control" id="email" placeholder="Email">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="subject" class="col-sm-2 control-label">主题</label>
-							<div class="col-sm-10">
-								<input type="text" name="subject" class="form-control" id="subject" placeholder="主题">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="message" class="col-sm-2 control-label">详细内容</label>
-							<div class="col-sm-10">
-								<textarea id="message" name="message" placeholder="详细内容" class="form-control" rows="3"></textarea>
-							</div>
-						</div>
-
-
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-								<button type="submit" class="btn btn-default">发布</button>
-							</div>
-						</div>
-					</form>
+			<div class="cheader">
+				<div class="logo-tit">
+					<span class="zh">
+						喊我
+					</span>
+					<br/>
+					<span class="en">
+						Talk to me
+					</span>
 				</div>
 			</div>
+			<div class="ccontent">
+				<div class="text">
+					<div class="cicon" id="xin">
+						信
+					</div>
+					<div class="icon-right">
+						<div class="row-line">
+							给你们的一封信
+						</div>
+					</div>
+					<div class="icon-bottom">
+						<div class="col-line">
+							
+						</div>
+					</div>
+					<div id="letter">
+						亲爱的用户你好<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎来到“课外”寻宝，我们团队致力于开发优质的互联网校园二手交易平台，你可以免费发您的宝贝，并寻找他的新主人，因为“课外online”刚刚上线与大家见面，所以仅开放吉林市的大学，还会陆续开放其他城市，敬请期待。
+					</div>
+				</div>
+
+				<div class="contactus">
+					<div class="cicon" id="lian">
+						联
+					</div>
+					<div class="icon-right">
+						<div class="row-line">
+							联系我们&nbsp;&nbsp;&nbsp;&nbsp;了解我们&nbsp;&nbsp;&nbsp;&nbsp;业务洽谈
+						</div>
+					</div>
+					<div class="icon-bottom" >
+						<div class="col-line">
+							
+						</div>
+					</div>
+					<div id="card">
+						<div class="bbox">
+							<div class="sbox">
+								<div class="card-icon">
+									
+								</div>
+								<div class="card-info">
+									<span>姓名：马莹</span><br>
+									<span>职务：CEO</span><br>
+									<span>电话：123456748911</span><br>
+									<span>邮箱：123456789@qq.com</span>
+								</div>
+							</div>
+						</div>
+						<div class="bbox">
+							<div class="sbox">
+								<div class="card-icon">
+									
+								</div>
+								<div class="card-info">
+									<span>姓名：马莹</span><br>
+									<span>职务：CEO</span><br>
+									<span>电话：123456748911</span><br>
+									<span>邮箱：123456789@qq.com</span>
+								</div>
+							</div>
+						</div>
+						<div class="bbox">
+							<div class="sbox">
+								<div class="card-icon">
+									
+								</div>
+								<div class="card-info">
+									<span>姓名：马莹</span><br>
+									<span>职务：CEO</span><br>
+									<span>电话：123456748911</span><br>
+									<span>邮箱：123456789@qq.com</span>
+								</div>
+							</div>
+						</div>
+						<div class="bbox">
+							<div class="sbox">
+								<div class="card-icon">
+									
+								</div>
+								<div class="card-info">
+									<span>姓名：马莹</span><br>
+									<span>职务：CEO</span><br>
+									<span>电话：123456748911</span><br>
+									<span>邮箱：123456789@qq.com</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="advance">
+					<div class="cicon" id="tu">
+						吐
+					</div>
+					<div class="icon-right">
+						<div class="row-line">
+							不吐不快，说出你的建议，让“课外”更懂你。
+						</div>
+					</div>
+					<div class="icon-bottom">
+						<div class="col-line">
+							
+						</div>
+					</div>
+					<div id="suggest">
+						<div class="contact_bottom" style="width:100%">
+							<form class="form-horizontal" action="/home/contact/insert" method="post">
+								<div class="form-group cleft cwidth">
+									<label for="name" class="col-sm-2 control-label cleft">名称</label>
+									<div class="col-sm-10 cleft">
+										<input type="text" name="name" class="form-control" id="name" placeholder="名称">
+									</div>
+								</div>
+								<div class="form-group cleft cwidth">
+									<label for="email" class="col-sm-2 control-label cleft">Email</label>
+									<div class="col-sm-10 cleft">
+										<input type="email" name="email" class="form-control" id="email" placeholder="Email">
+									</div>
+								</div>
+								<div class="form-group cleft cwidth">
+									<label for="subject" class="col-sm-2 control-label cleft">主题</label>
+									<div class="col-sm-10 cleft">
+										<input type="text" name="subject" class="form-control" id="subject" placeholder="主题">
+									</div>
+								</div>
+								<div class="form-group cleft cwidth">
+									<label for="message" class="col-sm-2 control-label cleft">详细内容</label>
+									<div class="col-sm-10 cleft">
+										<textarea id="message" name="message" placeholder="详细内容" class="form-control" rows="3"></textarea>
+									</div>
+								</div>
+
+
+								<div class="form-group cleft cwidth">
+									<div class="col-sm-offset-2 col-sm-10">
+										<button type="submit" class="btn btn-default">发布</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- <div class="row">
+				
+			</div> -->
 		</div>
 <div id="dialog" title="Mark News" style="display:none">
 	<div class="form-group">
