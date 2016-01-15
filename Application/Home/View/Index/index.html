@@ -47,8 +47,8 @@
 				<div class="work-bottom">
 					<foreach name="top_list" item="vo">
 					<div class="col-md-3 portfolio-wrapper">		
-							<a href="images/b-w1.jpg" class="b-link-stripe b-animate-go  swipebox"  title="Image Title">
-						     <img src="__PUBLIC__/home/images/w1.jpg" alt="" class="img-responsive"></a>
+							<a class="b-link-stripe b-animate-go  swipebox"  title="{$vo.title}" href="__PUBLIC__/uploads/{$vo.img}">
+						     <img src="__PUBLIC__/uploads/{$vo.img}" alt="" class="img" width="271" height="271px"></a>
                          <div class="work-details">
 					   	  <h3>{$vo.title}</h3>
 					   	 <p>{$vo.description}</p>
