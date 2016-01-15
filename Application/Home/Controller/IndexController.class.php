@@ -5,6 +5,7 @@ class IndexController extends Controller {
     Public $area = array(
        // '1' => array('name'=>'吉林市','school'=>array('1'=>'北华','2'=>'东电')),
         '1' => array('name'=>'吉林市','school'=>array('1'=>array('name'=>'北华大学'),'2'=>array('name'=>'东北电力'))),
+        '2' => array('name'=>'长春市','school'=>array('3'=>array('name'=>'吉林大学'),'4'=>array('name'=>'长春大学'))),
     );
     public function _initialize(){
         header("Content-type:text/html;charset=utf-8");
@@ -23,7 +24,7 @@ class IndexController extends Controller {
         $top_list = $News->where($map)->order('id desc')->limit($offset.','.$limit)->select();
 
         $this->assign('checked', 1);              
-        $this->assign('area', $this->area);       
+        $this->assign('area', $this->area);
         $this->assign('category',$category);
         $this->assign('top_list',$top_list);
     	$this->display();
@@ -47,13 +48,30 @@ class IndexController extends Controller {
 
     public function ajaxGetArea()
     {
-        $index = I('index',0);
-        $sindex = I('sindex',0);
-        $_SESSION['cookie']['area'] = $index;
-        $_SESSION['cookie']['school'] = $sindex;//保存所选择的学校
-    
+        $id   = I('id',0);
+        $type = I('type','');
         $area = $this->area;
-        $this->ajaxReturn($area[$index]['school']);
+
+        if ($type == 'area') {
+            $data['status'] = 'OK';
+            $data['data'] = $area;
+            $data['default_id'] = $_SESSION['location']['area_id'];
+        } elseif ($type == 'school') {
+            $data['status'] = 'OK';
+            $_SESSION['location']['area_id'] = $id;
+            $_SESSION['location']['school_id'] = key($area[$id]['school']);
+            $data['default_id'] = $_SESSION['location']['school_id'];
+            $data['data'] = $area[$id]['school'];
+        } elseif ($type == 'finish') {
+            $data['status'] = 'ERROR';
+            $_SESSION['location']['school_id'] = $id;
+            $data['data'] = array();
+        } else {
+            $data['status'] = 'ERROR';
+            $data['data'] = array();
+        }
+    
+        $this->ajaxReturn($data);
     }
 
 }

@@ -94,35 +94,43 @@
 <!-- ajax for school -->
 <script>
 	$(function(){
+		ajaxGatData('area',0,'#area');
+		ajaxGatData('school',<?php echo $_SESSION['location']['area_id'] ? $_SESSION['location']['area_id']:1?>,'#school');
 		$('#area').change(function(){
 			var index = $(this).val();
-			$.ajax({
-				url:'/home/index/ajaxGetArea',
-				data : {'index':index},
-				type:'post',
-				dataType:'json',
-				success:function(data){
-					var option = '';
-					for(var item in data) {
-						option += '<option value="'+item+'">'+data[item]['name']+'</option>';
-					}
-					$('#school').empty().append(option);
-				}
-			});
+			ajaxGatData('school',index,'#school');
 		});
-	})
-</script>
-<script>
-	$(function(){
 		$('#school').change(function(){
 			var index = $(this).val();
-			$.ajax({
-				url:'/home/index/ajaxGetArea',
-				data : {'sindex':index},
-				type:'post',
-				dataType:'json',
-			});
+			ajaxGatData('finish',index,'');
 		});
 	})
+	function ajaxGatData(type,id,select) 
+	{
+		var defalut_id = -1;
+		if (type=='area') {
+			defalut_id =  <?php echo $_SESSION['location']['area_id'] ? $_SESSION['location']['area_id']:-1?>
+		} else if (type=='school') {
+			defalut_id = <?php echo $_SESSION['location']['school_id'] ? $_SESSION['location']['school_id']:-1?>
+		}
+		
+		$.ajax({
+			url:'/home/index/ajaxGetArea',
+			data : {'type':type,'id':id},
+			type:'post',
+			dataType:'json',
+			success:function(data){
+				if (data.status == 'OK') {
+					var option = '';
+					for(var item in data.data) {
+						if (defalut_id == item) var selected = 'selected="selected"'; else var selected = '';
+						option += '<option '+selected+' value="'+item+'">'+data.data[item]['name']+'</option>';
+					}
+					$(select).empty().append(option);
+				}
+			}
+		});
+	}
+
 </script>
 <!-- //ajax for school -->
