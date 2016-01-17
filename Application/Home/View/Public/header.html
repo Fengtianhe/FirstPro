@@ -17,6 +17,10 @@
 <!-- start-smoth-scrolling -->
 <script type="text/javascript" src="__PUBLIC__/home/js/move-top.js"></script>
 <script type="text/javascript" src="__PUBLIC__/home/js/easing.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/vendors/jquery-ui/jquery-ui.css">
+<script src="__PUBLIC__/vendors/jquery-ui/jquery-ui.js"></script>
+
 	<script type="text/javascript">
 			jQuery(document).ready(function($) {
 				$(".scroll").click(function(event){		
@@ -75,8 +79,8 @@
 						<a href="/editor/index/info">{$_SESSION['me']['email']}</a>
 					</li>
 					<else />
-					<li><a href="/editor/user/login">登录</a></li>
-					<li><a href="/editor/user/reg">注册</a></li>
+					<li><a class="login" href="javascript:;">登录</a></li>
+					<li><a class="reg" href="javascript:;">注册</a></li>
 					</if>
 					
 					<!-- <li><a class="fa" href="#"><span> </span> </a></li>
@@ -134,3 +138,39 @@
 
 </script>
 <!-- //ajax for school -->
+
+<div class="container" id="login_html" style="display:none">
+	
+</div>
+<div class="container" id="reg_html"  style="display:none">
+	
+</div>
+<script type="text/javascript">
+$(function(){
+	$('.login').click(function(){
+		$.ajax({
+			type:"post",
+			url:"/editor/user/login",
+			dataType:"json",
+			success:function(data){
+				$('#login_html').html(data.data);
+			}
+		})
+	 	$( "#login_html" ).dialog({height:400,width:600});
+	 	return false;
+	});
+
+	$('.reg').click(function(){
+		$.ajax({
+			type:"post",
+			url:"/editor/user/reg",
+			dataType:"json",
+			success:function(data){
+				$('#reg_html').html(data.data);
+			}
+		})
+	 	$( "#reg_html" ).dialog({height:600,width:600});
+	 	return false;
+	});
+})
+</script>

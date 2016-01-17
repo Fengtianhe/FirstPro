@@ -65,12 +65,20 @@ class UserController extends Controller {
         $answer=M('answer')->select();
         $this->assign('s_answer',$answer);
         $this->assign('s_list',$lists);
-        $this->display();
+        ////获取页面内容 ajax返回 弹窗显示
+        $html = $this->fetch('user/reg');
+        $data['data'] = $html;
+        $data['status'] = 'OK';
+        $this->ajaxReturn($data);
     }
 
     //登录页面
     public function login(){
-        $this->display();
+        //获取页面内容 ajax返回 弹窗显示
+        $html = $this->fetch('user/login');
+        $data['data'] = $html;
+        $data['status'] = 'OK';
+        $this->ajaxReturn($data);
     }
 
     //邮箱登陆
@@ -119,5 +127,4 @@ class UserController extends Controller {
     	$_SESSION['me'] = '';
     	$this->redirect('home/index/index');
     }
-
 }

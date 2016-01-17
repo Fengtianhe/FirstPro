@@ -6,6 +6,7 @@
 .detail ul {margin:20px auto;}
 .detail-top	li {list-style-type: none;line-height:34px;}
 .detail-content {border:1px solid #DDD;border-top:0px;}
+img {width:100%;}
 </style>
 	<!--start-list-->
 		<div class="container">
@@ -40,7 +41,14 @@
 							<li role="presentation" class="active"><a href="#">详情</a></li>
 						</ul>
 						<div class="detail-content padding-top-10">
-							{$new_info.content|htmlspecialchars_decode}
+							<p>
+								{$new_info.content}
+							</p>
+							<foreach name="new_images" item="vo">
+							<a class="swipebox"  title="详情图" href="__PUBLIC__/uploads/{$vo}">
+								<img src="__PUBLIC__/uploads/{$vo}">
+						    </a>
+							</foreach>
 						</div>
 						
 					</div>
@@ -77,10 +85,14 @@
 	    </div>
 	</div>
 </div>
-<link rel="stylesheet" href="__PUBLIC__/vendors/jquery-ui/jquery-ui.css">
-<script src="__PUBLIC__/vendors/jquery-ui/jquery-ui.js"></script>
-<script>
+
+<link rel="stylesheet" href="__PUBLIC__/home/css/swipebox.css">
+<script src="__PUBLIC__/home/js/jquery.swipebox.min.js"></script>
+<script type="text/javascript">
 $(function() {
+
+	$(".swipebox").swipebox();
+
 	$('.mark').click(function(){
 	 	$( "#dialog" ).dialog({height:300,width:600});
 	});

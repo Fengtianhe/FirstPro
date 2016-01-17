@@ -42,9 +42,11 @@ class NewsController extends Controller {
         
    		$new_info = M('News')->where(array('id'=>$id))->find();
         $new_info['show_count'] = D('News')->showNum($id);
-   		$new_content = M('Content')->where(array('news_id',$id))->find();
+   		$new_content = M('Content')->where(array('news_id'=>$id))->find();
+        //$new_info['images'] = json_decode($new_content['images'], true);
    		$new_info['content'] = $new_content['content'];
    		$this->assign('new_info',$new_info);
+        $this->assign('new_images',json_decode($new_content['images'], true));
    		$this->display();
    	}
 
@@ -81,11 +83,4 @@ class NewsController extends Controller {
         }
         echo json_encode($arr);
     }
-
-    public function test()
-    {
-        var_dump($_REQUEST);
-    }
-
-
 }

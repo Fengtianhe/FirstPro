@@ -14,7 +14,7 @@ class ContactController extends Controller {
     	$_SESSION['me']['id'] && $_POST['user_id'] = $_SESSION['me']['id'];
     	M('Contact')->create();
     	M('Contact')->add();
-    	$this->success();
+    	$this->success('发送成功');
     }
 
 }

@@ -3,9 +3,10 @@
 	padding:0;
 }
 #row {
-	float: right;
+	/*float: right;*/
 	width: 306px;
 	height: 263px;
+	margin:0 auto;
 	border:1px solid #CFCFCF;
 }
 #row .hd {
@@ -27,7 +28,7 @@
 	height: 29px;
 	border-right: 1px solid #CFCFCF;
 	border-bottom: 1px solid #CFCFCF;
-	background:url(images/1.jpg) repeat-x;
+	/*background:url(images/1.jpg) repeat-x;*/
 	float: left;
 	cursor:pointer;
 }

@@ -47,7 +47,17 @@ class IndexController extends CommonController {
     		} elseif ($act == 'recover') {
     			$data['is_del'] = 0;
     		} elseif ($act == 'top') {
-    			$data['is_top'] = 1;
+                //判断是否符合置顶条件 置顶需要金币 
+                $user_info  = M('user')->where(array('id'=>$user_id))->find();
+                if ($user_info['account'] > 0 ) {
+                    M('User')->where(array('id'=>$user_id))->setDec('account');
+                    $data['is_top'] = 1;
+                } else {
+                    $return_data['status'] = 'ERROR';
+                    $return_data['info']   = '您的余额不足，不能完成置顶操作。';
+                    $return_data['data']   = '';
+                    $this->ajaxReturn($return_data);
+                }
     		}
     		$data['updated'] = time();
     		$flag = M('news')->where(array('id'=>$id,'user_id'=>$user_id))->save($data);
