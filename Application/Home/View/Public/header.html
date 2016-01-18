@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="__PUBLIC__/vendors/jquery-ui/jquery-ui.css">
 <script src="__PUBLIC__/vendors/jquery-ui/jquery-ui.js"></script>
 
+<script src="__PUBLIC__/vendors/layer/layer.js"></script>
 	<script type="text/javascript">
 			jQuery(document).ready(function($) {
 				$(".scroll").click(function(event){		
@@ -79,9 +80,11 @@
 						<a href="/editor/index/info">{$_SESSION['me']['email']}</a>
 					</li>
 					<else />
-					<li><a class="login" href="javascript:;">登录</a></li>
-					<li><a class="reg" href="javascript:;">注册</a></li>
+					<li><a class="login user" href="javascript:;">登录</a></li>
+					<li><a class="reg user" href="javascript:;">注册</a></li>
 					</if>
+					&nbsp;&nbsp;
+					<a href="/editor/Add/addNew" class="btn btn-default add-new">发布</a>
 					
 					<!-- <li><a class="fa" href="#"><span> </span> </a></li>
 					<li><a class="tw" href="#"><span> </span> </a></li>
@@ -139,38 +142,64 @@
 </script>
 <!-- //ajax for school -->
 
-<div class="container" id="login_html" style="display:none">
-	
-</div>
-<div class="container" id="reg_html"  style="display:none">
-	
-</div>
 <script type="text/javascript">
 $(function(){
-	$('.login').click(function(){
-		$.ajax({
-			type:"post",
-			url:"/editor/user/login",
-			dataType:"json",
-			success:function(data){
-				$('#login_html').html(data.data);
-			}
-		})
-	 	$( "#login_html" ).dialog({height:400,width:600});
+	var layer_index = 0;
+	$('.user').click(function(){
+		
+		var url = '';
+		var layer_offset = 'auto';
+		if ($(this).hasClass('login')) {
+			url = '/editor/user/login';
+			layer_offset = ['30%', '38%'];
+		} else if ($(this).hasClass('reg')) {
+			url = '/editor/user/reg';
+		}
+		//执行弹窗
+		layer_index = dialog(url,layer_offset);
 	 	return false;
 	});
 
-	$('.reg').click(function(){
+	//登录页 去注册 关闭当前弹窗 打开新弹窗
+	$(document).on('click','.to-reg',function(){
+		layer.close(layer_index);
+		dialog('/editor/user/reg','auto');
+	});
+
+	//点击发布
+	$('.add-new').click(function(){
+		if (<?php echo $_SESSION['me']['id']?$_SESSION['me']['id']:0;?>) {
+			return true;
+		}
+		dialog('/editor/user/login',['30%', '38%'])
+		return false;
+	});
+
+    //抽象弹窗方法
+	function dialog(url,layer_offset)
+	{
+		var html = '';
 		$.ajax({
-			type:"post",
-			url:"/editor/user/reg",
-			dataType:"json",
-			success:function(data){
-				$('#reg_html').html(data.data);
+			type  : "post",
+			url   : url,
+			dataType: "json",
+			async   : false,
+			success : function(data){
+				html = data.data;
 			}
 		})
-	 	$( "#reg_html" ).dialog({height:600,width:600});
-	 	return false;
-	});
+	 	
+	 	var layer_index = layer.open({
+		    type: 1,
+		    title: false,
+		    maxWidth : 5000,
+		    offset: layer_offset,
+		    closeBtn: 0,
+		    shadeClose: true,
+		    skin: 'yourclass',
+		    content: html
+		});
+		return layer_index;
+	}
 })
 </script>

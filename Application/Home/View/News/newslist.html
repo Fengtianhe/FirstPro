@@ -1,6 +1,7 @@
 <include file="Public/header" />
 <style type="text/css">
 	.thumbnail h3 a {color:#000;text-decoration: none;}
+	.mouse-style {cursor:pointer}
 </style>
 <!--events start here-->
 <div class="feature">
@@ -9,9 +10,9 @@
 			<div class="search feature-head">
 				<h3>所有宝贝</h3>
 				<p>
-					<span class="label label-primary" rel="">全部</span>&nbsp;&nbsp;
+					<span class="label label-primary mouse-style" rel="">全部</span>&nbsp;&nbsp;
 					<foreach name="category" item="c_vo">
-					<span class="label label-primary" rel="{$c_vo.id}">{$c_vo.name}</span>&nbsp;&nbsp; 
+					<span class="label label-primary mouse-style" rel="{$c_vo.id}">{$c_vo.name}</span>&nbsp;&nbsp; 
 					</foreach>
 				</p>
 			</div>

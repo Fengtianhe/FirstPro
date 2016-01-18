@@ -50,7 +50,7 @@ class UserController extends Controller {
             $data['created'] = time();
             M('user')->add($data);
             $_SESSION['me'] = $data;
-            $this->success('注册成功',U('/editor/index/info'));
+            $this->success('注册成功',U('/home/index/index'));
         }
         
     }
@@ -90,7 +90,7 @@ class UserController extends Controller {
                 $data['lastlogintime'] = time();
                 M('user')->where(array('email' => $email))->save($data);
                 $_SESSION['me'] = $res;
-                $this->success('登陆成功',U('/editor/index/info'));
+                $this->success('登陆成功',U('/home/index/index'));
             }else{
                 $this->error('登陆失败');
             }
@@ -108,7 +108,7 @@ class UserController extends Controller {
                 $data['lastlogintime'] = time();
                 M('user')->where(array('phone' => $phone))->save($data);
                 $_SESSION['me'] = $res;
-                $this->success('登陆成功',U('/editor/index/info'));
+                $this->success('登陆成功',U('/home/index/index'));
             }else{
                 $this->error('登陆失败');
             }

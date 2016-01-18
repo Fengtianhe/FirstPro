@@ -2,34 +2,15 @@
 	margin:0;
 	padding:0;
 }
-#row {
-	/*float: right;*/
-	width: 306px;
-	height: 263px;
-	margin:0 auto;
-	border:1px solid #CFCFCF;
-}
 #row .hd {
-	height: 30px;
+	height: 50px;
 	border-top: 2px solid #206F96;
 	text-align: center;
-	font: 14px/30px "����";
+	font: 14px/30px "Á×ÂÎ";
 }
-#row .hd .s1 {
-	width: 152px;
-	height: 29px;
-	border-left:1px solid #CFCFCF;
-	border-right: 1px solid #CFCFCF;
-	float: left;
-	cursor:pointer;
-}
-#row .hd .s2 {
-	width: 152px;
-	height: 29px;
-	border-right: 1px solid #CFCFCF;
-	border-bottom: 1px solid #CFCFCF;
-	/*background:url(images/1.jpg) repeat-x;*/
-	float: left;
+#row .hd .s {
+	height: 50px;
+	line-height: 50px;
 	cursor:pointer;
 }
 #row .bd ul {
@@ -46,12 +27,12 @@
 #row .login{
 	width: 100px
 }
-#row .form-group{
+/*#row .form-group{
 	width: 305px;
 }
 #row form{
 	width: 280px;
-}
+}*/
 #row .col-sm-offset-4{
 
 }
@@ -72,3 +53,13 @@
 	font-size:12px;
 
 }
+
+/*弹窗内容所需样式 author maying*/
+.login_div {width:410px;height:300px;padding:0px;}
+.reg_div {width:500px;height:500px;}
+.background-ccc {background:#ccc;}
+.mt30 {margin-top:30px;}
+.mt10 {margin-top:10px;}
+.w100p {width:100%;}
+.icons {position: relative;top: 10px;left: 6px;height:0px;float:left;}
+.pl25 {padding-left:25px;}

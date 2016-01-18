@@ -4,7 +4,7 @@ use Think\Controller;
 class CommonController extends Controller {
 	public function _initialize(){
 		if(!$_SESSION['me']['id']){
-			$this->error('请重新登录',U('editor/user/login'));
+			$this->error('登录失效',U('home/index/index'));
 		}
 	}
 	public function father(){

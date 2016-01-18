@@ -1,0 +1,1 @@
+ALTER TABLE `zt_user` ADD COLUMN `account` INT DEFAULT 0 NOT NULL COMMENT '账户' AFTER `status`;
