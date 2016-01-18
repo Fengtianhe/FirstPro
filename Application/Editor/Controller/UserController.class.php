@@ -66,7 +66,7 @@ class UserController extends Controller {
         $this->assign('s_answer',$answer);
         $this->assign('s_list',$lists);
         ////获取页面内容 ajax返回 弹窗显示
-        $html = $this->fetch('user/reg');
+        $html = $this->fetch('User/reg');
         $data['data'] = $html;
         $data['status'] = 'OK';
         $this->ajaxReturn($data);
@@ -75,7 +75,7 @@ class UserController extends Controller {
     //登录页面
     public function login(){
         //获取页面内容 ajax返回 弹窗显示
-        $html = $this->fetch('user/login');
+        $html = $this->fetch('User/login');
         $data['data'] = $html;
         $data['status'] = 'OK';
         $this->ajaxReturn($data);
