@@ -1,0 +1,18 @@
+.collect{
+	width: 1150px;
+	border:1px solid #000;
+}
+.col_menu{
+	height: 84px;
+}
+.col_menu ul li{
+	width: 140px;
+	text-align: center;
+	display: inline;
+	float: left;
+	list-style: none;
+	line-height: 84px;
+}
+.collect_table{
+	text-align: center;
+}

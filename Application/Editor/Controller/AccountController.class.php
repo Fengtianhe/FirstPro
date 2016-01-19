@@ -83,14 +83,19 @@ class AccountController extends CommonController{
 			if ($result) {
 				$this->success('修改成功，请登录！',U('editor/user/login'));
 			}
-			else{
+			else{ 
 				$this->error('修改失败，或与原密码一样，请重试');
 			}
 		}else{
 			$this->error('两次输入的密码不一致！');
 		}
 	}
-
-
+	public function MyCollection(){
+		$uid = $_SESSION['me']['id'];
+		$Collection = M('Collect');
+		$datas = $Collection->where(array('user_id' => $uid))->select();
+		var_dump($datas);
+		$this->display();
+	}
 }
 ?>
