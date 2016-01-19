@@ -48,10 +48,10 @@
 	height:25px;
 	float:left;
 	line-height: 25px;
+	padding-left:20px;
 }
 .login_check a{
 	font-size:12px;
-
 }
 
 /*弹窗内容所需样式 author maying*/

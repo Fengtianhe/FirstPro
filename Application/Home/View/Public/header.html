@@ -22,14 +22,17 @@
 <script src="__PUBLIC__/vendors/jquery-ui/jquery-ui.js"></script>
 
 <script src="__PUBLIC__/vendors/layer/layer.js"></script>
-	<script type="text/javascript">
-			jQuery(document).ready(function($) {
-				$(".scroll").click(function(event){		
-					event.preventDefault();
-					$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
-				});
+<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$(".scroll").click(function(event){		
+				event.preventDefault();
+				$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 			});
-	</script>
+		});
+</script>
+<style type="text/css">
+	.area {height:21px;line-height:21px;}
+</style>
 </head>
 <body>
 <!-- //end-smoth-scrolling -->
@@ -39,18 +42,9 @@
 		<div class="header-main">
 			 <div class="logo">
 			 	<h1 style="width:40%;float:left"><a href="/">课外<span class="logo-clr">Online</span></a></h1>
-			 	<h6 style="width:60%;float:left;line-height:50px;">
-					<select name="area" id="area" style="width:30%">
-						<?php foreach($area as $key=>$value) { ?>
-							<option value="<?php echo $key;?>"><?php echo $value['name']?></option>
-						<?php }?>
-						
-					</select>
-					<select name="school" id="school" style="width:20%">
-						<?php foreach($area[$checked]['school'] as $key=>$value) { ?>
-							<option style="color:<?php echo $value['color']?$value['color']:'#000'?>" value="<?php echo $key;?>"><?php echo $value['name']?></option>
-						<?php }?>
-					</select>
+			 	<h6 style="width:60%;float:left;">
+					<div class="area">北华大学</div>
+					<div class="btn btn-default change-area">切换</div>
 			 	</h6>
 			 </div>
 			 <div class="head-right">
@@ -101,49 +95,7 @@
 	</div>
 </div>
 <!--header end here-->
-<!-- ajax for school -->
-<script>
-	$(function(){
-		ajaxGatData('area',0,'#area');
-		ajaxGatData('school',<?php echo $_SESSION['location']['area_id'] ? $_SESSION['location']['area_id']:1?>,'#school');
-		$('#area').change(function(){
-			var index = $(this).val();
-			ajaxGatData('school',index,'#school');
-		});
-		$('#school').change(function(){
-			var index = $(this).val();
-			ajaxGatData('finish',index,'');
-		});
-	})
-	function ajaxGatData(type,id,select) 
-	{
-		var defalut_id = -1;
-		if (type=='area') {
-			defalut_id =  <?php echo $_SESSION['location']['area_id'] ? $_SESSION['location']['area_id']:-1?>
-		} else if (type=='school') {
-			defalut_id = <?php echo $_SESSION['location']['school_id'] ? $_SESSION['location']['school_id']:-1?>
-		}
-		
-		$.ajax({
-			url:'/home/index/ajaxGetArea',
-			data : {'type':type,'id':id},
-			type:'post',
-			dataType:'json',
-			success:function(data){
-				if (data.status == 'OK') {
-					var option = '';
-					for(var item in data.data) {
-						if (defalut_id == item) var selected = 'selected="selected"'; else var selected = '';
-						option += '<option '+selected+' value="'+item+'">'+data.data[item]['name']+'</option>';
-					}
-					$(select).empty().append(option);
-				}
-			}
-		});
-	}
 
-</script>
-<!-- //ajax for school -->
 
 <script type="text/javascript">
 $(function(){
@@ -167,6 +119,11 @@ $(function(){
 	$(document).on('click','.to-reg',function(){
 		layer.close(layer_index);
 		dialog('/editor/user/reg','auto');
+	});
+
+	//切换地区
+	$('.change-area').click(function(){
+		dialog('/home/index/changearea','auto');
 	});
 
 	//点击发布

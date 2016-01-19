@@ -46,32 +46,12 @@ class IndexController extends Controller {
     	$this->ajaxReturn($list);
     }
 
-    public function ajaxGetArea()
+    public function changeArea()
     {
-        $id   = I('id',0);
-        $type = I('type','');
-        $area = $this->area;
-
-        if ($type == 'area') {
-            $data['status'] = 'OK';
-            $data['data'] = $area;
-            $data['default_id'] = $_SESSION['location']['area_id'];
-        } elseif ($type == 'school') {
-            $data['status'] = 'OK';
-            $_SESSION['location']['area_id'] = $id;
-            $_SESSION['location']['school_id'] = key($area[$id]['school']);
-            $data['default_id'] = $_SESSION['location']['school_id'];
-            $data['data'] = $area[$id]['school'];
-        } elseif ($type == 'finish') {
-            $data['status'] = 'ERROR';
-            $_SESSION['location']['school_id'] = $id;
-            $data['data'] = array();
-        } else {
-            $data['status'] = 'ERROR';
-            $data['data'] = array();
-        }
-    
+        //获取页面内容 ajax返回 弹窗显示
+        $html = $this->fetch('Index/changeArea');
+        $data['data'] = $html;
+        $data['status'] = 'OK';
         $this->ajaxReturn($data);
     }
-
 }
