@@ -1,7 +1,10 @@
-<link rel="stylesheet" href="__PUBLIC__/editor/css/collect.css">
+
 <include file="Public/header" />
 
 <include file="Public/nav" />
+
+<link rel="stylesheet" href="__PUBLIC__/editor/css/collect.css">
+<script src="__PUBLIC__/editor/js/collect_table.js"></script>
 
 <div class="container">
 	 <div class="collect">
@@ -14,16 +17,29 @@
 	 		</ul>
 	 	</div>
 	 	<div class="collect_table">
-	 		<table>
-	 			<tr height="70px">
-	 				<td width="140px">宝贝</td>
-	 				<td width="160px">主图</td>
-	 				<td>新旧</td>
-	 				<td>出售状态</td>
-	 				<td>发布人</td>
-	 				<td>价格</td>
-	 				<td>操作</td>
+	 		<div class="collect_title">
+	 			<ul style="heigt:70px;">
+	 				<li style="width:140px">宝贝</li>
+	 				<li style="width:160px">宝图</li>
+	 				<li style="width:120px">新旧</li>
+	 				<li style="width:120px">出售状态</li>
+	 				<li style="width:120px">发布人</li>
+	 				<li style="width:130px">价格</li>
+	 				<li style="width:310px">操作</li>
+	 			</ul>
+	 		</div>
+	 		<table style="margin-top:10px;" class="stripe">
+	 			<volist name="datas" id="vo">
+	 			<tr height="140px">
+	 				<td width="140px">{$vo['newstitle']}</td>
+	 				<td width="160px"><img src="__PUBLIC__/uploads/{$vo['img']}"></td>
+	 				<td width="120px">{$vo['neworold']}</td>
+	 				<td width="120px">{$vo['is_del']}</td>
+	 				<td width="120px">{$vo['username']}</td>
+	 				<td width="130px" style="color:#a50000">￥{$vo['price']}</td>
+	 				<td width="360px"><a href="" class="butta"><div class="butt">取消关注</div></a><a href="" class="butta"><div class="butt">联系TA</div></a></td>
 	 			</tr>
+	 			</volist>
 	 		</table>
 	 	</div>
 	 </div>
