@@ -144,5 +144,15 @@ class AccountController extends CommonController{
 		$this->assign('datas',$datas);
 		$this->display();
 	}
+	public function Cancel()
+	{
+		$cid = $_GET['cid'];
+		$data['status'] = '-1';
+		if (M('collect')->where(array('id' => $cid ))->save($data)) {
+			$this->success('操作成功');
+		}else{
+			$this->error('操作失败');
+		}
+	}
 }
 ?>
