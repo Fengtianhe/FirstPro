@@ -26,11 +26,26 @@ img {width:100%;}
 									<li><span>电话：</span><span>{$new_info.phone}</span></li>
 								</ul>
 								<ul>
+								<?php
+									if ($is_collect) {
+										$glyphicon_name = 'glyphicon-star';
+										$collect_tip = '已';
+										$collect_type = -1;
+									} else {
+										$glyphicon_name = 'glyphicon-star-empty';
+										$collect_tip = '';
+										$collect_type = 0;
+									}
+								?>
 									<li>
-										<a class="btn btn-default mark">举报</a>
 										<if condition="$_SESSION['me']['id']">
-											<a class="btn btn-default collect">收藏</a>
+										<button type="button" class="collect btn btn-default" rel="<?php echo $collect_type;?>">
+											<span class="glyphicon <?php echo $glyphicon_name;?>" aria-hidden="true"></span> <span class="collect_tip"><?php echo $collect_tip;?></span>收藏
+										</button>
 										</if>
+										<button type="button" class="mark btn btn-default">
+											<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> 举报
+										</button>
 									</li>
 								</ul>
 							</div>
@@ -129,9 +144,10 @@ $(function() {
 
 	//收藏
 	$('.collect').click(function(){
-		var id = <?php echo $new_info['id']; ?>;
+		var id = $(this).closest('p').attr('rel');
 		var user_id = <?php if($_SESSION['me']['id']) echo $_SESSION['me']['id']; else echo 0; ?>;
-
+		var collect_type = $(this).attr('rel');
+		var btn = $(this);
 		$.ajax({
 			url    : "/home/news/ajaxHandleCollect",
 			type   : "post",
@@ -139,9 +155,25 @@ $(function() {
 			data   : {
 				id           :  id,
 				user_id      :  user_id,
+				collect_type :  collect_type,
 			},
 			success:function(data){
-				alert(data.info);
+				if(data.status == "OK")
+				{
+					btn.attr('rel',data.collect_type);
+					if (data.collect_type == -1) {
+						btn.find('span.glyphicon').removeClass('glyphicon-star-empty').addClass('glyphicon-star');
+						btn.find('span.collect_tip').text('已');
+					} else {
+						btn.find('span.glyphicon').removeClass('glyphicon-star').addClass('glyphicon-star-empty');
+						btn.find('span.collect_tip').text('');
+					}
+					
+				}
+				else
+				{
+					alert(data.info);
+				}
 			}
 		});
 	});

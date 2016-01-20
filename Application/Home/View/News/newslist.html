@@ -47,9 +47,22 @@
 						        </div>
 						    </div>
 							<p rel="{$vo.id}">
-								<button type="button" class="collect btn btn-default">
-									<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span> 收藏
+							<?php
+								if ($collect_arr[$vo['id']]) {
+									$glyphicon_name = 'glyphicon-star';
+									$collect_tip = '已';
+									$collect_type = -1;
+								} else {
+									$glyphicon_name = 'glyphicon-star-empty';
+									$collect_tip = '';
+									$collect_type = 0;
+								}
+							?>
+								<if condition="$_SESSION['me']['id']">
+								<button type="button" class="collect btn btn-default" rel="<?php echo $collect_type;?>">
+									<span class="glyphicon <?php echo $glyphicon_name;?>" aria-hidden="true"></span> <span class="collect_tip"><?php echo $collect_tip;?></span>收藏
 								</button>
+								</if>
 								<button type="button" class="mark btn btn-default">
 									<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> 举报
 								</button>
@@ -127,6 +140,7 @@ $(function() {
 	$('.collect').click(function(){
 		var id = $(this).closest('p').attr('rel');
 		var user_id = <?php if($_SESSION['me']['id']) echo $_SESSION['me']['id']; else echo 0; ?>;
+		var collect_type = $(this).attr('rel');
 		var btn = $(this);
 		$.ajax({
 			url    : "/home/news/ajaxHandleCollect",
@@ -135,11 +149,20 @@ $(function() {
 			data   : {
 				id           :  id,
 				user_id      :  user_id,
+				collect_type :  collect_type,
 			},
 			success:function(data){
 				if(data.status == "OK")
 				{
-					btn.find('span').removeClass('glyphicon-star-empty').addClass('glyphicon-star');
+					btn.attr('rel',data.collect_type);
+					if (data.collect_type == -1) {
+						btn.find('span.glyphicon').removeClass('glyphicon-star-empty').addClass('glyphicon-star');
+						btn.find('span.collect_tip').text('已');
+					} else {
+						btn.find('span.glyphicon').removeClass('glyphicon-star').addClass('glyphicon-star-empty');
+						btn.find('span.collect_tip').text('');
+					}
+					
 				}
 				else
 				{
