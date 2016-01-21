@@ -37,7 +37,7 @@
 	 				<td width="120px">{$vo['is_del']}</td>
 	 				<td width="120px">{$vo['username']}</td>
 	 				<td width="130px" style="color:#a50000">￥{$vo['price']}</td>
-	 				<td width="360px"><a href="/Editor/Account/Cancel?cid={$vo.id}" class="butta"><div class="butt">取消关注</div></a><a href="" class="butta"><div class="butt">联系TA</div></a></td>
+	 				<td width="360px"><a href="{:U('editor/account/cancel',array('cid'=>$vo['id']))}" class="butta"><div class="butt">取消关注</div></a><a href="" class="butta"><div class="butt">联系TA</div></a></td>
 	 			</tr>
 	 			</volist>
 	 		</table>
