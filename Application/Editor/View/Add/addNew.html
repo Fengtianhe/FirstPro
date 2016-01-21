@@ -1,5 +1,7 @@
 <include file="Public/header" />
-
+<style type="text/css">
+	.error {color:red;font-size:13px;padding-left:10px;}
+</style>
 <include file="Public/nav" />
 	<!--start-list-->
 		<div class="container">
@@ -99,6 +101,8 @@
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/vendors/webuploader/webuploader.css">
 <script type="text/javascript" src="__PUBLIC__/vendors/webuploader/webuploader.min.js"></script>
 
+<script type="text/javascript" src="__PUBLIC__/vendors/validate/jquery.validate.min.js"></script>
+
 
 <script type="text/javascript">
 //初始化 uploader
@@ -151,6 +155,45 @@ $(function(){
 	});
 	
 });
+</script>
+<script type="text/javascript">
+$(function(){
+	$("#addForm").validate({
+		rules: {
+			price: "required",
+			title: "required",
+			keyword: "required",
+			description: "required",
+			content: "required",
+			yourname: "required",
+			phone: {
+				minlength :11,
+				maxlength: 11,
+				number : true,
+				required : true,
+			},
+		},
+		messages: {
+			price: "请填写价格",
+			title: "请填写标题",
+			keyword: "请填写关键字",
+			description: "请填写描述",
+			content: "请填写描述",
+			yourname: "请填写联系人姓名",
+			phone: {
+				minlength    :"联系电话格式有误",
+				maxlength    : "联系电话格式有误",
+				number : "联系电话格式有误",
+				required : "请填写联系电话",
+			},
+		},
+
+		submitHandler: function(form) {
+			form.submit();
+		}
+	});
+
+})
 </script>
 
 <include file="Public/footer" />
