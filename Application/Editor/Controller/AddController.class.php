@@ -15,6 +15,21 @@ class AddController extends CommonController {
     }
 
     public function addNew(){
+        $user_info = M('User')->where(array('id'=>$_SESSION['me']['id']))->find();
+        $checkEnableAdd = D('News')->checkEnableAdd($user_info);
+        if ($checkEnableAdd['status'] == 'ERROR') {
+            switch ($checkEnableAdd['error_type']) {
+                case 1 : 
+                    $msg = '请完善用户学校相关信息';
+                    break;
+                case 2 :
+                    $msg = '用户异常，请联系系统管理员';
+                    break;
+                default :
+                    $msg = '未知错误';
+            }
+            $this->error($msg, '/editor/account/index');
+        }
         $id = I('id',0);
         $category = D('Category')->select();
         if ($id) {
@@ -31,6 +46,10 @@ class AddController extends CommonController {
 
     public function saveNew(){
 
+        $user_info = M('User')->where(array('id'=>$_SESSION['me']['id']))->find();
+        if (!$user_info) {
+            $this->error('用户信息失效', '/home/index/index');
+        }
         $images = I('imgs',array());
         $content_images = json_encode($images);
         $data['title']        = I('title','');
@@ -43,6 +62,10 @@ class AddController extends CommonController {
         $data['phone']        = I('phone',0);
         $data['relation_name']     = I('yourname','');
         $data['user_id']      = $_SESSION['me']['id'];
+
+        $data['province_id']    = $user_info['province_id'];
+        $data['city_id']        = $user_info['city_id'];
+        $data['school_id']      = $user_info['school_id'];
         
         if (!$data['title'] || !$data['price'] || !$data['img'] || !$data['category_id'] ||
             !$data['phone'] || !$data['relation_name'] || !$data['user_id']) {

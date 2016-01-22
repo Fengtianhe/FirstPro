@@ -29,6 +29,9 @@ class NewsController extends Controller {
         {
             $map['title'] = array('like','%'.$_REQUEST['keyword'].'%');
         }
+        if ($_SESSION['area']['school']['id'] > 0) {
+            $map['school_id'] = (int) $_SESSION['area']['school']['id'];
+        }
         $map['id_del'] = array('neq',1); 
     	$News = M('News'); // 实例化News对象
         $count      = $News->where($map)->count();// 查询满足要求的总记录数
@@ -56,7 +59,7 @@ class NewsController extends Controller {
         $collect  = M('Collect')->where(array('user_id'=>$_SESSION['me']['id'], 'news_id'=>$id, 'status'=>0))->field('id, news_id')->find();
    		if (is_array($collect) && !empty($collect)) {
             $is_collect = 1;
-        } 
+        }
         $new_info['content'] = $new_content['content'];
    		$this->assign('new_info',$new_info);
         $this->assign('is_collect',$is_collect);

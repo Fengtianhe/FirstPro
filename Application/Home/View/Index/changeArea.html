@@ -1,10 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
 <style type="text/css">
-	.area_div {width:400px;height:300px;}
+	.left{
+		float: left;
+	}
+	.right{
+		float: right;
+	}
+	.tip{
+		width: 580px;
+		min-height: 150px;
+		max-height: 300px;
+		border: 1px solid #ddd;
+	}
+	.tip_head{
+		padding: 25px;
+		font-size: 12px;
+	}
+	.tip_head span {
+		display: inline-block;
+	}
+	.span_left{
+		color: #6a3906;
+	}
+	.span_right{
+		color: #a78e79;
+	}
+	.tip_content{
+		margin-top: 20px;
+	}
+	.content_left{
+		display: inline-block;
+		/*width: 15%;*/
+		padding: 0 16px 0 40px;
+		color: #a78c79;
+		font-size: 16px;
+	}
+	.content_right{
+		display: inline-block;
+		width: 70%;
+		color: #593d0e;
+		font-size: 14px;
+	}
+	.content_right span{
+		display: inline-block;
+		margin: 0 10px 10px 10px;
+	}
 </style>
-<div class="container-fluid area_div">
-	<div class="row">
-		<div class="col-md-12" style="margin-top:10px;">
-			
+<body>
+<div class="tip">
+	<div class="tip_head">
+		<span class="span_left left">吉林省</span>
+		<span class="span_right right">没有你的学校？申请开通</span>
+	</div>
+	<div class="tip_content">
+		<div class="content_left left">
+			<span>吉林市</span>
+		</div>
+		<div class="content_right left">
+			<foreach name="school_list" item="vo">
+				<span class="area_item" rel="{$vo.id}">{$vo.s_name}</span>
+			</foreach>
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	$(document).on('click','.area_item',function(){
+		var school_id = $(this).attr('rel');
+		var school_name = $(this).text();
+		$.ajax({
+			type : "post",
+			data : {school_id,school_id},
+			url  : "/home/index/handleChangeArea",
+			dataType : "json",
+			success : function(){
+				$('.area').html(school_name);
+				layer.closeAll();
+			}
+		});
+	});
+</script>
+</body>
+</html>

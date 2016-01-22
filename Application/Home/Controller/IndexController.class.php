@@ -48,10 +48,21 @@ class IndexController extends Controller {
 
     public function changeArea()
     {
+        $school_list = M('university_all')->select();
+        
+        $this->assign('school_list', $school_list);
         //获取页面内容 ajax返回 弹窗显示
         $html = $this->fetch('Index/changeArea');
         $data['data'] = $html;
         $data['status'] = 'OK';
         $this->ajaxReturn($data);
+    }
+
+    public function handleChangeArea()
+    {
+        $school_id = I('school_id',0);
+        $school_info = M('university_all')->where(array('id'=>$school_id))->find();
+        $_SESSION['area']['school'] = $school_info;
+        $this->ajaxReturn(array('status'=>'OK','info'=>'设置成功'));
     }
 }
