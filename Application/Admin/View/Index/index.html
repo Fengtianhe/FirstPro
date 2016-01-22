@@ -8,6 +8,8 @@
 <link href="__PUBLIC__/admin/themes/css/core.css" rel="stylesheet" type="text/css" media="screen"/>
 <link href="__PUBLIC__/admin/themes/css/print.css" rel="stylesheet" type="text/css" media="print"/>
 <link href="__PUBLIC__/admin/uploadify/css/uploadify.css" rel="stylesheet" type="text/css" media="screen"/>
+<!--  -->
+<link href="__PUBLIC__/admin/admin.css" rel="stylesheet" type="text/css"/>
 <!--[if IE]>
 <link href="themes/css/ieHack.css" rel="stylesheet" type="text/css" media="screen"/>
 <![endif]-->
@@ -91,7 +93,7 @@ $(function(){
 	<div id="layout">
 		<div id="header">
 			<div class="headerNav">
-				<a class="logo" href="http://j-ui.com">标志</a>
+				<a class="logo" href="{:U('Admin/Index/index')}">标志</a>
 				<ul class="nav">
 					<li id="switchEnvBox"><a href="javascript:">（<span>北京</span>）切换城市</a>
 						<ul>
@@ -135,6 +137,17 @@ $(function(){
 				<div class="toggleCollapse"><h2>主菜单</h2><div>收缩</div></div>
 
 				<div class="accordion" fillSpace="sidebar">
+					<div class="accordionHeader">
+						<h2><span>Folder</span>数据管理</h2>
+					</div>
+					<div class="accordionContent">
+						<ul class="tree treeFolder">
+							<li>
+								<a href="{:U('Admin/User/main')}" target="navTab" rel="main">用户管理</a>
+							</li>
+						</ul>
+					</div>
+					<!--  -->
 					<div class="accordionHeader">
 						<h2><span>Folder</span>界面组件</h2>
 					</div>
