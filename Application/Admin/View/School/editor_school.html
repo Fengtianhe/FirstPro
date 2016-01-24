@@ -1,0 +1,54 @@
+<h2 class="contentTitle">学校编辑</h2>
+
+
+<div class="pageContent">
+	
+	<form method="post" action="/admin/school/saveSchool" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+		<div class="pageFormContent nowrap" layoutH="97">
+			<p style="width:500px">
+				<label>学校名称：</label>
+				<input type="text" name="s_name" maxlength="20" class="required" value="{$school_info.s_name}" />
+			</p>
+			<p style="width:500px">
+				<label>地区：</label>
+				<select class="required" name="province_id" id="province">
+						<option value="">所有城市</option>
+						<foreach name="area_tree" item="province" id="province">
+						<option value="{$key}">{$province.province}</option>
+						</foreach>
+					</select>
+					<select class="required" name="city_id" id="city">
+						<option value="">所有城市</option>
+					</select>
+			</p>
+			<div class="divider"></div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<input type="hidden" name="id" value="{$school_info['id']}">
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+</div>
+<script type="text/javascript">
+	$(function(){
+		var area_tree = <?php echo json_encode($area_tree);?>;
+		$(document).on('change', '#province', function(){
+			var province_id = $(this).val();
+			var html = '';
+			if (province_id) {
+				var city = area_tree[province_id]['child'];
+				for (i in city) {
+					html += '<option value="'+city[i]['cityid']+'">'+city[i]['city']+'</option>';
+				}
+			} else {
+				html = '<option value="">所有城市</option>';
+			} 
+			
+			$('#city').html(html);
+		})
+	})
+</script>

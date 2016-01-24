@@ -1,0 +1,1 @@
+ALTER TABLE `zt_university_all` ADD COLUMN `created` INT(11) DEFAULT 0 NOT NULL COMMENT '创建时间' AFTER `status`; 
