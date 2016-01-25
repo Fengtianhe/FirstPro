@@ -6,10 +6,6 @@ class UserController extends CommonController {
 		header("Content-type:text/html;charset=utf-8");
     }
     public function lists(){
-    	$date = date(m月d日,time());
-    	$weekarray=array("星期日","星期一","星期二","星期三","星期四","星期五","星期六");
-    	$week = $weekarray[date(w,time())];
-    	$dateweek = $date.'，'.$week ;
     	$userlist = M('user')->select();
     	$usercount = count($userlist);
     	$this->assign('usercount',$usercount);
