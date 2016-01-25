@@ -13,12 +13,17 @@
 				<label>地区：</label>
 				<select class="required" name="province_id" id="province">
 						<option value="">所有城市</option>
-						<foreach name="area_tree" item="province" id="province">
-						<option value="{$key}">{$province.province}</option>
+						<foreach name="area_tree" item="province">
+						<option value="{$key}" <if condition="$key eq $school_info['province_id']">selected="selected"</if>>{$province.province}</option>
 						</foreach>
 					</select>
 					<select class="required" name="city_id" id="city">
 						<option value="">所有城市</option>
+						<if condition="$school_info['province_id']">
+						<foreach name="area_tree[$school_info['province_id']]['child']" item="city">
+						<option value="{$city.cityid}" <if condition="$key eq $school_info['city_id']">selected="selected"</if>>{$city.city}</option>
+						</foreach>
+						</if>
 					</select>
 			</p>
 			<div class="divider"></div>
@@ -26,6 +31,7 @@
 		<div class="formBar">
 			<ul>
 				<input type="hidden" name="id" value="{$school_info['id']}">
+				<input type="hidden" name="close_dialog" value="1">
 				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
 				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
 			</ul>

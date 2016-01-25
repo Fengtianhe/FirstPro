@@ -6,28 +6,36 @@
 </form>
 
 <div class="pageHeader">
-	<form rel="pagerForm" onsubmit="return navTabSearch(this);" action="w_removeSelected.html" method="post">
+	<form rel="pagerForm" onsubmit="return navTabSearch(this);" action="/admin/school/lists" method="post">
 	<div class="searchBar">
 		<ul class="searchContent">
 			<li>
-				<label>我的客户：</label>
-				<input type="text" name="keywords" value=""/>
+				<label>学校名称：</label>
+				<input type="text" name="s_name" value="<?php echo $_REQUEST['s_name']?>"/>
 			</li>
 			<li>
-			<select class="combox" name="province">
-				<option value="">所有省市</option>
-				<option value="北京">北京</option>
-				<option value="上海">上海</option>
-				<option value="天津">天津</option>
-				<option value="重庆">重庆</option>
-				<option value="广东">广东</option>
-			</select>
+				<p style="width:500px">
+					<label>地区：</label>
+					<select class="" name="province_id" id="province">
+						<option value="">所有城市</option>
+						<foreach name="area_tree" item="province">
+						<option value="{$key}" <if condition="$key eq $_REQUEST['province_id']">selected="selected"</if>>{$province.province}</option>
+						</foreach>
+					</select>
+					<select class="" name="city_id" id="city">
+						<option value="">所有城市</option>
+						<if condition="$_REQUEST['province_id']">
+						<foreach name="area_tree[$_REQUEST['province_id']]['child']" item="city">
+						<option value="{$city.cityid}" <if condition="$key eq $_REQUEST['city_id']">selected="selected"</if>>{$city.city}</option>
+						</foreach>
+						</if>
+					</select>
+				</p>
 			</li>
 		</ul>
 		<div class="subBar">
 			<ul>
 				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
-				<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>
 			</ul>
 		</div>
 	</div>
@@ -82,3 +90,22 @@
 
 	</div>
 </div>
+<script type="text/javascript">
+	$(function(){
+		var area_tree = <?php echo json_encode($area_tree);?>;
+		$(document).on('change', '#province', function(){
+			var province_id = $(this).val();
+			var html = '';
+			if (province_id) {
+				var city = area_tree[province_id]['child'];
+				for (i in city) {
+					html += '<option value="'+city[i]['cityid']+'">'+city[i]['city']+'</option>';
+				}
+			} else {
+				html = '<option value="">所有城市</option>';
+			} 
+			
+			$('#city').html(html);
+		})
+	})
+</script>

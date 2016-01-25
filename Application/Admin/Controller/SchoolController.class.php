@@ -13,12 +13,32 @@ class SchoolController extends CommonController {
     public function lists(){
         $area_tree = gatAreaData();
 
-        $school_list = M('University_all')->select();
+        if (I('request.s_name', 0)) {
+            $where['s_name'] = trim(I('request.s_name'));
+        }
+        if (I('request.province_id', 0)) {
+            $where['province_id'] = trim(I('request.province_id'));
+        }
+        if (I('request.city_id', 0)) {
+            $where['city_id'] = trim(I('request.city_id'));
+        }
+        $school_list = M('University_all')->where($where)->select();
 
         $this->assign('school_status', $this->school_status);
         $this->assign('area_tree', $area_tree);
         $this->assign('school_list', $school_list);
     	$this->display();
+
+        /*//
+        $User = M('User'); // 实例化User对象
+        $count      = $User->where('status=1')->count();// 查询满足要求的总记录数
+        $Page       = new \Think\Page($count,25);// 实例化分页类 传入总记录数和每页显示的记录数(25)
+        $show       = $Page->show();// 分页显示输出
+        // 进行分页数据查询 注意limit方法的参数要使用Page类的属性
+        $list = $User->where('status=1')->order('create_time')->limit($Page->firstRow.','.$Page->listRows)->select();
+        $this->assign('list',$list);// 赋值数据集
+        $this->assign('page',$show);// 赋值分页输出
+        $this->display(); // 输出模板*/
     }
 
     public function editor_school(){
@@ -50,14 +70,15 @@ class SchoolController extends CommonController {
             M('university_all')->add($data);
         }
 
-        $result['statusCode'] = "OK";
+        $result['statusCode'] = "200";
         $result['message']   = "修改成功";
-        $result['navTabId'] = "";
+        $result['navTabId'] = "school";
         $result['rel']   = "school";
-        $result['callbackType'] = "closeCurrent";
+        if (I('close_dialog') == 1) {
+            $result['callbackType'] = "closeCurrent";
+        }
         $result['forwardUrl']   = "";
         $result['confirmMsg'] = "";
-
         $this->ajaxReturn($result);
     }
 }
