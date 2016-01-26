@@ -24,7 +24,7 @@
 			<p style="width:500px">
 				<label>学校：</label>
 				<select class="required" name="school_id" id="school">
-						<option value="{$user_info.school}">{$user_info.school}</option>
+						<option value="{$user_info.school_id}">{$user_info.school}</option>
 						<volist name="school_list" id="vo">
 							<option value="{$vo.id}">{$vo.s_name}</option>
 						</volist>
@@ -33,13 +33,13 @@
 			<p style="width:500px">
 				<label>地区：</label>
 				<select class="required" name="province_id" id="province">
-						<option value="">所有城市</option>
+						<option value="{$user_info.province_id}">{$user_info.province}</option>
 						<foreach name="area_tree" item="province" id="province">
 						<option value="{$key}">{$province.province}</option>
 						</foreach>
 					</select>
 					<select class="required" name="city_id" id="city">
-						<option value="">所有城市</option>
+						<option value="{$user_info.city_id}">{$user_info.city}</option>
 					</select>
 			</p>
 			<div class="divider"></div>

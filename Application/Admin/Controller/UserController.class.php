@@ -22,9 +22,9 @@ class UserController extends CommonController {
     		$school_id = $user_info['school_id'];
     		$province_id =  $user_info['province_id'];
     		$city_id =  $user_info['city_id'];
-    		$province = M('province')->where(array('id' => $province_id))->find();
+    		$province = M('province')->where(array('provinceid' => $province_id))->find();
     		$user_info['province'] = $province['province'];
-    		$city = M('city') -> where(array('id' => $city_id ))->find();
+    		$city = M('city') -> where(array('cityid' => $city_id ))->find();
     		$user_info['city'] = $city['city'];
     		$school = M('University_all')->where(array('id' => $school_id))->find();
     		$user_info['school'] = $school['s_name'];
@@ -39,9 +39,28 @@ class UserController extends CommonController {
     	$this->display();
     }
     public function saveUser(){
+    	$uid = I('post.id',0);
     	$data['nickname'] = I('post.nickname',0);
+    	$data['email'] = I('post.email',0);
+    	$data['phone'] = I('post.phone',0);
+    	$data['school_id'] = I('post.school_id',0);
+    	$data['province_id'] = I('post.province_id',0);
+    	$data['city_id'] = I('post.city_id',0);
     	if (I('password')) {
     		$data['password'] = md5(I('password'));
+    	}
+    	if ($uid) {
+    		$re = M('user') ->where(array('id'=>$uid))->save($data);
+    	
+            $result['statusCode'] = "200";
+            $result['message']   = "修改成功";
+            $result['navTabId'] = "user";
+            $result['rel']   = "user";
+            $result['callbackType'] = "closeCurrent";
+            $result['forwardUrl']   = "";
+            $result['confirmMsg'] = "";
+
+            $this->ajaxReturn($result);
     	}
     }
 
