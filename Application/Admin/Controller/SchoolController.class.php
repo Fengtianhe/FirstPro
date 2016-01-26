@@ -11,8 +11,13 @@ class SchoolController extends CommonController {
 		header("Content-type:text/html;charset=utf-8");
     }
     public function lists(){
-        $area_tree = gatAreaData();
-
+        $limit = 15;
+        $pageNum        = I('pageNum', 1);
+        $orderField     = I('orderField', 'id');
+        $orderDirection = I('orderDirection', 'desc');
+        $numPerPage     = I('numPerPage', $limit);
+        
+        $offset = ($pageNum -1) * $limit;
         if (I('request.s_name', 0)) {
             $where['s_name'] = trim(I('request.s_name'));
         }
@@ -22,23 +27,21 @@ class SchoolController extends CommonController {
         if (I('request.city_id', 0)) {
             $where['city_id'] = trim(I('request.city_id'));
         }
-        $school_list = M('University_all')->where($where)->select();
-
+        if (I('request.status', 0)) {
+            $where['status'] = trim(I('request.status'));
+        }
+        if (I('request.start_time', 0) && I('request.end_time', 0)) {
+            $where['created'] =  array(array('gt',strtotime(trim(I('request.start_time')))),array('lt',strtotime(trim(I('request.end_time')))));
+        }
+        $area_tree = gatAreaData();
+        $totalCount  = M('University_all')->where($where)->count('id');
+        $school_list = M('University_all')->where($where)->order($orderField.' '.$orderDirection)->limit($offset.','.$limit)->select();
+        $page = array('pageNum'=>$pageNum, 'orderField'=>$orderField, 'orderDirection'=>$orderDirection, 'numPerPage'=>$numPerPage, 'totalCount'=>$totalCount);
+        $this->assign('page', $page);
         $this->assign('school_status', $this->school_status);
         $this->assign('area_tree', $area_tree);
         $this->assign('school_list', $school_list);
     	$this->display();
-
-        /*//
-        $User = M('User'); // 实例化User对象
-        $count      = $User->where('status=1')->count();// 查询满足要求的总记录数
-        $Page       = new \Think\Page($count,25);// 实例化分页类 传入总记录数和每页显示的记录数(25)
-        $show       = $Page->show();// 分页显示输出
-        // 进行分页数据查询 注意limit方法的参数要使用Page类的属性
-        $list = $User->where('status=1')->order('create_time')->limit($Page->firstRow.','.$Page->listRows)->select();
-        $this->assign('list',$list);// 赋值数据集
-        $this->assign('page',$show);// 赋值分页输出
-        $this->display(); // 输出模板*/
     }
 
     public function editor_school(){
@@ -67,6 +70,7 @@ class SchoolController extends CommonController {
         if ($id) {
             M('university_all')->where(array('id'=>$id))->save($data);
         } else {
+            $data['created'] = time();
             M('university_all')->add($data);
         }
 

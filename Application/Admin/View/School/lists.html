@@ -1,28 +1,28 @@
 <form id="pagerForm" method="post" action="#rel#">
 	<input type="hidden" name="pageNum" value="1" />
-	<input type="hidden" name="numPerPage" value="${model.numPerPage}" />
-	<input type="hidden" name="orderField" value="${param.orderField}" />
-	<input type="hidden" name="orderDirection" value="${param.orderDirection}" />
+	<input type="hidden" name="numPerPage" value="{$page.numPerPage}" />
+	<input type="hidden" name="orderField" value="{$page.orderField}" />
+	<input type="hidden" name="orderDirection" value="{$page.orderDirection}" />
 </form>
 
 <div class="pageHeader">
 	<form rel="pagerForm" onsubmit="return navTabSearch(this);" action="/admin/school/lists" method="post">
 	<div class="searchBar">
-		<ul class="searchContent">
+		<ul class="searchContent" style="height:auto">
 			<li>
-				<label>学校名称：</label>
+				学校名称：
 				<input type="text" name="s_name" value="<?php echo $_REQUEST['s_name']?>"/>
 			</li>
 			<li>
 				<p style="width:500px">
-					<label>地区：</label>
-					<select class="" name="province_id" id="province">
+					地　　区：
+					<select class="" name="province_id" id="s_province" style="width:100px">
 						<option value="">所有城市</option>
 						<foreach name="area_tree" item="province">
 						<option value="{$key}" <if condition="$key eq $_REQUEST['province_id']">selected="selected"</if>>{$province.province}</option>
 						</foreach>
 					</select>
-					<select class="" name="city_id" id="city">
+					<select class="" name="city_id" id="s_city" style="width:100px">
 						<option value="">所有城市</option>
 						<if condition="$_REQUEST['province_id']">
 						<foreach name="area_tree[$_REQUEST['province_id']]['child']" item="city">
@@ -31,6 +31,21 @@
 						</if>
 					</select>
 				</p>
+			</li>
+			<li>
+				<p style="width:500px">
+					状　　态：
+					<select class="" name="status" id="status">
+							<option value="">所有城市</option>
+							<foreach name="school_status" item="statu">
+							<option value="{$key}" <if condition="$key eq $_REQUEST['status']">selected="selected"</if>>{$statu.name}</option>
+							</foreach>
+					</select>
+				</p>
+			</li>
+			<li>
+				注册时间：
+				<input type="text" class="date" name="start_time" value="<?php echo $_REQUEST['start_time']?>" style="width:75px"/>~<input type="text" class="date" name="end_time" value="<?php echo $_REQUEST['end_time']?>" style="width:75px"/>
 			</li>
 		</ul>
 		<div class="subBar">
@@ -50,7 +65,7 @@
 			<li><a class="delete" href="/admin/school/saveSchool?id={sid}&status=1" target="ajaxTodo" warn="请选择一个用户" title="确认开通本学校么？开通后前台将显示本学校信息！！"><span>开通</span></a></li>
 		</ul>
 	</div>
-	<table class="table" width="100%" layoutH="138">
+	<table class="table" width="100%" layoutH="160">
 		<thead>
 			<tr>
 				<th width="12"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
@@ -76,24 +91,17 @@
 	</table>
 	<div class="panelBar">
 		<div class="pages">
-			<span>显示</span>
-			<select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
-				<option value="20">20</option>
-				<option value="50">50</option>
-				<option value="100">100</option>
-				<option value="200">200</option>
-			</select>
-			<span>条，共${totalCount}条</span>
+			<span>共{$page.totalCount}条</span>
 		</div>
 		
-		<div class="pagination" targetType="navTab" totalCount="200" numPerPage="20" pageNumShown="10" currentPage="1"></div>
+		<div class="pagination" targetType="navTab" totalCount="{$page.totalCount}" numPerPage="{$page.numPerPage}" pageNumShown="6" currentPage="{$page.pageNum}"></div>
 
 	</div>
 </div>
 <script type="text/javascript">
 	$(function(){
 		var area_tree = <?php echo json_encode($area_tree);?>;
-		$(document).on('change', '#province', function(){
+		$(document).on('change', '#s_province', function(){
 			var province_id = $(this).val();
 			var html = '';
 			if (province_id) {
@@ -105,7 +113,7 @@
 				html = '<option value="">所有城市</option>';
 			} 
 			
-			$('#city').html(html);
+			$('#s_city').html(html);
 		})
 	})
 </script>
