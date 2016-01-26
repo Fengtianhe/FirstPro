@@ -56,11 +56,13 @@ class UserController extends CommonController {
             M('user')->where(array('id'=>$id))->save($data);
         }
 
-        $result['statusCode'] = "OK";
+        $result['statusCode'] = "200";
         $result['message']   = "修改成功";
-        $result['navTabId'] = "";
-        $result['rel']   = "usercontainer";
-        $result['callbackType'] = "closeCurrent";
+        $result['navTabId'] = "user";
+        $result['rel']   = "user";
+        if(I('close_dialog') == 1){
+        	$result['callbackType'] = "closeCurrent";
+        }
         $result['forwardUrl']   = "";
         $result['confirmMsg'] = "";
 
