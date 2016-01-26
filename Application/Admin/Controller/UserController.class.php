@@ -44,4 +44,26 @@ class UserController extends CommonController {
     		$data['password'] = md5(I('password'));
     	}
     }
+
+    public function ajaxChangeStatus(){
+    	$id = I('get.id', 0);
+    	$st = I('get.status',0);
+        if ($st == 0) {
+        	$data['status'] = -1;
+            M('user')->where(array('id'=>$id))->save($data);
+        } else {
+        	$data['status'] = 0;
+            M('user')->where(array('id'=>$id))->save($data);
+        }
+
+        $result['statusCode'] = "OK";
+        $result['message']   = "修改成功";
+        $result['navTabId'] = "";
+        $result['rel']   = "usercontainer";
+        $result['callbackType'] = "closeCurrent";
+        $result['forwardUrl']   = "";
+        $result['confirmMsg'] = "";
+
+        $this->ajaxReturn($result);
+    }
 }
