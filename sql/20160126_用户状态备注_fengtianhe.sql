@@ -1,0 +1,1 @@
+ALTER TABLE  `zt_user` CHANGE  `status`  `status` INT( 11 ) NOT NULL DEFAULT  '0' COMMENT  '状态0：正常,-1：关闭';

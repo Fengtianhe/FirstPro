@@ -2,7 +2,7 @@
 function gatAreaData()
 {
 	$province = M('Province')->select();
-    $city     = M('city')->select();
+    $city     = M('City')->select();
 	foreach ($province as $key=>$value) {
 		$area_tree[$value['provinceid']] = $value;
 	}

@@ -1,0 +1,75 @@
+<h2 class="contentTitle">添加用户</h2>
+
+
+<div class="pageContent">
+	
+	<form method="post" action="/admin/user/saveUser" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+		<div class="pageFormContent nowrap" layoutH="97">
+			<p style="width:500px">
+				<label>用户名：</label>
+				<input type="text" name="nickname" maxlength="20" class="required" value="{$user_info.nickname}" />
+			</p>
+			<p style="width:500px">
+				<label>邮箱：</label>
+				<input type="text" name="email" maxlength="20" class="required email" value="{$user_info.email}" />
+			</p>
+			<p style="width:500px">
+				<label>手机：</label>
+				<input type="text" name="phone" maxlength="11" minlength="11" class="required" value="{$user_info.phone}" />
+			</p>
+			<p style="width:500px">
+				<label>密码：</label>
+				<input name="password" type="password" id="password" class="password" value=""  />
+			</p>
+			<p style="width:500px">
+				<label>学校：</label>
+				<select class="required" name="school_id" id="school">
+						<option value="{$user_info.school}">{$user_info.school}</option>
+						<volist name="school_list" id="vo">
+							<option value="{$vo.id}">{$vo.s_name}</option>
+						</volist>
+					</select>
+			</p>
+			<p style="width:500px">
+				<label>地区：</label>
+				<select class="required" name="province_id" id="province">
+						<option value="">所有城市</option>
+						<foreach name="area_tree" item="province" id="province">
+						<option value="{$key}">{$province.province}</option>
+						</foreach>
+					</select>
+					<select class="required" name="city_id" id="city">
+						<option value="">所有城市</option>
+					</select>
+			</p>
+			<div class="divider"></div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<input type="hidden" name="id" value="{$user_info['id']}">
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+</div>
+<script type="text/javascript">
+	$(function(){
+		var area_tree = <?php echo json_encode($area_tree);?>;
+		$(document).on('change', '#province', function(){
+			var province_id = $(this).val();
+			var html = '';
+			if (province_id) {
+				var city = area_tree[province_id]['child'];
+				for (i in city) {
+					html += '<option value="'+city[i]['cityid']+'">'+city[i]['city']+'</option>';
+				}
+			} else {
+				html = '<option value="">所有城市</option>';
+			} 
+			
+			$('#city').html(html);
+		})
+	})
+</script>
