@@ -1,48 +1,47 @@
 <form id="pagerForm" method="post" action="#rel#">
 	<input type="hidden" name="pageNum" value="1" />
-	<input type="hidden" name="numPerPage" value="${model.numPerPage}" />
-	<input type="hidden" name="orderField" value="${param.orderField}" />
-	<input type="hidden" name="orderDirection" value="${param.orderDirection}" />
+	<input type="hidden" name="numPerPage" value="{$page.numPerPage}" />
+	<input type="hidden" name="orderField" value="{$page.orderField}" />
+	<input type="hidden" name="orderDirection" value="{$page.orderDirection}" />
 </form>
 
+
 <div class="pageHeader">
-	<form rel="pagerForm" onsubmit="return navTabSearch(this);" action="w_removeSelected.html" method="post">
+	<form rel="pagerForm" onsubmit="return navTabSearch(this);" action="/admin/user/lists" method="post">
 	<div class="searchBar">
-		<!-- <ul class="searchContent">
+		<ul class="searchContent" style="height:auto">
 			<li>
-				<label>我的客户：</label>
-				<input type="text" name="keywords" value=""/>
+				用  户  名：
+				<input type="text" name="nickname" value="<?php echo $_REQUEST['nickname']?>"/>
 			</li>
 			<li>
-			<select class="combox" name="province">
-				<option value="">所有省市</option>
-				<option value="北京">北京</option>
-				<option value="上海">上海</option>
-				<option value="天津">天津</option>
-				<option value="重庆">重庆</option>
-				<option value="广东">广东</option>
-			</select>
-			</li>
-		</ul> -->
-		<!--
-		<table class="searchContent">
-			<tr>
-				<td>
-					我的客户：<input type="text"/>
-				</td>
-				<td>
-					<select class="combox" name="province">
-						<option value="">所有省市</option>
-						<option value="北京">北京</option>
-						<option value="上海">上海</option>
-						<option value="天津">天津</option>
-						<option value="重庆">重庆</option>
-						<option value="广东">广东</option>
+				<p style="width:500px">
+					状　　态：
+					<select class="" name="status" id="status">
+							<option value="">所有用户</option>
+							<foreach name="user_status" item="statu">
+							<option value="{$key}" <if condition="$key eq $_REQUEST['status']">selected="selected"</if>>{$statu.name}</option>
+							</foreach>
 					</select>
-				</td>
-			</tr>
-		</table>
-		-->
+				</p>
+			</li>
+			<li>
+				<p style="width:500px">
+					学  校：
+					<select class="" name="school_id" id="school">
+							<option value="">所有学校</option>
+							<volist name="school_list" id="school">
+								<option value="{$school.id}" <if condition="$school['id'] eq $_REQUEST['school_id']">selected="selected"</if>>{$school.s_name}</option>
+							</volist>
+					</select>
+				</p>
+			</li>
+			<li>
+				注册时间：
+				<input type="text" class="date" name="start_time" value="<?php echo $_REQUEST['start_time']?>" style="width:75px"/>~<input type="text" class="date" name="end_time" value="<?php echo $_REQUEST['end_time']?>" style="width:75px"/>
+			</li>
+		</ul>
+		
 		<div class="subBar">
 			<ul>
 				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
@@ -67,10 +66,11 @@
 		<thead>
 			<tr>
 				<th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-				<th width="120" orderField="accountNo" class="asc">用户号</th>
+				<th width="50" orderField="accountNo" class="asc">用户号</th>
 				<th orderField="accountName" width="120">用户名</th>
 				<th width="120" orderField="accountType">邮箱</th>
 				<th width="130" orderField="accountCert">电话</th>
+				<th width="80" orderField="accountCert">学校</th>
 				<th width="60" align="center" orderField="accountLevel">状态</th>
 				<th width="70">注册日期</th>
 				<th width="70">最后登陆</th>
@@ -85,11 +85,12 @@
 				<td>{$vo.nickname}</td>
 				<td>{$vo.email}</td>
 				<td>{$vo.phone}</td>
+				<td>{$vo.school}</td>
 				<td>
-					<if condition="$vo['status'] == 0">
-						<a title="点击关闭用户" target="ajaxTodo" href="/admin/user/ajaxChangeStatus?id={$vo.id}&status=0" rel="usercontainer">正常</a>
+					<if condition="$vo['status'] == 1">
+						<a title="点击关闭用户" target="ajaxTodo" href="/admin/user/ajaxChangeStatus?id={$vo.id}&status=1" rel="usercontainer">正常</a>
 					<else/>
-						<a title="点击开启用户" target="ajaxTodo" href="/admin/user/ajaxChangeStatus?id={$vo.id}&status=1" rel="usercontainer">关闭</a>
+						<a title="点击开启用户" target="ajaxTodo" href="/admin/user/ajaxChangeStatus?id={$vo.id}&status=-1" rel="usercontainer">关闭</a>
 					</if>
 				</td>
 				<td><?php echo date(Y年m月d日,$vo['created']) ?></td>
@@ -111,10 +112,10 @@
 				<option value="100">100</option>
 				<option value="200">200</option>
 			</select>
-			<span>条，共{$totalCount}条</span>
+			<span>条，共{$page.totalCount}条</span>
 		</div>
 		
-		<div class="pagination" targetType="navTab" totalCount="200" numPerPage="20" pageNumShown="10" currentPage="1"></div>
+		<div class="pagination" targetType="navTab" totalCount="{$page.totalCount}" numPerPage="{$page.numPerPage}" pageNumShown="6" currentPage="{$page.pageNum}"></div>
 
 	</div>
 </div>

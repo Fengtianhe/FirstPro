@@ -2,17 +2,53 @@
 namespace Admin\Controller;
 use Think\Controller;
 class UserController extends CommonController {
+    public $user_status = array(
+        1 => array('id'=>1, 'name'=>'正常'),
+        -1 => array('id'=>-1, 'name'=>'关闭'),
+    );
 	public function _initialize(){
 		header("Content-type:text/html;charset=utf-8");
     }
     public function lists(){
-    	$userlist = M('user')->select();
-    	$school_list = M('University_all')->select();
-    	$usercount = count($userlist);
+        $limit = 15;
+        $pageNum        = I('pageNum', 1);
+        $orderField     = I('orderField', 'id');
+        $orderDirection = I('orderDirection', 'desc');
+        $numPerPage     = I('numPerPage', $limit);
+        
+        $offset = ($pageNum -1) * $limit;
+        
+        if (I('request.nickname', 0)) {
+            $where['nickname'] = trim(I('request.nickname'));
+        }
+        if (I('request.status', 0)) {
+            $where['status'] = trim(I('request.status'));
+        }
+        if (I('request.school_id', 0)) {
+            $where['school_id'] = trim(I('request.school_id'));
+        }
+        if (I('request.start_time', 0) && I('request.end_time', 0)) {
+            $where['created'] =  array(array('gt',strtotime(trim(I('request.start_time')))),array('lt',strtotime(trim(I('request.end_time')))));
+        }
+        
+        $totalCount  = M('user')->where($where)->count('id');
+        $userlist = M('user')->where($where)->order($orderField.' '.$orderDirection)->limit($offset.','.$limit)->select();
+        $page = array('pageNum'=>$pageNum, 'orderField'=>$orderField, 'orderDirection'=>$orderDirection, 'numPerPage'=>$numPerPage, 'totalCount'=>$totalCount);
+        $this->assign('page', $page);
+    	
+        for ($i= 0; $i < $totalCount; $i++) { 
+            $school_id = $userlist[$i]['school_id'];
+            $school = M('University_all')->where(array('id' => $school_id))->find();
+            $userlist[$i]['school'] = $school['s_name'];
+        }
 
-    	$this->assign('totalCount',$usercount);
+        $school_list = M('University_all')->select();
+        $this->assign('school_list',$school_list);
+
+    	$this->assign('totalCount',$totalCount);
     	$this->assign('userinfo',$userlist);
     	$this->assign('date',$dateweek);
+        $this->assign('user_status', $this->user_status);
     	$this->display();
     }
     public function editor_user(){
@@ -20,22 +56,16 @@ class UserController extends CommonController {
     	if($user_id){
     		$user_info = M('user')->where(array('id' => $user_id))->find();
     		$school_id = $user_info['school_id'];
-    		$province_id =  $user_info['province_id'];
-    		$city_id =  $user_info['city_id'];
-    		$province = M('province')->where(array('provinceid' => $province_id))->find();
-    		$user_info['province'] = $province['province'];
-    		$city = M('city') -> where(array('cityid' => $city_id ))->find();
-    		$user_info['city'] = $city['city'];
     		$school = M('University_all')->where(array('id' => $school_id))->find();
     		$user_info['school'] = $school['s_name'];
     		$this->assign('user_info',$user_info);
     	}else{
     		$this->error('获取id失败');
     	} 
-    	$area_tree = gatAreaData();
+    
     	$school_list = M('University_all')->select();
     	$this->assign('school_list',$school_list);
-    	$this->assign('area_tree', $area_tree);
+
     	$this->display();
     }
     public function saveUser(){
@@ -44,8 +74,10 @@ class UserController extends CommonController {
     	$data['email'] = I('post.email',0);
     	$data['phone'] = I('post.phone',0);
     	$data['school_id'] = I('post.school_id',0);
-    	$data['province_id'] = I('post.province_id',0);
-    	$data['city_id'] = I('post.city_id',0);
+        $school_id = $data['school_id'];
+        $school = M('University_all')->where(array('id' => $school_id))->find();
+        $data['province_id'] = $school['province_id'];
+        $data['city_id'] = $school['city_id'];
     	if (I('password')) {
     		$data['password'] = md5(I('password'));
     	}
@@ -67,11 +99,11 @@ class UserController extends CommonController {
     public function ajaxChangeStatus(){
     	$id = I('get.id', 0);
     	$st = I('get.status',0);
-        if ($st == 0) {
+        if ($st == 1) {
         	$data['status'] = -1;
             M('user')->where(array('id'=>$id))->save($data);
         } else {
-        	$data['status'] = 0;
+        	$data['status'] = 1;
             M('user')->where(array('id'=>$id))->save($data);
         }
 
