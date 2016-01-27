@@ -100,13 +100,12 @@
 <script type="text/javascript">
 $(function(){
 	var layer_index = 0;
-	$('.user').click(function(){
-		
+	var layer_offset = ['30%', '38%'];
+	//$('.user').click(function(){
+	$(document).on('click','.user',function(){
 		var url = '';
-		var layer_offset = 'auto';
 		if ($(this).hasClass('login')) {
 			url = '/editor/user/login';
-			layer_offset = ['30%', '38%'];
 		} else if ($(this).hasClass('reg')) {
 			url = '/editor/user/reg';
 		}
@@ -118,7 +117,12 @@ $(function(){
 	//登录页 去注册 关闭当前弹窗 打开新弹窗
 	$(document).on('click','.to-reg',function(){
 		layer.close(layer_index);
-		dialog('/editor/user/reg','auto');
+		dialog('/editor/user/reg',layer_offset);
+	});
+	//登录页 去注册 关闭当前弹窗 打开新弹窗
+	$(document).on('click','.to-login',function(){
+		layer.close(layer_index);
+		dialog('/editor/user/login',layer_offset);
 	});
 
 	//切换地区
@@ -131,7 +135,7 @@ $(function(){
 		if (<?php echo $_SESSION['me']['id']?$_SESSION['me']['id']:0;?>) {
 			return true;
 		}
-		dialog('/editor/user/login',['30%', '38%'])
+		dialog('/editor/user/login',layer_offset)
 		return false;
 	});
 
