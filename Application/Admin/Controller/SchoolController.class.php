@@ -11,13 +11,13 @@ class SchoolController extends CommonController {
 		header("Content-type:text/html;charset=utf-8");
     }
     public function lists(){
-        $limit = 15;
+        $limit = 20;
         $pageNum        = I('pageNum', 1);
         $orderField     = I('orderField', 'id');
         $orderDirection = I('orderDirection', 'desc');
         $numPerPage     = I('numPerPage', $limit);
         
-        $offset = ($pageNum -1) * $limit;
+        $offset = ($pageNum -1) * $numPerPage;
         if (I('request.s_name', 0)) {
             $where['s_name'] = trim(I('request.s_name'));
         }
@@ -35,7 +35,7 @@ class SchoolController extends CommonController {
         }
         $area_tree = gatAreaData();
         $totalCount  = M('University_all')->where($where)->count('id');
-        $school_list = M('University_all')->where($where)->order($orderField.' '.$orderDirection)->limit($offset.','.$limit)->select();
+        $school_list = M('University_all')->where($where)->order($orderField.' '.$orderDirection)->limit($offset.','.$numPerPage)->select();
         $page = array('pageNum'=>$pageNum, 'orderField'=>$orderField, 'orderDirection'=>$orderDirection, 'numPerPage'=>$numPerPage, 'totalCount'=>$totalCount);
         $this->assign('page', $page);
         $this->assign('school_status', $this->school_status);

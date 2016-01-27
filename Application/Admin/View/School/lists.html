@@ -61,18 +61,18 @@
 		<ul class="toolBar">
 			<li><a class="add" href="/admin/school/editor_school" target="dialog"><span>添加</span></a></li>
 			<li><a class="edit" href="/admin/school/editor_school?id={sid}" target="dialog" warn="请选择一个用户"><span>修改</span></a></li>
-			<li><a class="delete" href="/admin/school/saveSchool?id={sid}&status=-1" target="ajaxTodo" warn="请选择一个用户" title="确认关闭本学校么？关闭后前台将不再显示本学校信息！！"><span>关闭</span></a></li>
-			<li><a class="delete" href="/admin/school/saveSchool?id={sid}&status=1" target="ajaxTodo" warn="请选择一个用户" title="确认开通本学校么？开通后前台将显示本学校信息！！"><span>开通</span></a></li>
+			<li><a class="edit" href="/admin/school/saveSchool?id={sid}&status=-1" target="ajaxTodo" warn="请选择一个用户" title="确认关闭本学校么？关闭后前台将不再显示本学校信息！！"><span>关闭</span></a></li>
+			<li><a class="edit" href="/admin/school/saveSchool?id={sid}&status=1" target="ajaxTodo" warn="请选择一个用户" title="确认开通本学校么？开通后前台将显示本学校信息！！"><span>开通</span></a></li>
 		</ul>
 	</div>
 	<table class="table" width="100%" layoutH="160">
 		<thead>
 			<tr>
 				<th width="12"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-				<th width="" orderField="accountNo" class="asc">Id</th>
-				<th orderField="accountName" width="120">学校</th>
-				<th width="" orderField="accountType">地区</th>
-				<th width="" orderField="accountCert">状态</th>
+				<th width="" orderField="id" class="<?php if ($page['orderField'] == 'id') echo $page['orderDirection']?>">Id</th>
+				<th width="120">学校</th>
+				<th width="">地区</th>
+				<th width="" orderField="status" class="<?php if ($page['orderField'] == 'status') echo $page['orderDirection']?>">状态</th>
 				<th width="">创建时间</th>
 			</tr>
 		</thead>
@@ -91,6 +91,13 @@
 	</table>
 	<div class="panelBar">
 		<div class="pages">
+			<span>显示</span>
+			<select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+				<option <?php if ($page['numPerPage'] == 20) echo "selected";?> value="20">20</option>
+				<option <?php if ($page['numPerPage'] == 50) echo "selected";?> value="50">50</option>
+				<option <?php if ($page['numPerPage'] == 100) echo "selected";?> value="100">100</option>
+				<option <?php if ($page['numPerPage'] == 200) echo "selected";?> value="200">200</option>
+			</select>
 			<span>共{$page.totalCount}条</span>
 		</div>
 		
