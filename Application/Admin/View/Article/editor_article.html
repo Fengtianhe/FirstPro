@@ -1,0 +1,41 @@
+<h2 class="contentTitle">发布文章</h2>
+
+
+<div class="pageContent">
+	
+	<form method="post" action="/admin/article/saveArticle" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+		<div class="pageFormContent nowrap" layoutH="97">
+			<p style="width:500px">
+				<label>标题：</label>
+				<input type="text" name="title" maxlength="20" class="required" value="{$article_info.title}" />
+			</p>
+			<p style="width:500px">
+				<label>排序：</label>
+				<input type="text" name="sort" maxlength="20" class="required" value="{$article_info.sort}" />
+			</p>
+			<p style="width:500px">
+				<label>查询字段：</label>
+				<input type="text" name="query" maxlength="20" class="required" value="{$article_info.query}" />
+			</p>
+			<p style="width:500px">
+				<label>内容：</label>
+				<textarea class="editor" name="content" rows="15" cols="80">{$article_info.content}</textarea>
+			</p>
+			<div class="divider"></div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<input type="hidden" name="id" value="{$article_info['id']}">
+				<input type="hidden" name="close_dialog" value="1">
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+</div>
+<script type="text/javascript">
+	$(function(){
+		console.log('123');
+	})
+</script>

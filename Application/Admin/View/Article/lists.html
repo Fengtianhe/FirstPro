@@ -1,0 +1,111 @@
+<form id="pagerForm" method="post" action="#rel#">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="numPerPage" value="{$page.numPerPage}" />
+	<input type="hidden" name="orderField" value="{$page.orderField}" />
+	<input type="hidden" name="orderDirection" value="{$page.orderDirection}" />
+</form>
+
+<div class="pageHeader">
+	<form rel="pagerForm" onsubmit="return navTabSearch(this);" action="/admin/article/lists" method="post">
+	<div class="searchBar">
+		<ul class="searchContent" style="height:auto">
+			<li>
+				学校名称：
+				<input type="text" name="s_name" value="<?php echo $_REQUEST['s_name']?>"/>
+			</li>
+			<li>
+				<p style="width:500px">
+					地　　区：
+					<select class="" name="province_id" id="s_province" style="width:100px">
+						<option value="">所有城市</option>
+						<foreach name="area_tree" item="province">
+						<option value="{$key}" <if condition="$key eq $_REQUEST['province_id']">selected="selected"</if>>{$province.province}</option>
+						</foreach>
+					</select>
+					<select class="" name="city_id" id="s_city" style="width:100px">
+						<option value="">所有城市</option>
+						<if condition="$_REQUEST['province_id']">
+						<foreach name="area_tree[$_REQUEST['province_id']]['child']" item="city">
+						<option value="{$city.cityid}" <if condition="$key eq $_REQUEST['city_id']">selected="selected"</if>>{$city.city}</option>
+						</foreach>
+						</if>
+					</select>
+				</p>
+			</li>
+			<li>
+				<p style="width:500px">
+					状　　态：
+					<select class="" name="status" id="status">
+							<foreach name="article_status" item="statu">
+							<option value="{$key}" <if condition="$key eq $_REQUEST['status']">selected="selected"</if>>{$statu.name}</option>
+							</foreach>
+					</select>
+				</p>
+			</li>
+			<li>
+				注册时间：
+				<input type="text" class="date" name="start_time" value="<?php echo $_REQUEST['start_time']?>" style="width:75px"/>~<input type="text" class="date" name="end_time" value="<?php echo $_REQUEST['end_time']?>" style="width:75px"/>
+			</li>
+		</ul>
+		<div class="subBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+			</ul>
+		</div>
+	</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar">
+		<ul class="toolBar">
+			<li><a class="add" href="/admin/article/editor_article" target="dialog" width="700" height="729"><span>添加</span></a></li>
+			<li><a class="edit" href="/admin/article/editor_article?id={sid}" target="dialog" warn="请选择一篇文章"><span>修改</span></a></li>
+			<li><a class="edit" href="/admin/article/savearticle?id={sid}&status=-1" target="ajaxTodo" warn="请选择一篇文章" title="确认关闭本学校么？关闭后前台将不再显示本学校信息！！"><span>删除</span></a></li>
+			<li><a class="edit" href="/admin/article/savearticle?id={sid}&status=1" target="ajaxTodo" warn="请选择一篇文章" title="确认开通本学校么？开通后前台将显示本学校信息！！"><span>发布</span></a></li>
+		</ul>
+	</div>
+	<table class="table" width="100%" layoutH="160">
+		<thead>
+			<tr>
+				<th width="12"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+				<th width="" orderField="id" class="<?php if ($page['orderField'] == 'id') echo $page['orderDirection']?>">Id</th>
+				<th width="120">标题</th>
+				<th width="" orderField="query" class="<?php if ($page['orderField'] == 'query') echo $page['orderDirection']?>">搜索字段</th>
+				<th width="" orderField="status" class="<?php if ($page['orderField'] == 'status') echo $page['orderDirection']?>">状态</th>
+				<th width="">创建时间</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist id="vo" name="article_list">
+			<tr target="sid" rel="{$vo.id}">
+				<td><input name="ids" value="xxx" type="checkbox"></td>
+				<td>{$vo.id}</td>
+				<td>{$vo.title}</td>
+				<td>{$vo.query}</td>
+				<td>{$article_status[$vo['status']]['name']}</td>
+				<td>{$vo.created|date='Y-m-d H:i:s',###}</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages">
+			<span>显示</span>
+			<select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+				<option <?php if ($page['numPerPage'] == 20) echo "selected";?> value="20">20</option>
+				<option <?php if ($page['numPerPage'] == 50) echo "selected";?> value="50">50</option>
+				<option <?php if ($page['numPerPage'] == 100) echo "selected";?> value="100">100</option>
+				<option <?php if ($page['numPerPage'] == 200) echo "selected";?> value="200">200</option>
+			</select>
+			<span>共{$page.totalCount}条</span>
+		</div>
+		
+		<div class="pagination" targetType="navTab" totalCount="{$page.totalCount}" numPerPage="{$page.numPerPage}" pageNumShown="6" currentPage="{$page.pageNum}"></div>
+
+	</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		console.log('123');
+	})
+</script>
