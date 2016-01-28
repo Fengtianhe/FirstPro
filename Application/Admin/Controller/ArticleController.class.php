@@ -18,14 +18,11 @@ class ArticleController extends CommonController {
         $numPerPage     = I('numPerPage', $limit);
         
         $offset = ($pageNum -1) * $numPerPage;
-        if (I('request.s_name', 0)) {
-            $where['s_name'] = trim(I('request.s_name'));
+        if (I('request.title', 0)) {
+            $where['title'] = trim(I('request.title'));
         }
-        if (I('request.province_id', 0)) {
-            $where['province_id'] = trim(I('request.province_id'));
-        }
-        if (I('request.city_id', 0)) {
-            $where['city_id'] = trim(I('request.city_id'));
+        if (I('request.query', 0)) {
+            $where['query'] = trim(I('request.query'));
         }
         if (I('request.status', 0)) {
             $where['status'] = trim(I('request.status'));

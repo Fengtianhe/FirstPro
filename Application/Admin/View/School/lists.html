@@ -36,7 +36,6 @@
 				<p style="width:500px">
 					状　　态：
 					<select class="" name="status" id="status">
-							<option value="">所有城市</option>
 							<foreach name="school_status" item="statu">
 							<option value="{$key}" <if condition="$key eq $_REQUEST['status']">selected="selected"</if>>{$statu.name}</option>
 							</foreach>
