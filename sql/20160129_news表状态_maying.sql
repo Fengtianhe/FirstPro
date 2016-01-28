@@ -1,0 +1,1 @@
+ALTER TABLE `zt_news` ADD COLUMN `top_expire` INT DEFAULT 0 NULL COMMENT '置顶到期时间' AFTER `is_top`, CHANGE `is_del` `status` TINYINT(1) DEFAULT 1 NOT NULL COMMENT '-2系统关闭 -1 用户删除 1正常'; 

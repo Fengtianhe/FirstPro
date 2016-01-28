@@ -32,13 +32,21 @@ class NewsController extends Controller {
         if ($_SESSION['area']['school']['id'] > 0) {
             $map['school_id'] = (int) $_SESSION['area']['school']['id'];
         }
-        $map['id_del'] = array('neq',1); 
+        $map['status'] = 1; 
+        $map['_string'] = 'is_top=0 OR (is_top =1 && top_expire < '.time().')';
+
+        $top_map['status'] = 1;
+        $top_map['is_top'] = 1;
+        $top_map['top_expire'] = array('gt', time());
+
     	$News = M('News'); // 实例化News对象
         $count      = $News->where($map)->count();// 查询满足要求的总记录数
         $Page       = new \Think\Page($count,$limit);// 实例化分页类 
         $show       = $Page->show();// 分页显示输出
         // 进行分页数据查询 注意limit方法的参数要使用Page类的属性
-        $list = $News->where($map)->order('is_top')->limit($Page->firstRow.','.$Page->listRows)->select();
+        $top_list = $News->where($top_map)->order('top_expire desc')->select();
+        $list = $News->where($map)->order('updated desc')->limit($Page->firstRow.','.$Page->listRows)->select();
+        $this->assign('top_list',$top_list);// 赋值数据集
         $this->assign('list',$list);// 赋值数据集
         $this->assign('page',$show);// 赋值分页输出
         $this->assign('category',$category);

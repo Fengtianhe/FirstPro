@@ -17,7 +17,7 @@ class IndexController extends CommonController {
     public function myList(){
         $id=$_SESSION['me']['id'];
         $News=M('news');
-        $temps=$News->where(array('user_id' => $id))->field('id,title,price,img,show_count,is_top,is_del,created')->select();
+        $temps=$News->where(array('user_id' => $id))->field('id,title,price,img,show_count,is_top,status,created')->select();
         foreach ($temps as $key=>$value) {
             $temps[$key]['img'] = '<img width="100px" height="100px" src="/Public/uploads/'.$value['img'].'">';
         	$temps[$key]['handle'] = $this->getHandleHtml($value);
@@ -26,9 +26,9 @@ class IndexController extends CommonController {
     }
 
     public function getHandleHtml($info){
-    	if ($info['is_del'] > 0) {
+    	if ($info['status'] == -1) {
     		$html = "<a class='btn recover' href='javascript:;' rel='".$info['id']."'>恢复</a>";
-    	} else {
+    	} elseif ($info['status'] == 1) {
     		$html = "<a class='btn edit' href='javascript:;' rel='".$info['id']."'>编辑</a>";
     		$html .= "<a class='btn top' href='javascript:;' rel='".$info['id']."'>置顶</a>";
     		$html .= "<a class='btn del' href='javascript:;' rel='".$info['id']."'>删除</a>";
@@ -43,15 +43,16 @@ class IndexController extends CommonController {
     	
     	if(in_array($act, array('del','top','recover'))) {
     		if ($act == 'del') {
-    			$data['is_del'] = 1;
+    			$data['status'] = -1;
     		} elseif ($act == 'recover') {
-    			$data['is_del'] = 0;
+    			$data['status'] = 1;
     		} elseif ($act == 'top') {
                 //判断是否符合置顶条件 置顶需要金币 
                 $user_info  = M('user')->where(array('id'=>$user_id))->find();
                 if ($user_info['account'] > 0 ) {
                     M('User')->where(array('id'=>$user_id))->setDec('account');
                     $data['is_top'] = 1;
+                    $data['top_expire'] = time() + 18000;  #有效期5小时
                 } else {
                     $return_data['status'] = 'ERROR';
                     $return_data['info']   = '您的余额不足，不能完成置顶操作。';

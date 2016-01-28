@@ -18,8 +18,9 @@ class IndexController extends Controller {
 
         //获取推荐内容
         $map = array();
-        $map['id_del'] = array('neq',1);
+        $map['status'] = 1;
         $map['is_top'] = 1;
+        $map['top_expire'] = array('gt', time());
         $News = D('News');
         $top_list = $News->where($map)->order('id desc')->limit($offset.','.$limit)->select();
 
