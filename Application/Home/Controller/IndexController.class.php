@@ -48,7 +48,8 @@ class IndexController extends Controller {
 
     public function changeArea()
     {
-        $school_list = M('university_all')->select();
+        $where['status'] = 1;
+        $school_list = M('university_all')->where($where)->select();
         
         $this->assign('school_list', $school_list);
         //获取页面内容 ajax返回 弹窗显示
