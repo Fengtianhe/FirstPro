@@ -33,7 +33,25 @@ a:hover {
 }
 .logo {
   float: left;
-  width: 50%;
+  width: 20%;
+}
+.area {
+  display: inline-block;
+  cursor: pointer;
+  line-height: 40px;
+  font-size: 1.1rem;
+  color: #a89574;
+}
+.area img {
+  width: 14px;
+  height: 8px;
+  vertical-align: 1px;
+  margin-left: 5px;
+}
+.reg_us {
+  font-size: 1.1rem;
+  color: #a89574;
+  text-decoration: none;
 }
 .head-right {
   float: right;
@@ -118,6 +136,9 @@ span.menu {
 span.logo-clr {
   font-weight: 400;
   color: #a89574;
+}
+.address{
+  float: left;
 }
 /* Effect 5: same word slide in */
 .top-nav ul li a {

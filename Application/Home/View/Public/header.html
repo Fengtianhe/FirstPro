@@ -30,9 +30,6 @@
 			});
 		});
 </script>
-<style type="text/css">
-	.area {height:21px;line-height:21px;}
-</style>
 </head>
 <body>
 <!-- //end-smoth-scrolling -->
@@ -41,31 +38,39 @@
 	<div class="container">
 		<div class="header-main">
 			 <div class="logo">
-			 	<h1 style="width:40%;float:left"><a href="/">课外<span class="logo-clr">Online</span></a></h1>
-			 	<h6 style="width:60%;float:left;">
-					<div class="area"><?php echo $_SESSION['area']['school']['s_name']?:'请选择';?></div>
-					<div class="btn btn-default change-area">切换</div>
-			 	</h6>
+			 	<h1>
+			 		<a href="/">课外<span class="logo-clr">online</span></a>
+			 	</h1>
 			 </div>
+			<div class="address">
+				<div class="area">
+					<?php echo $_SESSION['area']['school']['s_name']?:'请选择';?>
+					<img src="__PUBLIC__/home/images/down.png" alt=""/>
+				</div>
+			</div>
 			 <div class="head-right">
 			   <div class="top-nav">
 			   		<span class="menu"> <img src="__PUBLIC__/home/images/icon.png" alt=""/></span>
 					<ul class="res">
-						<li><a <if condition="$_SERVER['REQUEST_URI'] eq '/'">class="active"</if> href="/"> 首页 </a></li>
-						<li><a <if condition="$_SERVER['PATH_INFO'] eq 'news/newslist'">class="active"</if> href="/home/news/newslist"><span data-hover="Search"> 寻宝 </span></a></li>
-						<li><a <if condition="$_SERVER['PATH_INFO'] eq 'contact/index'">class="active"</if> href="/home/contact/index"><span data-hover="Talk"> 喊我 </span></a></li>
-					<div class="clearfix"> </div>
+						<li>
+							<a <if condition="$_SERVER['REQUEST_URI'] eq '/'">class="active"</if> href="/">首页</a>
+						</li>
+						<li>
+							<a <if condition="$_SERVER['PATH_INFO'] eq 'news/newslist'">class="active"</if> href="/home/news/newslist">
+								<span data-hover="Search"> 寻宝 </span>
+							</a>
+						</li>
+						<li>
+							<a <if condition="$_SERVER['PATH_INFO'] eq 'contact/index'">class="active"</if> href="/home/contact/index">
+								<span data-hover="Talk"> 喊我 </span>
+							</a>
+						</li>
+						<li>
+							<a <if condition="$_SERVER['PATH_INFO'] eq 'contact/index'">class="active"</if> href="/editor/Add/addNew">
+								<span data-hover="Shop">出售</span>
+							</a>
+						</li>
 					</ul>
-
-				<!-- script-for-menu -->
-							 <script>
-							   $( "span.menu" ).click(function() {
-								 $( "ul.res" ).slideToggle( 300, function() {
-								 // Animation complete.
-								  });
-								 });
-							</script>
-			<!-- /script-for-menu -->
 			  </div>
 			 <div class="social">
 				<ul>
@@ -77,20 +82,13 @@
 						<a href="/editor/user/logout">注销</a>
 					</li>
 					<else />
-					<li><a class="login user" href="javascript:;">登录</a></li>
-					<li><a class="reg user" href="javascript:;">注册</a></li>
+					<li>
+						<a class="login user reg_us" href="javascript:;">登录</a>
+					</li>
 					</if>
-					&nbsp;&nbsp;
-					<a href="/editor/Add/addNew" class="btn btn-default add-new">发布</a>
-					
-					<!-- <li><a class="fa" href="#"><span> </span> </a></li>
-					<li><a class="tw" href="#"><span> </span> </a></li>
-					<li><a class="p" href="#"><span> </span> </a></li> -->
 				</ul>
 			</div>
-			<div class="clearfix"> </div>
 		   </div>
-		   <div class="clearfix"> </div>
 		</div>
 	</div>
 </div>
@@ -126,7 +124,7 @@ $(function(){
 	});
 
 	//切换地区
-	$('.change-area').click(function(){
+	$('.area').click(function(){
 		dialog('/home/index/changearea','auto');
 	});
 

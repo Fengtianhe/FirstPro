@@ -5,18 +5,18 @@
 	<div id="row">
 		<div class="hd">
 			<ul class="nav nav-tabs nav-justified">
-		        <li role="presentation" class="s email_login">邮箱登陆</li>
-		        <li role="presentation" class="s phone_login background-ccc">手机号登陆</li>
+		        <li role="presentation" class="s email_login">登陆</li>
+		        <li role="presentation" class="s phone_login background-ccc">注册</li>
 		    </ul>
 		</div>
 		<div class="bd">
-			<!-- email login -->
+			<!-- login -->
 			<div class="col-md-12 info" style="margin-top:10px;" id="email">
 				<form class="form-horizontal" action="{:U('editor/user/handle_email_login')}" method="post">
 					<div class="form-group mt10">
 						<div class="col-sm-12">
 							<span class="glyphicon glyphicon-envelope icons" aria-hidden="true"></span>
-							<input type="email" name="email" class="form-control pl25" id="inputEmail" placeholder="请输入邮箱地址">
+							<input type="email" name="email" class="form-control pl25" id="inputEmail" placeholder="请输入邮箱">
 						</div>
 					</div>
 					<div class="form-group">
@@ -45,7 +45,7 @@
 					<div class="form-group mt10">
 						<div class="col-sm-12">
 							<span class="glyphicon glyphicon-earphone icons" aria-hidden="true"></span>
-							<input type="text" name="phone" class="form-control pl25" id="inputEmail" placeholder="请输入电话号">
+							<input type="text" name="phone" class="form-control pl25" id="inputEmail" placeholder="请输入邮箱">
 						</div>
 					</div>
 					<div class="form-group">
@@ -55,8 +55,15 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<div class="col-sm-12 posi_relative">
+							<span class="glyphicon glyphicon-lock icons" aria-hidden="true"></span>
+							<input type="password" name="password" class="form-control pl25 form_code_width" id="inputPassword" placeholder="请输入验证码">
+							<input type="bitton" class="btn-default btn code_btn background-ccc" value="向邮箱发送验证码">
+						</div>
+					</div>
+					<div class="form-group">
 						<div class="col-sm-12">
-							<input type="checkbox" class="remember"> <span style="font-size:12px">记住登录状态</span>
+							<input type="checkbox" class="remember"> <span style="font-size:12px">阅读并接受《课外Online用户协议》</span>
 						</div>
 					</div>
 				  	<div class="form-group">

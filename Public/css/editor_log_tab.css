@@ -43,15 +43,36 @@
 	display: none;
 }
 .login_check{
-	/*border:1px solid #000;*/
-	width:305px;
-	height:25px;
-	float:left;
-	line-height: 25px;
-	padding-left:20px;
+	width: 100%;
+    height: 25px;
+    float: left;
+    line-height: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 .login_check a{
 	font-size:12px;
+}
+
+.form_code_width {
+	float: left;
+	width: 100% !important;
+}
+.code_btn {
+	width: 40%;
+    position: absolute;
+    top: 0;
+    right: 15px;
+    z-index: 100;
+}
+.posi_relative {
+	position: relative;
+}
+.layui-layer-page .layui-layer-content {
+    position: relative;
+    overflow: hidden !important;
+    width: 410px !important;
+    height: 310px !important; 
 }
 
 /*弹窗内容所需样式 author maying*/
