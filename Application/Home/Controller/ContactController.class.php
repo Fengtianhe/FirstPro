@@ -17,4 +17,11 @@ class ContactController extends Controller {
     	$this->success('发送成功');
     }
 
+    public function sendMail()
+    {
+        //$mail = new \Org\Util\PHPMailer;
+        //var_dump($mail);
+        D('Common/Mail')->send();
+    }
+
 }
