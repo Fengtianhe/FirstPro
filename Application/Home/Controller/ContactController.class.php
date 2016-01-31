@@ -22,7 +22,8 @@ class ContactController extends Controller {
      */
     public function sendMail()
     {
-        $status = D('Common/Mail')->sendUserRegistVerifyMail(array('email'=>'215677230@qq.com'));
+        $email = I('get.email');
+        $status = D('Common/Mail')->sendUserRegistVerifyMail(array('email'=>$email));
         var_dump($status);
     }
 
