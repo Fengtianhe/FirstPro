@@ -17,11 +17,13 @@ class ContactController extends Controller {
     	$this->success('发送成功');
     }
 
+    /**
+     * 发送邮件 demo
+     */
     public function sendMail()
     {
-        //$mail = new \Org\Util\PHPMailer;
-        //var_dump($mail);
-        D('Common/Mail')->send();
+        $status = D('Common/Mail')->sendUserRegistVerifyMail(array('email'=>'215677230@qq.com'));
+        var_dump($status);
     }
 
 }
