@@ -127,4 +127,23 @@ class UserController extends Controller {
     	$_SESSION['me'] = '';
     	$this->redirect('home/index/index');
     }
+
+    //验证邮箱
+    public function email_verify() {
+        $code = I('get.code','');
+        $code = base64_decode($code);
+        parse_str($code, $param);
+        if (is_array($param) && count($param) == 3 && $param['id'] && $param['email'] && $param['token']) {
+            $data['is_verify_email'] = 1;
+            $data['verify_email_time'] = time();
+            $param['send_verify_email_time'] = array('gt',time()-172800);
+            $status = D('user')->where($param)->save($data);
+        }
+
+        if ($status) {
+            $this->success('验证成功', U('/home/index/index'));
+        } else {
+            $this->error('验证失败', U('/editor/index/info'));
+        }
+    }
 }

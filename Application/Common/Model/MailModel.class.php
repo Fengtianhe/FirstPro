@@ -69,7 +69,16 @@ class MailModel extends Model {
 	 * @return string html文本
  	 */
 	function getUserRegistMailHtml ($user_info) {
-		$html = '<h1>邮件测试</h1>这里是（<font color=red>www.kewai.online</font>）对phpmailer的测试内容';
+		$html = '
+		<div style="margin:0 auto; width:710px; border:1px solid #e4e3e3; background:#fff; padding:25px 35px 25px 35px;">
+		    <h3 style="font-size:14px; font-weight:bold; margin:0; padding:0; padding-top:20px">亲爱的'.$user_info['email'].'用户，您好！</h3>
+		    <p style="margin:0; padding:0; font-size:12px; margin-top:10px">感谢您注册课外Online，请验证邮箱以更好地使用我们的产品,若不是您本人操作请直接忽略本条邮件。</p>
+		    <div style=" background:#eef8ff; border:1px solid #cee4f6; padding:25px; margin-top:25px;word-break:break-all;width: 650px;">
+		        <h3 style="font-size:14px; font-weight:bold; margin:0; padding:0; color:#333; margin-bottom:10px">请在48小时内点击下面的链接以完成验证：</h3>
+		        <a target="_blank" href="'.$user_info['verify_url'].'" style="font-size:12px; line-height:18px; color:#4b85b5;">'.$user_info['verify_url'].'</a>
+		        <p style="margin:0; padding:0; font-size:12px; color:#666; margin-top:5px">如果您无法点击，请将链接复制到浏览器地址栏访问。</p>
+		    </div>
+		</div>';
 		return $html;
 	}
 
@@ -79,6 +88,8 @@ class MailModel extends Model {
 	 * @return array array('status'=>'Ok','message'=>发送成功)
 	 */
 	function sendUserRegistVerifyMail ($user_info) {
+		$code = 'email='.$user_info['email'].'&id='.$user_info['id'].'&token='.$user_info['token'];
+		$user_info['verify_url'] = 'http://'.$_SERVER['HTTP_HOST'].'/editor/user/email_verify?code='.base64_encode($code);
 		$subject = '课外Online验证邮件';
 		$body    = $this->getUserRegistMailHtml($user_info);
 		$status  = $this->send($user_info['email'], $subject, $body);
