@@ -611,9 +611,6 @@ div#portfoliolist {
 .footer {
   padding: 2em 0em 2em 0em;
   background:#393939;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
 }
 .footer-news h5 {
   font-size: 2em;
