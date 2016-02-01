@@ -611,6 +611,9 @@ div#portfoliolist {
 .footer {
   padding: 2em 0em 2em 0em;
   background:#393939;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 .footer-news h5 {
   font-size: 2em;
@@ -691,7 +694,7 @@ ul.ftr-socialicons li a.print:hover {
   font-weight: 400;
   color: #fff;
   text-align: center;
-  font-family: 'SintonyRegular';
+  font-family: '微软雅黑';
 }
 .foter-bottom p.footer-copyrts a{
   font-size: 1em;

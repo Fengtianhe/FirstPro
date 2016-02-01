@@ -20,6 +20,10 @@ html,body {
 	list-style: none;
 	line-height: 40px;
 	border: 1px solid #efefef;
+	border-right: none;
+}
+.border_right {
+	border-right: 1px solid #efefef !important;
 }
 .col_menu ul li:hover {
 	background-color: #efefef;
