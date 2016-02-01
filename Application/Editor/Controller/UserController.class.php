@@ -52,13 +52,17 @@ class UserController extends Controller {
             $_SESSION['me'] = $data;
             $this->success('注册成功',U('/home/index/index'));
         }*/
-
+        if (!I('post.agree')) {
+            $this->error("请认真阅读并同意《课外Online用户协议》");
+        }
         $email = I('post.email');
         $password = I('post.password');
         $sid = I('sid');
         $school_info = M('university_all')->where(array('id'=>$sid))->find();
         $e=$this->is_verify($email);
-
+        if (!$email || !$password || !$sid) {
+            $this->error("请认真填写注册数据，均为必填项");
+        }
         if (!$e) {
             $this->error("邮箱格式错误");
         }
@@ -67,7 +71,8 @@ class UserController extends Controller {
         }
         $data['email'] = $email;
         $data['password'] = md5($password);
-        $data['created'] = time();
+        $data['token']    = mb_substr(md5($password.time().'kewaionline'), 0, 15);
+        $data['created'] = $data['send_verify_email_time'] = time();
         $data['status'] = 1;
         $data['school_id'] = $school_info['id'];
         $data['province_id'] = $school_info['province_id'];
@@ -79,14 +84,17 @@ class UserController extends Controller {
         if (is_array($user_exist)) {
             if ($user_exist['is_verify_email'] == 1) {
                 $this->error("邮箱账号已经存在，若有问题请联系管理员");
-            } //else {
-                //$User->where(array('id'=>$user_exist['id']))->save();
-            //}
+            } elseif ($user_exist['send_verify_email_time'] > time()-172800) {
+                $this->error("您已注册请查收你的邮箱验证账号，或48小时候重试");
+            } else {
+                $User->where(array('id'=>$user_exist['id']))->save($data);
+                $id = $user_exist['id'];
+            }
         } else {
             $id = $User->add($data);
-            $user_info = $User->where(array('id'=>$id))->find(); 
-            D('Common/Mail')->sendUserRegistVerifyMail($user_info);
         }
+        $user_info = $User->where(array('id'=>$id))->find(); 
+        D('Common/Mail')->sendUserRegistVerifyMail($user_info);
         $this->success('注册成功',U('/home/index/index'));
     }
 
@@ -123,7 +131,7 @@ class UserController extends Controller {
         $email = I('post.email');
         $password = I('post.password');
         if($email && $password){
-            if($res = D('user')->where(array('email'=>$email,'password'=>md5($password)))->find()){
+            if($res = D('user')->where(array('email'=>$email,'password'=>md5($password),'is_verify_email'=>1))->find()){
                 $data['lastlogintime'] = time();
                 M('user')->where(array('email' => $email))->save($data);
                 $_SESSION['me'] = $res;
