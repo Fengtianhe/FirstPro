@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="__PUBLIC__/editor/css/collect.css">
 <script src="__PUBLIC__/editor/js/collect_table.js"></script>
 
-<div class="container">
+<div class="container container_bottom">
 	 <div class="collect">
 	 	<div class="col_menu">
 	 		<ul>
@@ -28,11 +28,11 @@
 	 				<li style="width:310px">操作</li>
 	 			</ul>
 	 		</div>
-	 		<table style="margin-top:10px;" class="stripe">
+	 		<table>
 	 			<volist name="datas" id="vo">
 	 			<tr height="140px">
 	 				<td width="140px">{$vo['newstitle']}</td>
-	 				<td width="160px"><img src="__PUBLIC__/uploads/{$vo['img']}" style="width:160px;height:140px;"></td>
+	 				<td width="160px"><img src="__PUBLIC__/uploads/{$vo['img']}" style="width:100px;height:100px; vertical-align:middle;"></td>
 	 				<td width="120px">{$vo['neworold']}</td>
 	 				<td width="120px">{$vo['is_del']}</td>
 	 				<td width="120px">{$vo['username']}</td>

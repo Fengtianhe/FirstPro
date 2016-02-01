@@ -1,6 +1,19 @@
 <include file="Public/header" />
-
 <include file="Public/nav" />
+<style>
+	.a_btn {
+		display: inline-block;
+	    width: 120px;
+	    height: 40px;
+	    border: 1px solid #efefef;
+	    text-align: center;
+	    line-height: 40px;
+	    border-radius: 5px;
+	}
+	.a_btn:hover {
+		background-color: #efefef;
+	}
+</style>
 <!-- <main class="bs-docs-masthead" id="content" role="main" tabindex="-1">
 	<div class="container">
 		<span class="bs-docs-booticon bs-docs-booticon-lg bs-docs-booticon-outline">课外Online</span>
@@ -9,7 +22,7 @@
 </main>
 -->
 <div class="container">
-<a href="/Editor/Account/ModifyPwd">重置密码</a>
+	<a class="a_btn" href="/Editor/Account/ModifyPwd">重置密码</a>
 </div>
 
 <include file="Public/footer" />

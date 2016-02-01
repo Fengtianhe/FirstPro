@@ -53,6 +53,15 @@ a:hover {
   color: #a89574;
   text-decoration: none;
 }
+.reg_us:hover {
+  text-decoration: none;
+}
+.goods_descraption {
+  padding-left: 10px;
+}
+.log_name {
+  margin-right: 15px;
+}
 .head-right {
   float: right;
   width: 50%;
@@ -827,6 +836,7 @@ ul.ftr-socialicons li a.print:hover {
 .feature {
   background: rgba(194, 194, 194, 0.07);
   padding: 3em 0em 3em 0em;
+  font-family: "微软雅黑"
 }
 .feature-head {
   text-align: center;

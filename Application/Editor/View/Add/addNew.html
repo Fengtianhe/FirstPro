@@ -1,10 +1,16 @@
 <include file="Public/header" />
 <style type="text/css">
 	.error {color:red;font-size:13px;padding-left:10px;}
+	html,body {
+		font-family: "微软雅黑"
+	}
+	.con_padding_bto {
+		padding-bottom: 90px;
+	}
 </style>
 <include file="Public/nav" />
 	<!--start-list-->
-		<div class="container">
+		<div class="container con_padding_bto">
 			<div class="row">
 				<div class="col-md-8" style="margin-top:10px;">
 					<form id="addForm" class="form-horizontal" action="{:U('editor/add/saveNew')}" method="post">

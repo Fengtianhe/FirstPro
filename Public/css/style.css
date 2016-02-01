@@ -784,12 +784,15 @@ p.admin {
 /*--events-end--*/
 /*--footer-start--*/
 .footer{
-	padding:4em 0px;
+	padding:1em 0px;
 	background:#403f45;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
 }
 .footer-top {
 	text-align: center;
-	margin-top: 2.5%;
+	margin-top: 15px;
 }
 .footer-top p{
 	color:#fff;

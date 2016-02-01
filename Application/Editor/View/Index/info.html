@@ -1,14 +1,31 @@
 <include file="Public/header" />
-
 <include file="Public/nav" />
-<!-- <main class="bs-docs-masthead" id="content" role="main" tabindex="-1">
-	<div class="container">
-		<span class="bs-docs-booticon bs-docs-booticon-lg bs-docs-booticon-outline">课外Online</span>
-		<p class="lead">课外Online是专为大学生提供的二手宝贝转让平台，旨为打造最便利的平台，祝您使用愉快。</p>
-	</div>
-</main>
--->
-<div class="container">
+<style>
+	#newlists_wrapper {
+		padding-bottom: 120px;
+	}
+	html,body {
+		font-family: "微软雅黑";
+	}
+	select {
+		border: 1px solid #ddd !important;
+		border-radius: 5px;
+	}
+	table.dataTable thead th, table.dataTable thead td {
+		border-bottom: 1px solid #ddd;
+	}
+	table.dataTable.no-footer {
+		border-bottom: 1px solid #ddd;
+	}
+	table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td{
+		border-top: none;
+	}
+	h3 {
+		font-weight: normal;
+		font-size: 20px;
+	}
+</style>
+<div class="container container_font">
 	<h3>发布记录</h3>
 	<table id="newlists" class="display">
 	    <thead>
@@ -30,17 +47,20 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#newlists').DataTable({
+			"searching": false,
+			"lengthChange": false,
 			"ajax" : {
 				url : '/editor/index/myList',
 				dataSrc: ''
 			},
-			//"order": [[ 0, false ]],
-			//"columnDefs": [
-				//{ "orderable": false, "targets": 0 }
-			//],
+			"order": [[ 0, false ]],
+			"columnDefs": [
+				{ "orderable": false, "targets": 0 }
+			],
+
 			"columns": [
-			    //{ "orderable": false },
-			    //{ "orderable": true }
+			    // { "orderable": false },
+			    // { "orderable": false }
 			    { data: 'title' },
 		        { data: 'img' },
 		        { data: 'price' },
