@@ -41,11 +41,11 @@
 		
 			<!-- phone login -->
 			<div class="col-md-12 info" style="margin-top:10px;display:none" id="phone">
-				<form class="form-horizontal" action="{:U('editor/user/handle_phone_login')}" method="post">
+				<form class="form-horizontal" action="{:U('editor/user/handle_reg')}" method="post">
 					<div class="form-group mt10">
 						<div class="col-sm-12">
-							<span class="glyphicon glyphicon-earphone icons" aria-hidden="true"></span>
-							<input type="text" name="phone" class="form-control pl25" id="inputEmail" placeholder="请输入邮箱">
+							<span class="glyphicon glyphicon-envelope icons" aria-hidden="true"></span>
+							<input type="text" name="email" class="form-control pl25" id="inputEmail" placeholder="请输入邮箱">
 						</div>
 					</div>
 					<div class="form-group">
@@ -54,11 +54,21 @@
 							<input type="password" name="password" class="form-control pl25" id="inputPassword" placeholder="请输入密码">
 						</div>
 					</div>
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<div class="col-sm-12 posi_relative">
 							<span class="glyphicon glyphicon-lock icons" aria-hidden="true"></span>
 							<input type="password" name="password" class="form-control pl25 form_code_width" id="inputPassword" placeholder="请输入验证码">
 							<input type="bitton" class="btn-default btn code_btn background-ccc" value="向邮箱发送验证码">
+						</div>
+					</div> -->
+					<div class="form-group">
+						<div class="col-sm-12">
+							<select name="sid" class="form-control" id="sid" >
+								<option value="0">所在大学</option>
+								<volist name="s_list" id="vo">
+									<option value="{$vo.id}">{$vo.s_name}</option>
+								</volist>
+							</select>
 						</div>
 					</div>
 					<div class="form-group">

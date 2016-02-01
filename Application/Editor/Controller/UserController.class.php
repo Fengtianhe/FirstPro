@@ -21,7 +21,7 @@ class UserController extends Controller {
 
     //用户注册方法
     public function handle_reg(){
-    	if ($_POST['password']!==$_POST['check_password']) {
+    	/*if ($_POST['password']!==$_POST['check_password']) {
     		$this->error("两次输入的密码不一致");
     	}
         $data = $_POST;
@@ -51,8 +51,43 @@ class UserController extends Controller {
             M('user')->add($data);
             $_SESSION['me'] = $data;
             $this->success('注册成功',U('/home/index/index'));
+        }*/
+
+        $email = I('post.email');
+        $password = I('post.password');
+        $sid = I('sid');
+        $school_info = M('university_all')->where(array('id'=>$sid))->find();
+        $e=$this->is_verify($email);
+
+        if (!$e) {
+            $this->error("邮箱格式错误");
         }
-        
+        if (!is_array($school_info) || empty($school_info)) {
+            $this->error("学校信息出错");
+        }
+        $data['email'] = $email;
+        $data['password'] = md5($password);
+        $data['created'] = time();
+        $data['status'] = 1;
+        $data['school_id'] = $school_info['id'];
+        $data['province_id'] = $school_info['province_id'];
+        $data['city_id'] = $school_info['city_id'];
+
+        $User=M('user');
+        $where['email'] = $email;
+        $user_exist=$User->where($where)->find();
+        if (is_array($user_exist)) {
+            if ($user_exist['is_verify_email'] == 1) {
+                $this->error("邮箱账号已经存在，若有问题请联系管理员");
+            } //else {
+                //$User->where(array('id'=>$user_exist['id']))->save();
+            //}
+        } else {
+            $id = $User->add($data);
+            $user_info = $User->where(array('id'=>$id))->find(); 
+            D('Common/Mail')->sendUserRegistVerifyMail($user_info);
+        }
+        $this->success('注册成功',U('/home/index/index'));
     }
 
     //注册页面
@@ -74,6 +109,8 @@ class UserController extends Controller {
 
     //登录页面
     public function login(){
+        $list=M('university_all')->order('s_name asc')->select();
+        $this->assign('s_list',$list);
         //获取页面内容 ajax返回 弹窗显示
         $html = $this->fetch('User/login');
         $data['data'] = $html;
