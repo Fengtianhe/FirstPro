@@ -1,0 +1,2 @@
+ALTER TABLE `zt_user` ADD COLUMN `is_verify_email` TINYINT DEFAULT 0 NOT NULL COMMENT '是否验证邮箱 1 已验证' AFTER `class`, ADD COLUMN `verify_email_time` INT DEFAULT 0 NOT NULL COMMENT '邮箱验证时间' AFTER `is_verify_email`, ADD COLUMN `token` VARCHAR(20) DEFAULT '' NOT NULL COMMENT '密钥' AFTER `verify_email_time`; 
+ALTER TABLE `zt_user` ADD COLUMN `send_verify_email_time` INT DEFAULT 0 NOT NULL COMMENT '发送邮箱验证邮件时间' AFTER `is_verify_email`; 
