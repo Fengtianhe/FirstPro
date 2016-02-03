@@ -100,7 +100,7 @@ class NewsController extends CommonController {
     }
 
     public function report(){
-    	 
+    	$where['report_count'] = array('gt',0);
 
  		$limit = 15;
         $pageNum        = I('pageNum', 1);
@@ -120,7 +120,12 @@ class NewsController extends CommonController {
         	$uid = $newslist[$i]['user_id'];
         	$userinfo = M('user')->where(array('id' => $uid))->find();
         	$newslist[$i]['u_nickname'] = $userinfo['nickname'];
+            $cat_id = $newslist[$i]['category_id'];
+            $category_info = M('category')->where(array('id'=>$cat_id))->find();
+            $newslist[$i]['cat_name'] = $category_info['name'];
         }
+        $category_tree = M('category')->select();
+        $this->assign('category',$category_tree);
         $this->assign('newslist', $newslist);
 
     	$this->display();
