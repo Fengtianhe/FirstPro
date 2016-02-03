@@ -7,19 +7,19 @@
 
 
 <div class="pageHeader">
-	<form rel="pagerForm" onsubmit="return navTabSearch(this);" action="/admin/user/lists" method="post">
+	<form rel="pagerForm" onsubmit="return navTabSearch(this);" action="/admin/news/lists" method="post">
 	<div class="searchBar">
 		<ul class="searchContent" style="height:auto">
 			<li>
-				用  户  名：
-				<input type="text" name="nickname" value="<?php echo $_REQUEST['nickname']?>"/>
+				标题：
+				<input type="text" name="title" value="<?php echo $_REQUEST['title']?>"/>
 			</li>
 			<li>
 				<p style="width:500px">
 					状　　态：
 					<select class="" name="status" id="status">
-							<option value="">所有用户</option>
-							<foreach name="user_status" item="statu">
+							<option value="">所有内容</option>
+							<foreach name="news_status" item="statu">
 							<option value="{$key}" <if condition="$key eq $_REQUEST['status']">selected="selected"</if>>{$statu.name}</option>
 							</foreach>
 					</select>
@@ -27,17 +27,17 @@
 			</li>
 			<li>
 				<p style="width:500px">
-					学  校：
-					<select class="" name="school_id" id="school">
-							<option value="">所有学校</option>
-							<volist name="school_list" id="school">
-								<option value="{$school.id}" <if condition="$school['id'] eq $_REQUEST['school_id']">selected="selected"</if>>{$school.s_name}</option>
+					分  类：
+					<select class="" name="category_id" id="category">
+							<option value="">所有分类</option>
+							<volist name="category" id="category">
+								<option value="{$category.id}" <if condition="$category['id'] eq $_REQUEST['category_id']">selected="selected"</if>>{$category.name}</option>
 							</volist>
 					</select>
 				</p>
 			</li>
 			<li>
-				注册时间：
+				发布时间：
 				<input type="text" class="date" name="start_time" value="<?php echo $_REQUEST['start_time']?>" style="width:75px"/>~<input type="text" class="date" name="end_time" value="<?php echo $_REQUEST['end_time']?>" style="width:75px"/>
 			</li>
 		</ul>
@@ -45,7 +45,7 @@
 		<div class="subBar">
 			<ul>
 				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
-				<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>
+				<!-- <li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li> -->
 			</ul>
 		</div>
 	</div>
@@ -53,14 +53,7 @@
 </div>
 <div class="pageContent">
 	<!-- <div class="panelBar">
-		<ul class="toolBar">
-			<li><a class="add" href="/admin/user/editor_user" target="dialog"><span>添加</span></a></li>
-			<li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" href="demo/common/ajaxDone.html" class="delete"><span>批量删除默认方式</span></a></li>
-			<li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="ids" postType="string" href="demo/common/ajaxDone.html" class="delete"><span>批量删除逗号分隔</span></a></li>
-			<li><a class="edit" href="demo_page4.html?uid={sid_user}" target="navTab" warn="请选择一个用户"><span>修改</span></a></li>
-			<li class="line">line</li>
-			<li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>
-		</ul>
+		
 	</div> -->
 	<table class="table" width="100%" layoutH="135">
 		<thead>
@@ -79,7 +72,7 @@
 		</thead>
 		<tbody>
 			<volist id="vo" name="newslist">
-			<tr target="sid_user" rel="1">
+			<tr>
 				<td><input name="ids" value="xxx" type="checkbox"></td>
 				<td>{$vo.id}</td>
 				<td>
@@ -90,20 +83,24 @@
 					</if>
 				</td>
 				<td>
-					<!-- <if condition="$vo['is_del'] == 0"> -->
-						<a title="点击关闭显示" target="ajaxTodo" href="/admin/news/ajaxChangeDel?id={$vo.id}&is_top=0" rel="usercontainer">是</a>
-					<!-- <else/>
-						<a title="点击开启显示" target="ajaxTodo" href="/admin/news/ajaxChangeDel?id={$vo.id}&is_top=-1" rel="usercontainer">否</a>
-					</if> -->
+					<if condition="$vo['status'] == 1">
+						正常
+					<else/>
+						<if condition="$vo['status'] == -2">
+							系统关闭
+						<else/>
+							用户删除
+						</if>
+					</if>
 				</td>
-				<td>{$vo.title}</td>
-				<td>{$vo.phone}</td>
+				<td><a href="/admin/news/edit_news?id={$vo.id}" class="dialog">{$vo.title}</a></td>
+				<td>{$vo.cat_name}</td>
 				<td>{$vo.u_nickname}</td>
 				<td>￥{$vo.price}</td>
 				<td><?php echo date(Y年m月d日,$vo['created']) ?></td>
 				<td>
-					<!-- <a title="删除" target="ajaxTodo" href="demo/common/ajaxDone.html?id=xxx" class="btnDel">删除</a> -->
-					<a title="编辑" target="dialog" href="/admin/user/editor_user?id={$vo.id}" class="btnEdit">编辑</a>
+					<a title="开启" class="btnEdit" target="ajaxTodo" href="/admin/news/ajaxChangeDel?id={$vo.id}&status=1" >开启</a>
+					<a title="删除" target="ajaxTodo" href="demo/common/ajaxChangeDel?id={$vo.id}&status=-2" class="btnDel">删除</a>
 				</td>
 			</tr>
 			</volist>
