@@ -23,6 +23,12 @@ class UserController extends CommonController {
         
         $offset = ($pageNum -1) * $limit;
         
+        if (I('request.id', 0)) {
+            $where['id'] = trim(I('request.id'));
+        }
+        if (I('request.email', 0)) {
+            $where['email'] = trim(I('request.email'));
+        }
         if (I('request.nickname', 0)) {
             $where['nickname'] = trim(I('request.nickname'));
         }
