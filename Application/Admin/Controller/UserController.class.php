@@ -3,8 +3,13 @@ namespace Admin\Controller;
 use Think\Controller;
 class UserController extends CommonController {
     public $user_status = array(
+        0 => array('id'=>0, 'name'=>'未生效'),
         1 => array('id'=>1, 'name'=>'正常'),
         -1 => array('id'=>-1, 'name'=>'关闭'),
+    );
+     public $email_verify_status = array(
+        0 => array('id'=>0, 'name'=>'未验证'),
+        1 => array('id'=>1, 'name'=>'已验证'),
     );
 	public function _initialize(){
 		header("Content-type:text/html;charset=utf-8");
@@ -23,6 +28,9 @@ class UserController extends CommonController {
         }
         if (I('request.status', 0)) {
             $where['status'] = trim(I('request.status'));
+        }
+        if (I('request.is_verify_email', 0)) {
+            $where['is_verify_email'] = trim(I('request.is_verify_email'));
         }
         if (I('request.school_id', 0)) {
             $where['school_id'] = trim(I('request.school_id'));
@@ -48,6 +56,7 @@ class UserController extends CommonController {
     	$this->assign('totalCount',$totalCount);
     	$this->assign('userinfo',$userlist);
     	$this->assign('date',$dateweek);
+        $this->assign('email_verify_status', $this->email_verify_status);
         $this->assign('user_status', $this->user_status);
     	$this->display();
     }

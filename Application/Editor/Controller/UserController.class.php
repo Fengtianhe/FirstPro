@@ -73,7 +73,7 @@ class UserController extends Controller {
         $data['password'] = md5($password);
         $data['token']    = mb_substr(md5($password.time().'kewaionline'), 0, 15);
         $data['created'] = $data['send_verify_email_time'] = time();
-        $data['status'] = 1;
+        $data['status'] = 0;
         $data['school_id'] = $school_info['id'];
         $data['province_id'] = $school_info['province_id'];
         $data['city_id'] = $school_info['city_id'];
@@ -131,7 +131,7 @@ class UserController extends Controller {
         $email = I('post.email');
         $password = I('post.password');
         if($email && $password){
-            if($res = D('user')->where(array('email'=>$email,'password'=>md5($password),'is_verify_email'=>1))->find()){
+            if($res = D('user')->where(array('email'=>$email,'password'=>md5($password),'status'=>1))->find()){
                 $data['lastlogintime'] = time();
                 M('user')->where(array('email' => $email))->save($data);
                 $_SESSION['me'] = $res;
@@ -179,6 +179,7 @@ class UserController extends Controller {
         $code = base64_decode($code);
         parse_str($code, $param);
         if (is_array($param) && count($param) == 3 && $param['id'] && $param['email'] && $param['token']) {
+            $data['status'] = 1;
             $data['is_verify_email'] = 1;
             $data['verify_email_time'] = time();
             $param['send_verify_email_time'] = array('gt',time()-172800);
