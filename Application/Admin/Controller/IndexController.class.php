@@ -3,12 +3,8 @@ namespace Admin\Controller;
 //use Think\Controller;
 use Admin\Controller;
 class IndexController extends CommonController {
-	// public function __construct(){
-	// 	parent::__construct();
-	// 	echo "construct";
-	// }
 	public function _initialize(){
-		header("Content-type:text/html;charset=utf-8");
+        parent::_initialize();
     }
     public function index(){
     	$url['xml_url'] = __ROOT__."/Public/admin/dwz.frag.xml";

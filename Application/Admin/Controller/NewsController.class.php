@@ -8,7 +8,7 @@ class NewsController extends CommonController {
         -2 => array('id'=>-2, 'name'=>'系统关闭'),
     );
 	public function _initialize(){
-		header("Content-type:text/html;charset=utf-8");
+        parent::_initialize();
     }
     public function lists(){
     	$where['report_count'] = 0;

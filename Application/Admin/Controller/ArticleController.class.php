@@ -8,7 +8,7 @@ class ArticleController extends CommonController {
             -1 => array('id'=>-1, 'name'=>'删除'),
         );
 	public function _initialize(){
-		header("Content-type:text/html;charset=utf-8");
+        parent::_initialize();
     }
     public function lists(){
         $limit = 20;
