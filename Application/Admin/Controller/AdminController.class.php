@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
 use Think\Controller;
-class StartController extends Controller {
+class AdminController extends Controller {
 	public function _initialize(){
 		header("Content-type:text/html;charset=utf-8");
     }
@@ -22,6 +22,10 @@ class StartController extends Controller {
                 $this->redirect('/admin');
             }
         }
-        $this->error('登录不正确', '/admin/start/login');
+        $this->error('登录不正确', '/admin/admin/login');
+    }
+    public function logout(){
+        $_SESSION['admin'] = array();
+        $this->redirect('/admin/admin/login');
     }
 }
