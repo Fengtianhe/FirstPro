@@ -1,59 +1,68 @@
 <include file="Public/header" />
 <include file="Public/nav" />
-<style>
-	#newlists_wrapper {
-		padding-bottom: 20px;
-	}
-	html,body {
-		font-family: "微软雅黑";
-	}
-	select {
-		border: 1px solid #ddd !important;
-		border-radius: 5px;
-	}
-	table.dataTable thead th, table.dataTable thead td {
-		border-bottom: 1px solid #ddd;
-	}
-	table.dataTable.no-footer {
-		border-bottom: none;
-	}
-	table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td{
-		border-top: none;
-		border-bottom: 1px solid #ddd;
-	}
-	h3 {
-		font-weight: normal;
-		font-size: 20px;
-	}
-	.sorting_1,table tr td {
-		background-color: #fff !important;
-	}
-	table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd{
-		background-color: #fff !important;
-	}
-	table tbody tr:hover {
-		background-color: #efefef;
-	}
-</style>
-<div class="container container_font">
-	<h3>发布记录</h3>
-	<table id="newlists" class="display">
-	    <thead>
-	        <tr>
-	            <th>标题</th>
-	            <th>主图</th>
-	            <th>价钱</th>
-	            <th>发布时间</th>
-	            <th>浏览次数</th>
-	            <th>是否置顶</th>
-	            <th>操作</th>
-	        </tr>
-	    </thead>
-	    <tbody>
-	        
-	    </tbody>
-	</table>
+<link rel="stylesheet" href="__PUBLIC__/editor/css/collect.css">
+<script src="__PUBLIC__/editor/js/collect_table.js"></script>
+
+<div class="container container_bottom">
+	 <div class="collect">
+	 	<div class="collect_table">
+	 		<div class="collect_title">
+	 			<ul style="heigt:70px;">
+	 				<li style="width:140px">标题</li>
+	 				<li style="width:160px">主图</li>
+	 				<li style="width:120px">价钱</li>
+	 				<li style="width:120px">发布时间</li>
+	 				<li style="width:120px">浏览次数</li>
+	 				<li style="width:130px">是否置顶</li>
+	 				<li style="width:310px">操作</li>
+	 			</ul>
+	 		</div>
+	 		<table>
+	 			<!-- <volist name="datas" id="vo">
+	 				<tr height="140px">
+		 				<td width="140px">
+		 					<a class="link_a" href="/home/news/detail/id/{$vo.id}" target="_blank">
+		 						{$vo['newstitle']}
+		 					</a>
+		 				</td>
+		 				<td width="160px"><img src="__PUBLIC__/uploads/{$vo['img']}" style="width:100px;height:100px; vertical-align:middle;"></td>
+		 				<td width="120px">{$vo['neworold']}</td>
+		 				<td width="120px">{$vo['is_del']}</td>
+		 				<td width="120px">{$vo['username']}</td>
+		 				<td width="130px" style="color:#a50000">￥{$vo['price']}</td>
+		 				<td width="360px"><a href="{:U('editor/account/cancel',array('cid'=>$vo['id']))}" class="butta"><div class="butt">取消关注</div></a><a href="" class="butta"><div class="butt">联系TA</div></a></td>
+		 			</tr>
+	 			</volist> -->
+	 			<tr height="140px">
+	 				<td width="140px">
+	 					<a class="link_a" href="/home/news/detail/id/13" target="_blank">
+	 						212112
+	 					</a>
+	 				</td>
+	 				<td width="160px">
+	 					<img src="/Public/uploads/undefined" style="width:100px;height:100px; vertical-align:middle;">
+	 				</td>
+	 				<td width="120px"  style="color:#a50000">100元</td>
+	 				<td width="120px">2015.11.10</td>
+	 				<td width="120px">50次</td>
+	 				<td width="130px">0</td>
+	 				<td width="360px">
+		 				<a href="/index.php/editor/account/cancel/cid/13.html" class="buttthreea">
+		 					<div class="butthree">编辑</div>
+		 				</a>
+		 				<a href="" class="buttthreea">
+		 					<div class="butthree">置顶</div>
+		 				</a>
+		 				<a href="" class="buttthreea">
+		 					<div class="butthree">删除</div>
+		 				</a>
+	 				</td>
+	 			</tr>
+	 		</table>
+	 	</div>
+	 </div>
 </div>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#newlists').DataTable({
