@@ -75,3 +75,7 @@ table.stripe tr.over td {background:#bbbbbb;}
 	float: left;
 	margin-left: 50px;
 }
+
+.link_a {
+	text-decoration: none !important;
+}

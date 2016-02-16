@@ -30,8 +30,12 @@
 	 		</div>
 	 		<table>
 	 			<volist name="datas" id="vo">
-	 			<tr class="list_intro" height="140px">
-	 				<td width="140px">{$vo['newstitle']}</td>
+ 				<tr height="140px">
+	 				<td width="140px">
+	 					<a class="link_a" href="/home/news/detail/id/{$vo.id}" target="_blank">
+	 						{$vo['newstitle']}
+	 					</a>
+	 				</td>
 	 				<td width="160px"><img src="__PUBLIC__/uploads/{$vo['img']}" style="width:100px;height:100px; vertical-align:middle;"></td>
 	 				<td width="120px">{$vo['neworold']}</td>
 	 				<td width="120px">{$vo['is_del']}</td>
@@ -46,8 +50,3 @@
 </div>
 
 <include file="Public/footer" />
-<script type="text/javascript">
-	$(".list_intro").click(function(){
-		location.href = "/home/news/detail/id/{$vo.id}"
-	})
-</script>

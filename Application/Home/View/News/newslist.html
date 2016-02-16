@@ -3,7 +3,6 @@
 	.thumbnail h3 a {text-decoration: none;color:#333;}
 	.mouse-style {cursor:pointer}
 	.title_font {font-size:16px; color:#333;font-weight:normal}
-	.input_margintop { margin-top: 20px;}
 </style>
 <!--events start here-->
 <div class="feature">
@@ -27,9 +26,9 @@
 				<foreach name="top_list" item="vo">
 				<div class="col-sm-6 col-md-4 post-masonry">
 					<div class="thumbnail">
-						<img src="__PUBLIC__/uploads/{$vo.img}" alt="主图">
+					<a href="/home/news/detail/id/{$vo.id}" target="_blank"><img src="__PUBLIC__/uploads/{$vo.img}" alt="主图"></a>
 						<div class="caption">
-							<h3 style="font-size:20px;font-weight:normal"><a href="/home/news/detail/id/{$vo.id}">{$vo.title}</a></h3>
+							<h3 style="font-size:20px;font-weight:normal"><a href="/home/news/detail/id/{$vo.id}" target="_blank">{$vo.title}</a></h3>
 							<div class="row">
 						        <label for="lastname" class="text-right col-sm-6 col-sm-4 control-label title_font">价格：</label>
 						        <div class="col-sm-8">
@@ -77,9 +76,9 @@
 				<foreach name="list" item="vo">
 				<div class="col-sm-6 col-md-4 post-masonry">
 					<div class="thumbnail">
-						<img src="__PUBLIC__/uploads/{$vo.img}" alt="主图">
+						<a href="/home/news/detail/id/{$vo.id}" target="_blank"><img src="__PUBLIC__/uploads/{$vo.img}" alt="主图"></a>
 						<div class="caption">
-							<h3><a href="/home/news/detail/id/{$vo.id}">{$vo.title}</a></h3>
+							<h3><a href="/home/news/detail/id/{$vo.id}" target="_blank">{$vo.title}</a></h3>
 							<div class="row">
 						        <label for="lastname" class="text-right col-sm-6 col-sm-4 control-label">价格：</label>
 						        <div class="col-sm-8">
