@@ -1,7 +1,10 @@
+.container-box {
+	width: 100%;
+	background: #f9f9f9;
+}
 .container-body{
-	width: 100% !important;
-    padding: 20px 9% 0 9% !important;
-    background: #f9f9f9;
+	width: 1170px !important;
+    padding-top: 20px;
 }
 .padding-top-10 {
 	padding-top:10px;
