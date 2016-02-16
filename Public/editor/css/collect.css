@@ -79,3 +79,9 @@ table.stripe tr.over td {background:#bbbbbb;}
 .link_a {
 	text-decoration: none !important;
 }
+.container {
+	font-family: "微软雅黑";
+}
+.label_font {
+	font-weight: normal;
+}
