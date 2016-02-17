@@ -54,6 +54,22 @@ class NewsController extends Controller {
     	$this->display();
     }
 
+    //获取数据
+    public function getNewsListData(){
+        $offset = I('offset');
+        $limit = 20;
+        if ($_SESSION['area']['school']['id'] > 0) {
+            $map['school_id'] = (int) $_SESSION['area']['school']['id'];
+        }
+        $map['status'] = 1; 
+        $map['_string'] = 'is_top=0 OR (is_top =1 && top_expire < '.time().')';
+        $News = M('News'); // 实例化News对象
+        $lists = $News->where($map)->order('updated desc')->limit($offset.','.$limit)->select();
+        $result['status'] = 'OK';
+        $result['lists'] = $lists;
+        $this->ajaxReturn($result);
+    }
+
    	public function detail(){
    		$id = I('id','');
    		if(!$id) $this->error('参数错误');
