@@ -22,9 +22,9 @@
 			</form>
 		
 			<div class="row">
-			<div class="post-masonry" style="width:100% !important;"></div>
- 				<!-- <foreach name="list" item="vo">
-				<div class="col-sm-6 col-md-4 post-masonry">
+			<!-- <div class="blog-masonry masonry-true">
+ 				<foreach name="list" item="vo">
+				<div class="post-masonry">
  					<div class="thumbnail">
 						<a href="/home/news/detail/id/{$vo.id}" target="_blank"><img src="__PUBLIC__/uploads/{$vo.img}" alt="主图"></a>
  						<div class="caption">
@@ -71,7 +71,10 @@
 						</div>
 					</div>
 				</div>
- 				</foreach> -->
+ 				</foreach>
+			</div>
+			 -->
+			<div class="post-masonry" style="width:100% !important;"></div>
 			</div>
 		</div>
 	</div>
@@ -192,28 +195,28 @@ $(function() {
 					$.each(data.lists,function(index,item){
 						$(".post-masonry").append(
 							"<div class='thumbnail' style='display:inline-block !important; width:30%;margin-left:2.5%;'>"+ 
-								"<a href='/home/news/detail/id/{$vo.id}' target='_blank'>"+item.img+"</a>"+
+								"<a href='/home/news/detail/id/"+item.id+"' target='_blank'>"+'<img src="__PUBLIC__/uploads/'+item.img+'" alt="主图">'+"</a>"+
 								"<div class='caption'>"+
-									"<h3>"+"<a href='/home/news/detail/id/{$vo.id}' target='_blank'>"+item.title+"</a>"+"</h3>"+
+									"<h3>"+"<a href='/home/news/detail/id/"+item.id+"' target='_blank'>"+item.title+"</a>"+"</h3>"+
 									"<div class='row'>"+
 								        "<label for='lastname' class='text-right col-sm-6 col-sm-4 control-label'>"+"价格："+"</label>"+
-								        "<div class='col-sm-8'>"+
+								        "<div class='col-sm-8'>"
 								        	+"<h3 style='color:red'>"+item.price+"元"+"</h3>"+
 								        "</div>"+
 								    "</div>"+
 								    "<div class='row'>"+
 								        "<label for='lastname' class='text-right col-sm-6 col-sm-4 control-label'>"+"联系人："+"</label>"+
-								        "<div class='col-sm-8'>"+
-								        	+"<h3 style='color:red'>"+item.relation_name+"</h3>"+
+								        "<div class='col-sm-8'>"
+								        	+"<h4>"+item.relation_name+"</h4>"+
 								        "</div>"+
 								    "</div>"+
 								    "<div class='row'>"+
 								        "<label for='lastname' class='text-right col-sm-6 col-sm-4 control-label'>"+"联系方式："+"</label>"+
-								        "<div class='col-sm-8'>"+
-								        	+"<h3 style='color:red'>"+item.phone+"</h3>"+
+								        "<div class='col-sm-8'>"
+								        	+"<h4>"+item.phone+"</h4>"+
 								        "</div>"+
 								    "</div>"+
-								"</div>"+
+								"</div>"
 							 +"</div>"	
 						)
 					})
