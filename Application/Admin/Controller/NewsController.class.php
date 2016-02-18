@@ -41,7 +41,7 @@ class NewsController extends CommonController {
         for ($i=0; $i < $totalCount; $i++) { 
         	$uid = $newslist[$i]['user_id'];
         	$userinfo = M('user')->where(array('id' => $uid))->find();
-        	$newslist[$i]['u_nickname'] = $userinfo['nickname'];
+        	$newslist[$i]['email'] = $userinfo['email'];
             $cat_id = $newslist[$i]['category_id'];
             $category_info = M('category')->where(array('id'=>$cat_id))->find();
             $newslist[$i]['cat_name'] = $category_info['name'];
@@ -49,7 +49,7 @@ class NewsController extends CommonController {
         $category_tree = M('category')->select();
         $this->assign('category',$category_tree);
         $this->assign('newslist', $newslist);
-
+ 
         $this->assign('news_status',$this->news_status);
     	$this->display();
     }
@@ -100,8 +100,6 @@ class NewsController extends CommonController {
     }
 
     public function report(){
-    	$where['report_count'] = array('gt',0);
-
  		$limit = 15;
         $pageNum        = I('pageNum', 1);
         $orderField     = I('orderField', 'id');
@@ -111,23 +109,13 @@ class NewsController extends CommonController {
         $offset = ($pageNum -1) * $limit;
 
 
-        $totalCount  = M('news')->where($where)->count('id');
-        $newslist = M('news')->where($where)->order($orderField.' '.$orderDirection)->limit($offset.','.$limit)->select();
+        $totalCount  = M('mark')->count('id');
+        $marklist = M('mark')->order($orderField.' '.$orderDirection)->limit($offset.','.$limit)->select();
         $page = array('pageNum'=>$pageNum, 'orderField'=>$orderField, 'orderDirection'=>$orderDirection, 'numPerPage'=>$numPerPage, 'totalCount'=>$totalCount);
         $this->assign('page', $page);
-
-        for ($i=0; $i < $totalCount; $i++) { 
-        	$uid = $newslist[$i]['user_id'];
-        	$userinfo = M('user')->where(array('id' => $uid))->find();
-        	$newslist[$i]['u_nickname'] = $userinfo['nickname'];
-            $cat_id = $newslist[$i]['category_id'];
-            $category_info = M('category')->where(array('id'=>$cat_id))->find();
-            $newslist[$i]['cat_name'] = $category_info['name'];
-        }
         $category_tree = M('category')->select();
         $this->assign('category',$category_tree);
-        $this->assign('newslist', $newslist);
-
+        $this->assign('marklist', $marklist);var_dump($marklist);
     	$this->display();
     }
 }

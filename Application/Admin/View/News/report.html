@@ -61,33 +61,17 @@
 			</tr>
 		</thead>
 		<tbody>
-			<volist id="vo" name="newslist">
+			<volist id="vo" name="marklist">
 			<tr target="sid_user" rel="1">
 				<td><input name="ids" value="xxx" type="checkbox"></td>
 				<td>{$vo.id}</td>
-				<td>{$vo.report_count}</td>
-				<td>
-					<if condition="$vo['is_top'] == 1">
-						<a title="点击关闭置顶" target="ajaxTodo" href="/admin/news/ajaxChangeStatus?id={$vo.id}&is_top=1" rel="usercontainer">是</a>
-					<else/>
-						<a title="点击开启置顶" target="ajaxTodo" href="/admin/news/ajaxChangeStatus?id={$vo.id}&is_top=0" rel="usercontainer">否</a>
-					</if>
-				</td>
-				<td>
-					<if condition="$vo['status'] == 1">
-						正常
-					<else/>
-						<if condition="$vo['status'] == -2">
-							系统关闭
-						<else/>
-							用户删除
-						</if>
-					</if>
-				</td>
-				<td><a href="/admin/news/edit_news?id={$vo.id}" class="dialog">{$vo.title}</a></td>
-				<td>{$vo.cat_name}</td>
-				<td>{$vo.u_nickname}</td>
-				<td>￥{$vo.price}</td>
+				<td>{$vo.new_id}</td>
+				<td>{$vo.email}</td>
+				<td>{$vo.mark_result}</td>
+				<td>{$vo.user_id}</td>
+				<td>{$vo.email}</td>
+				<td>{$vo.mark_result}</td>
+				<td>{$vo.user_id}</td>
 				<td><?php echo date(Y年m月d日,$vo['created']) ?></td>
 				<td>
 					<a title="开启" class="btnEdit" target="ajaxTodo" href="/admin/news/ajaxChangeDel?id={$vo.id}&status=1" >开启</a>

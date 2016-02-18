@@ -126,6 +126,7 @@
 	height: 126px;
 	float: left;
 }
+.card-icon-img {width:126px;height:126px;border-radius: 50%;} 
 .card-info{
 	float: left;
 	line-height: 31px;

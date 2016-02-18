@@ -117,9 +117,9 @@
 						<a title="点击开启用户" target="ajaxTodo" href="/admin/user/ajaxChangeStatus?id={$vo.id}&status=-1" rel="usercontainer">关闭</a>
 					</if>
 				</td>
-				<td><?php echo date(Y年m月d日,$vo['created']) ?></td>
-				<td><?php echo $vo['verify_email_time'] ? date(Y年m月d日,$vo['verify_email_time']) : '未知'; ?></td>
-				<td><?php echo date(Y年m月d日,$vo['lastlogintime']) ?></td>
+				<td><?php echo date('Y-m-d H:i:s',$vo['created']) ?></td>
+				<td><?php echo $vo['verify_email_time'] ? date('Y-m-d H:i:s',$vo['verify_email_time']) : '未知'; ?></td>
+				<td><?php echo date('Y-m-d H:i:s',$vo['lastlogintime']) ?></td>
 				<td>
 					<!-- <a title="删除" target="ajaxTodo" href="demo/common/ajaxDone.html?id=xxx" class="btnDel">删除</a> -->
 					<a title="编辑" target="dialog" href="/admin/user/editor_user?id={$vo.id}" class="btnEdit">编辑</a>
