@@ -3,7 +3,7 @@ namespace Editor\Controller;
 use Think\Controller;
 class AccountController extends CommonController{
 	public function _initialize(){
-		header("Content-type:text/html;charset=utf-8");
+		parent::_initialize();
     }
     
 	public function index(){
