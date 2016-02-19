@@ -107,15 +107,27 @@ class NewsController extends CommonController {
         $numPerPage     = I('numPerPage', $limit);
         
         $offset = ($pageNum -1) * $limit;
-
+        $where = array();
+        if (I('request.news_id',0)) {
+            $where['news_id'] = I('request.news_id');
+        }
+        if (I('request.user_id',0)) {
+            $where['user_id'] = I('request.user_id');
+        }
+        if (I('request.status',0)) {
+            $where['status'] = I('request.status');
+        }
+        if (I('request.start_time', 0) && I('request.end_time', 0)) {
+            $where['create_time'] =  array(array('gt',strtotime(trim(I('request.start_time')))),array('lt',strtotime(trim(I('request.end_time')))));
+        }
 
         $totalCount  = M('mark')->count('id');
-        $marklist = M('mark')->order($orderField.' '.$orderDirection)->limit($offset.','.$limit)->select();
+        $marklist = M('mark')->where($where)->order($orderField.' '.$orderDirection)->limit($offset.','.$limit)->select();
         $page = array('pageNum'=>$pageNum, 'orderField'=>$orderField, 'orderDirection'=>$orderDirection, 'numPerPage'=>$numPerPage, 'totalCount'=>$totalCount);
         $this->assign('page', $page);
         $category_tree = M('category')->select();
         $this->assign('category',$category_tree);
-        $this->assign('marklist', $marklist);var_dump($marklist);
+        $this->assign('marklist', $marklist);
     	$this->display();
     }
 }

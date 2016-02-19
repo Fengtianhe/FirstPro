@@ -7,24 +7,16 @@
 
 
 <div class="pageHeader">
-	<form rel="pagerForm" onsubmit="return navTabSearch(this);" action="/admin/user/lists" method="post">
+	<form rel="pagerForm" onsubmit="return navTabSearch(this);" action="/admin/news/report" method="post">
 	<div class="searchBar">
 		<ul class="searchContent" style="height:auto">
 			<li>
-				用  户  名：
-				<input type="text" name="nickname" value="<?php echo $_REQUEST['nickname']?>"/>
+				内容id：
+				<input type="text" name="news_id" value="<?php echo $_REQUEST['news_id']?>"/>
 			</li>
-			
 			<li>
-				<p style="width:500px">
-					分  类：
-					<select class="" name="category_id" id="category">
-							<option value="">所有分类</option>
-							<volist name="category" id="category">
-								<option value="{$category.id}" <if condition="$category['id'] eq $_REQUEST['category_id']">selected="selected"</if>>{$category.name}</option>
-							</volist>
-					</select>
-				</p>
+				用户id：
+				<input type="text" name="user_id" value="<?php echo $_REQUEST['user_id']?>"/>
 			</li>
 			<li>
 				发布时间：
@@ -48,16 +40,15 @@
 		<thead>
 			<tr>
 				<th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-				<th width="50" orderField="accountNo" class="asc">ID</th>
-				<th width="50">举报次数</th>
-				<th orderField="accountName" width="60">置顶</th>
-				<th orderField="accountName" width="60">显示</th>
-				<th width="120" orderField="accountType">标题</th>
-				<th width="110" orderField="accountCert">分类</th>
-				<th width="80" orderField="accountCert">用户</th>
-				<th width="60" align="center" orderField="accountLevel">价格</th>
-				<th width="70">发布日期</th>
-				<th width="70">操作</th>
+				<th width="50" orderField="id" class="<?php if ($page['orderField'] == 'id') echo $page['orderDirection']?>">ID</th>
+				<th width="50" orderField="news_id" class="<?php if ($page['orderField'] == 'news_id') echo $page['orderDirection']?>">内容id</th>
+				<th width="60" orderField="email" class="<?php if ($page['orderField'] == 'email') echo $page['orderDirection']?>">联系邮件</th>
+				<th width="60">原因</th>
+				<th width="120" orderField="user_id" class="<?php if ($page['orderField'] == 'user_id') echo $page['orderDirection']?>">用户id</th>
+				<th width="110" orderField="status" class="<?php if ($page['orderField'] == 'status') echo $page['orderDirection']?>">状态</th>
+				<th width="80" orderField="create_time" class="<?php if ($page['orderField'] == 'create_time') echo $page['orderDirection']?>">创建时间</th>
+				<th width="60" orderField="handle_time" class="<?php if ($page['orderField'] == 'handle_time') echo $page['orderDirection']?>">处理时间</th> 
+				<th width="70">操作</th> 
 			</tr>
 		</thead>
 		<tbody>
@@ -65,17 +56,15 @@
 			<tr target="sid_user" rel="1">
 				<td><input name="ids" value="xxx" type="checkbox"></td>
 				<td>{$vo.id}</td>
-				<td>{$vo.new_id}</td>
+				<td>{$vo.news_id}</td>
 				<td>{$vo.email}</td>
 				<td>{$vo.mark_result}</td>
 				<td>{$vo.user_id}</td>
-				<td>{$vo.email}</td>
-				<td>{$vo.mark_result}</td>
-				<td>{$vo.user_id}</td>
-				<td><?php echo date(Y年m月d日,$vo['created']) ?></td>
+				<td>{$vo.status}</td>
+				<td><?php echo date('Y-m-d H:i:s',$vo['create_time']) ?></td>
+				<td><?php echo date('Y-m-d H:i:s',$vo['handle_time']) ?></td>
 				<td>
-					<a title="开启" class="btnEdit" target="ajaxTodo" href="/admin/news/ajaxChangeDel?id={$vo.id}&status=1" >开启</a>
-					<a title="删除" target="ajaxTodo" href="demo/common/ajaxChangeDel?id={$vo.id}&status=-2" class="btnDel">删除</a>
+					<a title="关闭相关内容" target="ajaxTodo" href="/admin/news/ajaxChangeDel?id={$vo.news_id}&status=-2" class="btnDel">删除</a>
 				</td>
 			</tr>
 			</volist>
