@@ -17,81 +17,87 @@
 	 				<li style="width:310px">操作</li>
 	 			</ul>
 	 		</div>
-	 		<table>
-	 			<!-- <volist name="datas" id="vo">
-	 				<tr height="140px">
-		 				<td width="140px">
-		 					<a class="link_a" href="/home/news/detail/id/{$vo.id}" target="_blank">
-		 						{$vo['newstitle']}
-		 					</a>
-		 				</td>
-		 				<td width="160px"><img src="__PUBLIC__/uploads/{$vo['img']}" style="width:100px;height:100px; vertical-align:middle;"></td>
-		 				<td width="120px">{$vo['neworold']}</td>
-		 				<td width="120px">{$vo['is_del']}</td>
-		 				<td width="120px">{$vo['username']}</td>
-		 				<td width="130px" style="color:#a50000">￥{$vo['price']}</td>
-		 				<td width="360px"><a href="{:U('editor/account/cancel',array('cid'=>$vo['id']))}" class="butta"><div class="butt">取消关注</div></a><a href="" class="butta"><div class="butt">联系TA</div></a></td>
-		 			</tr>
-	 			</volist> -->
+	 		<table id="newlists">
+	 			<volist name="datas" id="vo">
 	 			<tr height="140px">
 	 				<td width="140px">
-	 					<a class="link_a" href="/home/news/detail/id/13" target="_blank">
-	 						212112
+	 					<a class="link_a" href="/home/news/detail/id/{$vo.id}" target="_blank">
+	 						{$vo['title']}
 	 					</a>
 	 				</td>
 	 				<td width="160px">
-	 					<img src="/Public/uploads/undefined" style="width:100px;height:100px; vertical-align:middle;">
+	 					<!-- <img src="__PUBLIC__/uploads/{$vo['img']}" style="width:100px;height:100px; vertical-align:middle;"> -->
+	 					{$vo['img']}
 	 				</td>
-	 				<td width="120px"  style="color:#a50000">100元</td>
-	 				<td width="120px">2015.11.10</td>
-	 				<td width="120px">50次</td>
-	 				<td width="130px">0</td>
+	 				<td width="120px"  style="color:#a50000">{$vo['price']}元</td>
+	 				<td width="120px">{$vo['created']}</td>
+	 				<td width="120px">{$vo[show_count]}次</td>
+	 				<td width="130px">
+	 				<if condition="$vo['is_top'] eq 1">已置顶<else/>未置顶</if></td>
 	 				<td width="360px">
-		 				<a href="/index.php/editor/account/cancel/cid/13.html" class="buttthreea">
+	 				<if condition="$vo['status'] eq 1">
+		 				<!-- <a href="/index.php/editor/account/cancel/cid/13.html" class="buttthreea">
 		 					<div class="butthree">编辑</div>
 		 				</a>
 		 				<a href="" class="buttthreea">
-		 					<div class="butthree">置顶</div>
+		 					<div class="butthree top">置顶</div>
 		 				</a>
 		 				<a href="" class="buttthreea">
-		 					<div class="butthree">删除</div>
+		 					<div class="butthree del">删除</div>
+		 				</a> -->
+		 				<a class='edit buttthreea' href='javascript:;' rel="{$vo['id']}">
+		 					<div class="butthree">编辑</div>
 		 				</a>
+    					<a class='top buttthreea' href='javascript:;' rel="{$vo['id']}">
+    						<div class="butthree">置顶</div>
+    					</a>
+    					<a class='del buttthreea' href='javascript:;' rel="{$vo['id']}">
+    						<div class="butthree">删除</div>
+    					</a>
+		 			<else/>
+		 				<if condition="$vo['status'] eq -1">
+		 					<a class='recover buttthreea' href='javascript:;' rel="{$vo['id']}">
+		 						<div class="butthree">恢复</div>
+		 					</a>
+		 				</if>
+		 			</if>
 	 				</td>
 	 			</tr>
+	 			</volist>
 	 		</table>
 	 	</div>
 	 </div>
 </div>
 
 <script type="text/javascript">
-	$(document).ready(function(){
-		$('#newlists').DataTable({
-			"searching": false,
-			"lengthChange": false,
-			"ajax" : {
-				url : '/editor/index/myList',
-				dataSrc: ''
-			},
-			"order": [[ 0, false ]],
-			"columnDefs": [
-				{ "orderable": false, "targets": 0 }
-			],
+	// $(document).ready(function(){
+	// 	$('#newlists').DataTable({
+	// 		"searching": false,
+	// 		"lengthChange": false,
+	// 		"ajax" : {
+	// 			url : '/editor/index/myList',
+	// 			dataSrc: ''
+	// 		},
+	// 		"order": [[ 0, false ]],
+	// 		"columnDefs": [
+	// 			{ "orderable": false, "targets": 0 }
+	// 		],
 
-			"columns": [
-			    // { "orderable": false },
-			    // { "orderable": false }
-			    { data: 'title' },
-		        { data: 'img' },
-		        { data: 'price' },
-		        { data: 'created' },
-		        { data: 'show_count' },
-		        { data: 'is_top' },
-		        { data: 'handle' }
-			  ]
-		});
-	});
+	// 		"columns": [
+	// 		    // { "orderable": false },
+	// 		    // { "orderable": false }
+	// 		    { data: 'title' },
+	// 	        { data: 'img' },
+	// 	        { data: 'price' },
+	// 	        { data: 'created' },
+	// 	        { data: 'show_count' },
+	// 	        { data: 'is_top' },
+	// 	        { data: 'handle' }
+	// 		  ]
+	// 	});
+	// });
 	$(function(){
-		$(document).on('click','#newlists .btn',function(){
+		$(document).on('click','#newlists .buttthreea',function(){
 			var act = '';
 			var msg = '';
 			var id = $(this).attr('rel');

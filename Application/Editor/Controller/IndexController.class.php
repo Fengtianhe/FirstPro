@@ -6,6 +6,15 @@ class IndexController extends CommonController {
 		parent::_initialize();
 	}
     public function info(){
+        $id=$_SESSION['me']['id'];
+        $News=M('news');
+        $temps=$News->where(array('user_id' => $id))->field('id,title,price,img,show_count,is_top,status,created')->select();
+        foreach ($temps as $key=>$value) {
+            $temps[$key]['img'] = '<img width="100px" height="100px" src="/Public/uploads/'.$value['img'].'">';
+            $temps[$key]['created'] = date('Y.m.d',$temps[$key]['created']);
+            $temps[$key]['handle'] = $this->getHandleHtml($value);
+        }
+        $this->assign('datas',$temps);
         $this->display();
     }
 
@@ -27,11 +36,11 @@ class IndexController extends CommonController {
 
     public function getHandleHtml($info){
     	if ($info['status'] == -1) {
-    		$html = "<a class='btn recover' href='javascript:;' rel='".$info['id']."'>恢复</a>";
+    		$html = "<a class='btn recover' href='javascript:;' rel='".$info['id']."'><div class='butthree'>恢复</div></a>";
     	} elseif ($info['status'] == 1) {
-    		$html = "<a class='btn edit' href='javascript:;' rel='".$info['id']."'>编辑</a>";
-    		$html .= "<a class='btn top' href='javascript:;' rel='".$info['id']."'>置顶</a>";
-    		$html .= "<a class='btn del' href='javascript:;' rel='".$info['id']."'>删除</a>";
+    		$html = "<a class='btn edit' href='javascript:;' rel='".$info['id']."'><div class='butthree'>编辑</div></a>";
+    		$html .= "<a class='btn top' href='javascript:;' rel='".$info['id']."'><div class='butthree'>置顶</div></a>";
+    		$html .= "<a class='btn del' href='javascript:;' rel='".$info['id']."'><div class='butthree'>删除</div></a>";
     	}
     	return $html;
     }
