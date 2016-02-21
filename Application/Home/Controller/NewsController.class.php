@@ -95,9 +95,10 @@ class NewsController extends Controller {
     public function ajaxHandleMark()
     {
         $data['news_id']     = I('id');
-        $data['user_id']     = $_SESSION['me']['id'];
+        $data['user_id']     = $_SESSION['me']['id']?$_SESSION['me']['id']:0;
         $data['email']       = I('email');
         $data['mark_result'] = I('mark_result');
+        $data['ip_address']  = ip2long($_SERVER["REMOTE_ADDR"]);
         $data['create_time'] = time();
         $result = M('Mark')->add($data);
         $arr = array('status'=>'OK','info'=>'标记成功','data'=>$result);

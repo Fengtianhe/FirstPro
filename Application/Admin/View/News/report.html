@@ -46,6 +46,7 @@
 				<th width="60">原因</th>
 				<th width="120" orderField="user_id" class="<?php if ($page['orderField'] == 'user_id') echo $page['orderDirection']?>">用户id</th>
 				<th width="110" orderField="status" class="<?php if ($page['orderField'] == 'status') echo $page['orderDirection']?>">状态</th>
+				<th width="110" orderField="ip_address" class="<?php if ($page['orderField'] == 'ip_address') echo $page['orderDirection']?>">IP地址</th>
 				<th width="80" orderField="create_time" class="<?php if ($page['orderField'] == 'create_time') echo $page['orderDirection']?>">创建时间</th>
 				<th width="60" orderField="handle_time" class="<?php if ($page['orderField'] == 'handle_time') echo $page['orderDirection']?>">处理时间</th> 
 				<th width="70">操作</th> 
@@ -61,6 +62,7 @@
 				<td>{$vo.mark_result}</td>
 				<td>{$vo.user_id}</td>
 				<td>{$vo.status}</td>
+				<td>{$vo.ip_address|long2ip}</td>
 				<td><?php echo date('Y-m-d H:i:s',$vo['create_time']) ?></td>
 				<td><?php echo date('Y-m-d H:i:s',$vo['handle_time']) ?></td>
 				<td>

@@ -1,0 +1,1 @@
+ALTER TABLE `zt`.`zt_mark` ADD COLUMN `ip_address` INT DEFAULT 0 NOT NULL COMMENT '举报人ip地址 （ipv4）' AFTER `status`; 
