@@ -1,5 +1,8 @@
 <include file="Public/header" />
 <!--banner start here-->
+<style type="text/css">
+	.recommend a {color:#818181;text-decoration: none;}
+</style>
 <div class="banner">
 	<div class="container">
 		<div class="banner-main">
@@ -45,14 +48,14 @@
 					<p></p>
 				</div>
 				<div class="work-bottom">
-					<foreach name="top_list" item="vo">
-					<div class="col-md-3 portfolio-wrapper">		
+					<foreach name="recommend_list" item="vo">
+					<div class="col-md-3 portfolio-wrapper recommend">		
 							<a class="b-link-stripe b-animate-go  swipebox"  title="{$vo.title}" href="__PUBLIC__/uploads/{$vo.img}">
 						     <img src="__PUBLIC__/uploads/{$vo.img}" alt="" class="img" width="271" height="271px"><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03"><img src="__PUBLIC__/home/images/link.png" alt=""/></h2>
 						  		</div></a>
                         <div class="work-details">
-						   	<h3>{$vo.title}</h3>
-						   	<p>{$vo.description}</p>
+						   	<h3><a href="/home/news/detail/id/{$vo.id}">{$vo.title}</a></h3>
+						   	<p><a href="/home/news/detail/id/{$vo.id}">{$vo.description}</a></p>
 					    </div>
 					</div>
 					</foreach>

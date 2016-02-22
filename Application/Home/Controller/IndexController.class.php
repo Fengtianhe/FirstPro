@@ -22,12 +22,12 @@ class IndexController extends Controller {
         /*$map['is_top'] = 1;
         $map['top_expire'] = array('gt', time());*/
         $News = D('News');
-        $top_list = $News->where($map)->order('show_count desc')->limit($offset.','.$limit)->select();
+        $recommend_list = $News->where($map)->order('show_count desc')->limit($offset.','.$limit)->select();
 
         $this->assign('checked', 1);              
         $this->assign('area', $this->area);
         $this->assign('category',$category);
-        $this->assign('top_list',$top_list);
+        $this->assign('recommend_list',$recommend_list);
     	$this->display();
     }
 
