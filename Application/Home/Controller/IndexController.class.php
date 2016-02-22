@@ -16,13 +16,13 @@ class IndexController extends Controller {
         $limit  = 4;
         $category = M('Category')->where(array('pid'=>'0'))->select();
 
-        //获取推荐内容
+        //获取推荐内容 todo 临时策略按照 查看次数倒叙 避免首页出现空位
         $map = array();
         $map['status'] = 1;
-        $map['is_top'] = 1;
-        $map['top_expire'] = array('gt', time());
+        /*$map['is_top'] = 1;
+        $map['top_expire'] = array('gt', time());*/
         $News = D('News');
-        $top_list = $News->where($map)->order('id desc')->limit($offset.','.$limit)->select();
+        $top_list = $News->where($map)->order('show_count desc')->limit($offset.','.$limit)->select();
 
         $this->assign('checked', 1);              
         $this->assign('area', $this->area);
