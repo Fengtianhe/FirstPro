@@ -1,0 +1,19 @@
+ <!DOCTYPE html>
+<html>
+<head>
+	<title>{$article.title}</title>
+	<link href="__PUBLIC__/home/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+	<style type="text/css">
+		.container-box {width:1170px;margin:0 auto;}
+		.title {text-align:center;}
+	</style>
+</head>
+<body>
+	<div class="container-box">
+		<div class="container container-body">
+			<p class="title">{$article.title}</p>
+			<div>{$article.content|htmlspecialchars_decode }</div>
+		</div>
+	</div>
+</body>
+</html>
