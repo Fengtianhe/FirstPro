@@ -1,0 +1,44 @@
+<h2 class="contentTitle">查看留言</h2>
+
+
+<div class="pageContent">
+	
+	<form method="post" action="" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+		<div class="pageFormContent nowrap" layoutH="97">
+			<p style="width:500px">
+				<label>姓名：</label>
+				{$contact_info.name}
+			</p>
+			<p style="width:500px">
+				<label>邮箱：</label>
+				{$contact_info.email}
+			</p>
+			<p style="width:500px">
+				<label>主题：</label>
+				{$contact_info.subject}
+			</p>
+			<p style="width:500px">
+				<label>发布时间：</label>
+				{$contact_info.create_time|date='Y-m-d H:i:s',###}
+			</p>
+			<p style="width:500px">
+				<label>主题：</label>
+				{$contact_info.subject}
+			</p>
+			<p style="width:500px">
+				<label>内容：</label>
+				{$contact_info.message}
+			</p>
+			
+			<div class="divider"></div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<input type="hidden" name="id" value="{$contact_info['id']}">
+				<input type="hidden" name="close_dialog" value="1">
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">关闭</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+</div>

@@ -1,0 +1,90 @@
+<form id="pagerForm" method="post" action="#rel#">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="numPerPage" value="{$page.numPerPage}" />
+	<input type="hidden" name="orderField" value="{$page.orderField}" />
+	<input type="hidden" name="orderDirection" value="{$page.orderDirection}" />
+</form>
+
+<div class="pageHeader">
+	<form rel="pagerForm" onsubmit="return navTabSearch(this);" action="/admin/contact/lists" method="post">
+	<div class="searchBar">
+		<ul class="searchContent" style="height:auto">
+			<li>
+				姓名：
+				<input type="text" name="name" value="<?php echo $_REQUEST['name']?>"/>
+			</li>
+			<li>
+				email：
+				<input type="text" name="email" value="<?php echo $_REQUEST['email']?>"/>
+			</li>
+			<li>
+				<p style="width:500px">
+					状　　态：
+					<select class="" name="status" id="status">
+							<foreach name="contact_status" item="statu">
+							<option value="{$key}" <if condition="$key eq $_REQUEST['status']">selected="selected"</if>>{$statu.name}</option>
+							</foreach>
+					</select>
+				</p>
+			</li>
+		</ul>
+		<div class="subBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+			</ul>
+		</div>
+	</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar">
+		<ul class="toolBar">
+			<li><a class="add" href="/admin/contact/info?id={sid}" target="dialog" width="700" height="600"><span>查看详情</span></a></li>
+			<li><a class="edit" href="/admin/contact/save_contact?id={sid}&status=2" target="ajaxTodo" warn="请选择一条留言" title="确认标记为异常？"><span>标记异常</span></a></li>
+			<li><a class="edit" href="/admin/contact/save_contact?id={sid}&status=1" target="ajaxTodo" warn="请选择一条留言" title="确认已经联系用户了么？"><span>已联系用户</span></a></li> 
+		</ul>
+	</div>
+	<table class="table" width="100%" layoutH="160">
+		<thead>
+			<tr>
+				<th width="12"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+				<th width="" orderField="id" class="<?php if ($page['orderField'] == 'id') echo $page['orderDirection']?>">Id</th>
+				<th width="120">姓名</th>
+				<th width="" orderField="email" class="<?php if ($page['orderField'] == 'email') echo $page['orderDirection']?>">email</th>
+				<th width="" orderField="department" class="<?php if ($page['orderField'] == 'department') echo $page['orderDirection']?>">主题</th>
+				<th width="" orderField="status" class="<?php if ($page['orderField'] == 'status') echo $page['orderDirection']?>">状态</th>
+				<th width="" orderField="user_id" class="<?php if ($page['orderField'] == 'user_id') echo $page['orderDirection']?>">用户名</th>
+				<th width="" orderField="create_time" class="<?php if ($page['orderField'] == 'create_time') echo $page['orderDirection']?>">创建时间</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist id="vo" name="contact_list">
+			<tr target="sid" rel="{$vo.id}">
+				<td><input name="ids" value="xxx" type="checkbox"></td>
+				<td>{$vo.id}</td>
+				<td>{$vo.name}</td>
+				<td>{$vo.email}</td>
+				<td>{$vo.subject}</td>
+				<td>{$contact_status[$vo['status']]['name']}</td>
+				<td>{$vo.user_id}</td>
+				<td>{$vo.create_time|date='Y-m-d H:i:s',###}</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages">
+			<span>显示</span>
+			<select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+				<option <?php if ($page['numPerPage'] == 20) echo "selected";?> value="20">20</option>
+				<option <?php if ($page['numPerPage'] == 50) echo "selected";?> value="50">50</option>
+				<option <?php if ($page['numPerPage'] == 100) echo "selected";?> value="100">100</option>
+				<option <?php if ($page['numPerPage'] == 200) echo "selected";?> value="200">200</option>
+			</select>
+			<span>共{$page.totalCount}条</span>
+		</div>
+		
+		<div class="pagination" targetType="navTab" totalCount="{$page.totalCount}" numPerPage="{$page.numPerPage}" pageNumShown="6" currentPage="{$page.pageNum}"></div>
+
+	</div>
+</div>
