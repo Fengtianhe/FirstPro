@@ -1,7 +1,7 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
-class ArticleController extends Controller {
+class ArticleController extends CommonController {
     public function index()
     {
         $id = I('id', 0);

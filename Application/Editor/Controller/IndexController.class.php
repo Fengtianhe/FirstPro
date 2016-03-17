@@ -100,4 +100,15 @@ class IndexController extends CommonController {
     	
     	$this->ajaxReturn($return_data);
     }
+
+    function massage(){
+        if(I('get.type',0)>0){
+          $where['msg_type']=I('get.type');  
+        }
+        $user = $_SESSION['me']['email'];
+        $where['LCU']=$user;
+        $msg_list = M('msg')->where($where)->select();
+        $this->assign('msg_list',$msg_list);
+        $this->display();
+    }
 }

@@ -31,8 +31,6 @@ class AccountController extends CommonController{
    				$this->success('修改成功,请重新登录',U('Editor/user/login'));
    			}
    			else{
-   				var_dump(M('user')->getlastsql());
-   				die();
    				$this->error('修改失败，请重试',U('editor/account/ModifyPwd'));
    			}
    		}
@@ -100,8 +98,7 @@ class AccountController extends CommonController{
 			$newsinfo = M('news')->where(array('id' => $newsid))->find();
 			$datas[$i]['newstitle'] = $newsinfo['title'];
 			$datas[$i]['img'] = $newsinfo['img'];
-			$neworold = $newsinfo['neworold'];
-			switch ($neworold) {
+			switch ($newsinfo['neworold']) {
 				case '9':
 					$datas[$i]['neworold'] = '九成新';
 					break;
@@ -146,7 +143,7 @@ class AccountController extends CommonController{
 	}
 	public function Cancel()
 	{
-		$cid = $_GET['cid'];
+		$cid = I('get.cid');
 		$data['status'] = '-1';
 		if (M('collect')->where(array('id' => $cid ))->save($data)) {
 			$this->success('操作成功');

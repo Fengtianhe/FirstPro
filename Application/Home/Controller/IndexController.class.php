@@ -1,7 +1,7 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
-class IndexController extends Controller {
+class IndexController extends CommonController {
     Public $area = array(
        // '1' => array('name'=>'吉林市','school'=>array('1'=>'北华','2'=>'东电')),
         '1' => array('name'=>'吉林市','school'=>array('1'=>array('name'=>'北华大学'),'2'=>array('name'=>'东北电力'))),

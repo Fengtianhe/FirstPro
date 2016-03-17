@@ -76,7 +76,9 @@
 				<ul>
 					<if condition="$_SESSION['me']['id']">
 					<li>
-						<a class="reg_us log_name" href="/editor/index/info">{$_SESSION['me']['email']}</a>
+						<a class="reg_us log_name" href="/editor/index/info">{$_SESSION['me']['email']}
+						</a>
+						<?php getNoReadMsg();?>
 					</li>
 					<li>
 						<a class="reg_us" href="/editor/user/logout">注销</a>

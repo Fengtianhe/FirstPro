@@ -1,7 +1,7 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
-class NewsController extends Controller {
+class NewsController extends CommonController {
     private $price = array(
                     '0'    => array('min' => 0, 'max' => 500, 'name' => '0~500'),
                     '1'    => array('min' => 500, 'max' => 1000, 'name' => '500~1000'),
@@ -103,6 +103,9 @@ class NewsController extends Controller {
         $result = M('Mark')->add($data);
         $arr = array('status'=>'OK','info'=>'标记成功','data'=>$result);
         echo json_encode($arr);
+
+        //发送站内信
+        D('Common/Msg')->sendReportMsg($data);
     }
 
     //ajax处理 收藏信息

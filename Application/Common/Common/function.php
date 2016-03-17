@@ -46,7 +46,12 @@ function is_mobile_request()
 	else 
 		return false;   
 }
-
-
-
+function getNoReadMsg(){
+	$email = $_SESSION['me']['email'];
+	$Msg_list = M('msg')->where(array('LCU' => $email,'read_status' => -1))->select();
+	$msg_num = count($Msg_list);
+	if ($msg_num > 0) {
+		echo '<a href="/Editor/Index/massage">【'.$msg_num.'条消息】</a>';
+	}
+}
 ?>
