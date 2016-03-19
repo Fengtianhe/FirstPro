@@ -46,6 +46,29 @@ function is_mobile_request()
 	else 
 		return false;   
 }
+
+/**
+ * 二维数组多字段排序
+ * array_orderby($data,field1,sort,field2,sort,...)
+ * @return array 排序后的数组
+ */
+function array_orderby()
+{
+    $args = func_get_args();
+    $data = array_shift($args);
+    foreach ($args as $n => $field) {
+        if (is_string($field)) {
+            $tmp = array();
+            foreach ($data as $key => $row)
+                $tmp[$key] = $row[$field];
+            $args[$n] = $tmp;
+            }
+    }
+    $args[] = &$data;
+    call_user_func_array('array_multisort', $args);
+    return array_pop($args);
+}
+
 function getNoReadMsg(){
 	$email = $_SESSION['me']['email'];
 	$Msg_list = M('msg')->where(array('LCU' => $email,'read_status' => -1))->select();
