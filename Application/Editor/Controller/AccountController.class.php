@@ -151,5 +151,27 @@ class AccountController extends CommonController{
 			$this->error('操作失败');
 		}
 	}
+
+	/**
+	 * 用户删除信息操作
+	 * @return [type] [description]
+	 */
+	function deleteMsg(){
+		$mid = I('get.mid');
+		$data['delete_tag'] = -1;
+		if (M('msg')->where(array('id' => $mid))->save($data)) {
+			$this->success('操作成功',U('Editor/Index/massage'));
+		}else{
+			$this->success('操作失败',U('Editor/Index/massage'));
+		}
+	}
+
+	function readMsg(){
+		$mid = I('get.mid');
+		$data['read_status'] = 1;
+		M('msg')->where(array('id' => $mid))->save($data);
+		
+	}
+
 }
 ?>

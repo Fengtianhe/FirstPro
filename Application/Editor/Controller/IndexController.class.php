@@ -105,9 +105,19 @@ class IndexController extends CommonController {
         if(I('get.type',0)>0){
           $where['msg_type']=I('get.type');  
         }
+        $where['delete_tag'] = 1;
         $user = $_SESSION['me']['email'];
         $where['LCU']=$user;
         $msg_list = M('msg')->where($where)->select();
+        foreach ($msg_list as &$v) {
+            if ($v['msg_type'] == 1) {
+                $v['msg_types'] = '举报';
+            }elseif ($v['msg_type'] == 2) {
+                $v['msg_types'] = '收藏';
+            }else{
+                $v['msg_types'] = '管理员通知';
+            }
+        }
         $this->assign('msg_list',$msg_list);
         $this->display();
     }
