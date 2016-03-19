@@ -17,7 +17,7 @@
 					</foreach>
 				</p>
 			</div>
-			<form id="search" action="/home/news/newslist" method="post">
+			<form id="search" action="/home/news/newslist" method="get">
 				<input type="hidden" name="category" class="search-category">
 			</form>
 		
@@ -228,9 +228,7 @@ $(function() {
 	});
 
 	$('.search span').click(function(){
-		//console.log($(this));
 		var category_id = $(this).attr('rel');
-		console.log(category_id);
 		$('#search').find('.search-category').val(category_id);
 		$('#search').submit();
 	});
