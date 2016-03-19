@@ -115,6 +115,7 @@ class NewsController extends CommonController {
         $data['user_id']     = I('user_id',0);
         $data['status']      = $collect_type = I('collect_type',0);
         $data['create_time'] = time();
+        $flag = 0;
 
         //避免重复收藏
         if($collect_info = M('Collect')->where(array('news_id'=>$data['news_id'],'user_id'=>$data['user_id']))->find())
@@ -124,7 +125,8 @@ class NewsController extends CommonController {
                 if ($collect_type < 0 ) {
                     $info = "收藏已取消"; 
                 } else {
-                    $info = "收藏成功"; 
+                    $info = "收藏成功";
+                    $flag = 1; 
                 }
                 
             } else {
@@ -134,10 +136,17 @@ class NewsController extends CommonController {
         else 
         {
             $result = M('Collect')->add($data);
-            $info = "收藏成功";        
+            $info = "收藏成功";
+            $flag = 1;        
         }
         $arr = array('status'=>'OK','info'=>$info,'data'=>$result);
         $arr['collect_type'] = $collect_type <0 ? 0 : -1;
         echo json_encode($arr);
+
+        if ($flag == 1) {
+            //发送站内信
+            D('Common/Msg')->sendCollectMsg($data);
+        }
+        
     }
 }

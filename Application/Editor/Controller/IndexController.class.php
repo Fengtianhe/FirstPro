@@ -102,8 +102,8 @@ class IndexController extends CommonController {
     }
 
     function massage(){
-        if(I('get.type',0)>0){
-          $where['msg_type']=I('get.type');  
+        if(I('get.msg_type',0)>0){
+          $where['msg_type']=I('get.msg_type');  
         }
         $where['delete_tag'] = 1;
         $user = $_SESSION['me']['email'];

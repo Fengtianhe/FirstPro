@@ -16,5 +16,21 @@ class MsgModel extends Model{
 		$msg_info['msg_type'] = 1;
 		M('msg')->add($msg_info);
 	}
+
+	function sendCollectMsg($data_info){
+		$news_id = $data_info['news_id'];
+		$news_info = M('news')->where(array('id'=>$news_id))->find();
+		$msg_info['title'] = $news_info['title'];
+		$LCU_id = $news_info['user_id'];
+		$FCU_id = $data_info['user_id'];
+		$FCU_user = M('user')->where(array('id'=>$FCU_id))->find();
+		$msg_info['FCU'] = $FCU_user['email'];
+		$msg_info['content'] = '亲，你上架的商品【'.$msg_info['title'].'】被'.$msg_info['FCU'].'收藏';
+		$msg_info['send_date'] = time();
+		$LCU_user = M('user')->where(array('id'=>$LCU_id))->find();
+		$msg_info['LCU'] = $LCU_user['email']; 
+		$msg_info['msg_type'] = 2;
+		M('msg')->add($msg_info);
+	}
 }
 ?>
