@@ -9,6 +9,10 @@ class NewsController extends CommonController {
                     '3'    => array('min' => 2000, 'max' => 3000, 'name' => '2000~3000'),
                     '4'    => array('min' => 3000, 'max' => 0, 'name' => '3000以上'),
     );
+
+    /**
+     *
+     */
     public function newsList(){
         $limit = 20;
         $category = M('Category')->where(array('pid'=>'0'))->select();

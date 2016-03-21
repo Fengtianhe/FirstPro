@@ -1,0 +1,81 @@
+<form id="pagerForm" method="post" action="#rel#">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="numPerPage" value="{$page.numPerPage}" />
+	<input type="hidden" name="orderField" value="{$page.orderField}" />
+	<input type="hidden" name="orderDirection" value="{$page.orderDirection}" />
+</form>
+
+
+<div class="pageHeader">
+	<form rel="pagerForm" onsubmit="return navTabSearch(this);" action="/admin/news/report" method="post">
+	<div class="searchBar">
+		<ul class="searchContent" style="height:auto">
+			<li>
+				内容id：
+				<input type="text" name="news_id" value="<?php echo $_REQUEST['news_id']?>"/>
+			</li>
+			<li>
+				用户id：
+				<input type="text" name="user_id" value="<?php echo $_REQUEST['user_id']?>"/>
+			</li>
+			<li>
+				发布时间：
+				<input type="text" class="date" name="start_time" value="<?php echo $_REQUEST['start_time']?>" style="width:75px"/>~<input type="text" class="date" name="end_time" value="<?php echo $_REQUEST['end_time']?>" style="width:75px"/>
+			</li>
+		</ul>
+		
+		<div class="subBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+				<!-- <li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li> -->
+			</ul>
+		</div>
+	</div>
+	</form>
+</div>
+<div class="pageContent">
+	<!-- <div class="panelBar">
+	</div> -->
+	<table class="table" width="100%" layoutH="135">
+		<thead>
+			<tr>
+				<th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+				<th width="30" orderField="id" class="<?php if ($page['orderField'] == 'id') echo $page['orderDirection']?>">ID</th>
+				<th width="300" orderField="news_id" class="<?php if ($page['orderField'] == 'title') echo $page['orderDirection']?>">标题</th>
+				<th width="100" orderField="email" class="<?php if ($page['orderField'] == 'send_date') echo $page['orderDirection']?>">发送时间</th>
+				<th width="60" orderField="user_id" class="<?php if ($page['orderField'] == 'FCU') echo $page['orderDirection']?>">发送人</th>
+				<th width="60" orderField="status" class="<?php if ($page['orderField'] == 'LCU') echo $page['orderDirection']?>">接收人</th>
+				<th width="50" orderField="ip_address" class="<?php if ($page['orderField'] == 'delete_tag') echo $page['orderDirection']?>">删除状态</th>
+				<th width="50" orderField="create_time" class="<?php if ($page['orderField'] == 'read_status') echo $page['orderDirection']?>">阅读状态</th>
+				<th width="60" orderField="handle_time" class="<?php if ($page['orderField'] == 'msg_type') echo $page['orderDirection']?>">消息类型</th> 
+				<!-- <th width="30">操作</th> --> 
+			</tr>
+		</thead>
+		<tbody>
+			<volist id="vo" name="msg_list">
+			<tr target="sid_user" rel="1">
+				<td><input name="ids" value="xxx" type="checkbox"></td>
+				<td>{$vo.id}</td>
+				<td>{$vo.title}</td>
+				<td>{$vo.send_date|date="Y-m-d h:i:s",###}</td>
+				<td>{$vo.fcu}</td>
+				<td>{$vo.lcu}</td>
+				<td>{$vo.delete_tag}</td>
+				<td>{$vo.read_status}</td>
+				<td>{$vo.msg_type}</td>
+				<!-- <td>
+					<a title="关闭相关内容" target="ajaxTodo" href="/admin/message/ajaxChangeDel?id={$vo.news_id}&status=-2" class="btnDel">删除</a>
+				</td> -->
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages">
+			<span>共{$page.totalCount}条</span>
+		</div>
+		
+		<div class="pagination" targetType="navTab" totalCount="{$page.totalCount}" numPerPage="{$page.numPerPage}" pageNumShown="6" currentPage="{$page.pageNum}"></div>
+
+	</div>
+</div>
