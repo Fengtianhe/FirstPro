@@ -61,7 +61,7 @@
 							</a>
 						</li>
 						<li>
-							<a <if condition="$_SERVER['PATH_INFO'] eq 'Add/addNew'">class="active"</if> href="/editor/Add/addNew">
+							<a class="addnew" <if condition="$_SERVER['PATH_INFO'] eq 'Add/addNew'">class="active"</if> href="/editor/Add/addNew">
 								<span data-hover="Shop">出售</span>
 							</a>
 						</li>
@@ -112,6 +112,19 @@ $(function(){
 		//执行弹窗
 		layer_index = dialog(url,layer_offset);
 	 	return false;
+	});
+
+	//发布 判断是是否登录
+	$(document).on('click','.addnew',function(){
+		var addnew_callback = '<?php echo base64_encode(U('editor/add/addnew'));?>';
+		var uid = <?php echo $_SESSION['me']['id']?$_SESSION['me']['id']:0;?>;
+		if (uid > 0) {
+			return true;
+		} else {
+			layer.close(layer_index);
+			dialog('/editor/user/login?callback='+addnew_callback, layer_offset);
+			return false;
+		}
 	});
 
 	//登录页 去注册 关闭当前弹窗 打开新弹窗

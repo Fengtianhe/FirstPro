@@ -119,6 +119,7 @@ class UserController extends Controller {
     public function login(){
         $list=M('university_all')->order('s_name asc')->select();
         $this->assign('s_list',$list);
+        $this->assign('callback', I('get.callback',''));
         //获取页面内容 ajax返回 弹窗显示
         $html = $this->fetch('User/login');
         $data['data'] = $html;
@@ -130,12 +131,19 @@ class UserController extends Controller {
     public function handle_email_login(){
         $email = I('post.email');
         $password = I('post.password');
+        $callback = I('post.callback');
+        if ($callback) {
+            $callback = base64_decode($callback);
+        } else {
+            $callback = U('/home/index/index');
+        }
+        
         if($email && $password){
             if($res = D('user')->where(array('email'=>$email,'password'=>md5($password),'status'=>1))->find()){
                 $data['lastlogintime'] = time();
                 M('user')->where(array('email' => $email))->save($data);
                 $_SESSION['me'] = $res;
-                $this->success('登陆成功',U('/home/index/index'));
+                $this->success('登陆成功',$callback);
             }else{
                 $this->error('登陆失败');
             }
