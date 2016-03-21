@@ -116,7 +116,7 @@ $(function(){
 
 	//发布 判断是是否登录
 	$(document).on('click','.addnew',function(){
-		var addnew_callback = '<?php echo base64_encode(U('editor/add/addnew'));?>';
+		var addnew_callback = '<?php echo base64_encode(U('editor/Add/addNew'));?>';
 		var uid = <?php echo $_SESSION['me']['id']?$_SESSION['me']['id']:0;?>;
 		if (uid > 0) {
 			return true;
