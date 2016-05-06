@@ -1,46 +1,48 @@
 <include file="Public/header" />
 <include file="Public/nav" />
-<div style="width: 80%;margin-left: 15%">
-	<label>消息管理</label>
-	<div>
-		<a href="/Editor/Index/massage/">全部消息</a>
-		<a href="/Editor/Index/massage/msg_type/3">管理员通知</a>
-		<a href="/Editor/Index/massage/msg_type/1">举报通知</a>
-		<a href="/Editor/Index/massage/msg_type/2">收藏通知</a>
+<div class="container container_bottom">
+	<div style="width: 80%;margin-left: 15%">
+		<label>消息管理</label>
+		<div>
+			<a href="/Editor/Index/massage/">全部消息</a>
+			<a href="/Editor/Index/massage/msg_type/3">管理员通知</a>
+			<a href="/Editor/Index/massage/msg_type/1">举报通知</a>
+			<a href="/Editor/Index/massage/msg_type/2">收藏通知</a>
+		</div>
 	</div>
-</div>
-<div style="width: 80%;margin-left: 15%">
-<select style="width:7%">
-	<option value="">全部</option>
-	<option value="">未读</option>
-	<option value="">已读</option>
-</select>
-<table border="1" style="text-align: center;">
-	<tr>
-		<td width="10%"></td>
-		<td width="20%">消息类型</td>
-		<td width="40%">消息内容</td>
-		<td width="20%">时间</td>
-		<td width="10%">操作</td>
-	</tr>
-	<volist name="msg_list" id="vo">
-	<tr>
-		<td><input type="checkbox"></input></td>
-		<td>{$vo.msg_types}</td>
-		<td>
-			<if condition="$vo['read_status'] eq -1"><b></if>
-				<a href="/Editor/Account/readMsg/mid/{$vo.id}">
-					{$vo.content|msubstr=###,0,20}
-				</a>
-			<if condition="$vo['read_status'] eq -1"></b></if>
-		</td>
-		<td>{$vo.send_date|date="Y-m-d",###}</td>
-		<td><a href="/Editor/Account/deleteMsg/mid/{$vo.id}">删除</a></td>
-	</tr>
-	</volist>
-	<tr>
-		<td></td>
-	</tr>
-</table>
+	<div style="width: 80%;margin-left: 15%">
+	<select style="width:7%">
+		<option value="">全部</option>
+		<option value="">未读</option>
+		<option value="">已读</option>
+	</select>
+	<table border="1" style="text-align: center;">
+		<tr>
+			<td width="10%"></td>
+			<td width="20%">消息类型</td>
+			<td width="40%">消息内容</td>
+			<td width="20%">时间</td>
+			<td width="10%">操作</td>
+		</tr>
+		<volist name="msg_list" id="vo">
+		<tr>
+			<td><input type="checkbox"></input></td>
+			<td>{$vo.msg_types}</td>
+			<td>
+				<if condition="$vo['read_status'] eq -1"><b></if>
+					<a href="/Editor/Account/readMsg/mid/{$vo.id}">
+						{$vo.content|msubstr=###,0,20}
+					</a>
+				<if condition="$vo['read_status'] eq -1"></b></if>
+			</td>
+			<td>{$vo.send_date|date="Y-m-d",###}</td>
+			<td><a href="/Editor/Account/deleteMsg/mid/{$vo.id}">删除</a></td>
+		</tr>
+		</volist>
+		<tr>
+			<td></td>
+		</tr>
+	</table>
+	</div>
 </div>
 <include file="Public/footer" />

@@ -1,9 +1,28 @@
 	<!--start-footer-->
 	<div class="footer">
+		<script>
+			$('.footer').css({'position':'absolute','bottom':'0px','width':'100%'});
+		</script>
 		<div class="footer-top">
 			<p class="footer-class">© 2016-2018 kewai.online 版权所有 | 吉ICP备15002460号<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257408584'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1257408584%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script></p>
 		</div>
 	</div>
+	
 	<!--end-footer-->
+	<script>
+		$(function(){
+			setCotentDefault();
+			function setCotentDefault(){
+				//默认显示在底部 原谅一个后端程序员写的前端代码
+				$('.footer').css({'position':'','bottom':'','width':'100%'});
+				//页面高度 - footer高度 - header高度 - footer padding高度 - content margin高度 就是 content最小高度 :)
+				var height = $(document).height() 
+							- $('.footer').height() 
+							- $('header').height() 
+							- parseInt($('.footer').css('font-size'))*2 - 21;
+				$('.container_bottom').css({'min-height':height});
+			}
+		})
+	</script>
 </body>
 </html>
