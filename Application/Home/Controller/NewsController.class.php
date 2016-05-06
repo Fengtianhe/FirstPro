@@ -9,6 +9,14 @@ class NewsController extends CommonController {
                     '3'    => array('min' => 2000, 'max' => 3000, 'name' => '2000~3000'),
                     '4'    => array('min' => 3000, 'max' => 0, 'name' => '3000以上'),
     );
+    public $neworold = array(
+        '9' => array('name'=>'九成新'),
+        '8' => array('name'=>'八成新'),
+        '7' => array('name'=>'七成新'),
+        '6' => array('name'=>'六成新'),
+        '5' => array('name'=>'五成新'),
+        '0' => array('name'=>'其他')
+        );
 
     /**
      *
@@ -91,6 +99,7 @@ class NewsController extends CommonController {
         $new_info['content'] = $new_content['content'];
    		$this->assign('new_info',$new_info);
         $this->assign('is_collect',$is_collect);
+        $this->assign('neworold', $this->neworold);
         $this->assign('new_images',json_decode($new_content['images'], true));
    		$this->display();
    	}

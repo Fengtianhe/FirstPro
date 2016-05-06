@@ -118,9 +118,8 @@ class AccountController extends CommonController{
 					$datas[$i]['neworold'] = '其他';
 					break;
 			}
-			$is_del = $newsinfo['is_del'];
-			switch ($is_del) {
-				case '0':
+			switch ($newsinfo['status']) {
+				case 1:
 					$datas[$i]['is_del'] = '发布中';
 					break;
 				
@@ -132,9 +131,9 @@ class AccountController extends CommonController{
 			$userid = $datas[$i]['user_id'];
 			$userinfo = M('user')->where(array('id' => $userid))->find();
 			if ($userinfo['nickname']) {
-				$datas[$i]['username'] = $$userinfo['nickname'];
+				$datas[$i]['username'] = $userinfo['nickname'];
 			}else{
-				$datas[$i]['username'] = $$userinfo['email'];
+				$datas[$i]['username'] = $userinfo['email'];
 			}
 
 		}

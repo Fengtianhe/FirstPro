@@ -8,7 +8,7 @@ class NewsModel extends Model {
 	{
 		if($is_add)
 		{
-			$this->where(array('id',$new_id))->setInc('show_count');
+			$this->where(array('id'=>$new_id))->setInc('show_count');
 		}
 		return $this->where(array('id'=>$new_id))->getField('show_count');
 	}

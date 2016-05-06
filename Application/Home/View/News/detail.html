@@ -24,7 +24,7 @@
 								<ul>
 									<li><span>啥子宝贝：</span><span>{$new_info.title}</span></li>
 									<li><span>价格：</span><span>{$new_info.price}元</span></li>
-									<li><span>成色：</span><span>95成新 </span></li>
+									<li><span>成色：</span><span>{$neworold[$new_info['neworold']]['name']} </span></li>
 									<li><span>浏览次数：</span><span>{$new_info.show_count}次浏览</span></li>
 									<li><span>联系人：</span><span>{$new_info.relation_name} </span></li>
 									<li><span>电话：</span><span>{$new_info.phone}</span></li>
@@ -41,7 +41,7 @@
 										$collect_type = 0;
 									}
 								?>
-									<li>
+									<li rel="{$new_info.id}">
 										<if condition="$_SESSION['me']['id']">
 										<button type="button" class="collect btn btn-default" rel="<?php echo $collect_type;?>">
 											<span class="glyphicon <?php echo $glyphicon_name;?>" aria-hidden="true"></span> <span class="collect_tip"><?php echo $collect_tip;?></span>收藏
@@ -60,8 +60,8 @@
 							<li role="presentation" class="active"><a href="#">详情</a></li>
 						</ul>
 						<div class="detail-content padding-top-10">
-							<p>
-								{$new_info.content}
+							<p style="padding:5px;text-indent:2em">
+								<b>{$new_info.content}</b>
 							</p>
 							<foreach name="new_images" item="vo">
 							<a class="swipebox"  title="详情图" href="__PUBLIC__/uploads/{$vo}">
@@ -74,13 +74,10 @@
 				</div>
 				<div class="col-md-4">
 					<div class="advertise">
-						这里是一个广告
+						<img src="__PUBLIC__/uploads/{$vo}" alt="">
 					</div>
 					<div class="advertise">
-						这里是一个广告
-					</div>
-					<div class="advertise">
-						这里是一个广告
+						<img src="__PUBLIC__/uploads/{$vo}" alt="">
 					</div>
 				</div>
 			</div>
@@ -150,7 +147,7 @@ $(function() {
 
 	//收藏
 	$('.collect').click(function(){
-		var id = $(this).closest('p').attr('rel');
+		var id = $(this).closest('li').attr('rel');
 		var user_id = <?php if($_SESSION['me']['id']) echo $_SESSION['me']['id']; else echo 0; ?>;
 		var collect_type = $(this).attr('rel');
 		var btn = $(this);
