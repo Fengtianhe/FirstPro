@@ -2,13 +2,13 @@
 <include file="Public/nav" />
 <div class="container container_bottom">
 	<div style="width: 80%;margin-left: 15%">
-		<label>消息管理</label>
-		<div>
-			<a href="/Editor/Index/massage/">全部消息</a>
-			<a href="/Editor/Index/massage/msg_type/3">管理员通知</a>
-			<a href="/Editor/Index/massage/msg_type/1">举报通知</a>
-			<a href="/Editor/Index/massage/msg_type/2">收藏通知</a>
-		</div>
+		<!-- <label>消息管理</label> -->
+		<ul class="nav nav-pills" role="tablist">
+			<li role="presentation" <?php if ($get_msg_type == 0){echo 'class="active"';} ?> ><a href="/Editor/Index/massage/">全部消息 <span class="badge">42</span></a></li>
+			<foreach name="msg_type" item="vo">
+			<li role="presentation" <?php if ($get_msg_type == $key){echo 'class="active"';} ?>><a href="/Editor/Index/massage/msg_type/{$key}">{$vo.name} <span class="badge">{$vo.count}</span></a></a></li>
+			</foreach>
+		</ul>
 	</div>
 	<div style="width: 80%;margin-left: 15%">
 	<select style="width:7%">
@@ -16,7 +16,7 @@
 		<option value="">未读</option>
 		<option value="">已读</option>
 	</select>
-	<table border="1" style="text-align: center;">
+	<table style="text-align: center;" class="table">
 		<tr>
 			<td width="10%"></td>
 			<td width="20%">消息类型</td>
@@ -27,7 +27,7 @@
 		<volist name="msg_list" id="vo">
 		<tr>
 			<td><input type="checkbox"></input></td>
-			<td>{$vo.msg_types}</td>
+			<td>{$msg_type[$vo['msg_type']]['name']}</td>
 			<td>
 				<if condition="$vo['read_status'] eq -1"><b></if>
 					<a href="/Editor/Account/readMsg/mid/{$vo.id}">
@@ -39,9 +39,6 @@
 			<td><a href="/Editor/Account/deleteMsg/mid/{$vo.id}">删除</a></td>
 		</tr>
 		</volist>
-		<tr>
-			<td></td>
-		</tr>
 	</table>
 	</div>
 </div>

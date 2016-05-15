@@ -2,6 +2,12 @@
 namespace Editor\Controller;
 use Editor\Controller;
 class IndexController extends CommonController {
+    public $msg_type = array(
+        1 => array('name'=>'举报通知'),
+        2 => array('name'=>'收藏通知'),
+        3 => array('name'=>'管理员通知'),
+
+        );
 	public function _initialize(){
 		parent::_initialize();
 	}
@@ -102,22 +108,21 @@ class IndexController extends CommonController {
     }
 
     function massage(){
-        if(I('get.msg_type',0)>0){
-          $where['msg_type']=I('get.msg_type');  
+        $msg_type = $this->msg_type;
+        $get_msg_type = I('get.msg_type',0);
+        if($get_msg_type>0){
+          $where['msg_type']=$get_msg_type;  
         }
         $where['delete_tag'] = 1;
         $user = $_SESSION['me']['email'];
         $where['LCU']=$user;
         $msg_list = M('msg')->where($where)->select();
-        foreach ($msg_list as &$v) {
-            if ($v['msg_type'] == 1) {
-                $v['msg_types'] = '举报';
-            }elseif ($v['msg_type'] == 2) {
-                $v['msg_types'] = '收藏';
-            }else{
-                $v['msg_types'] = '管理员通知';
-            }
+        $count = M('msg')->field('msg_type,count(id)')->group('msg_type')->select();
+        foreach ($count as $value) {
+            $msg_type[$value['msg_type']]['count'] = $value['count(id)'];
         }
+        $this->assign('get_msg_type', $get_msg_type);
+        $this->assign('msg_type',$msg_type);
         $this->assign('msg_list',$msg_list);
         $this->display();
     }
