@@ -151,6 +151,10 @@ class AccountController extends CommonController{
 		}
 	}
 
+	function information(){
+		$this->display();
+	}
+
 	/**
 	 * 用户删除信息操作
 	 * @return [type] [description]
